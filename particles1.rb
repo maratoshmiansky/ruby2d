@@ -3,18 +3,42 @@ require "ruby2d"
 set title: "Particles1"
 
 class Point < Line
-  attr_accessor :x_mult, :y_mult
-
   def x_mult
-    @x_mult = @x_mult || rand(-5.0..5.0)
+    @x_mult ||= x_mult_reset
   end
 
   def y_mult
-    @y_mult = @y_mult || rand(-5.0..5.0)
+    @y_mult ||= y_mult_reset
+  end
+
+  def x_mult_reset
+    @x_mult = rand(-1.5..1.5)
+  end
+
+  def y_mult_reset
+    @y_mult = rand(-1.5..1.5)
+  end
+
+  def x_mult_reverse_check
+    unless self.x1.between?(0, 640) || self.x2.between?(0, 640)
+      @x_mult = -@x_mult
+      color_swap
+    end
+  end
+
+  def y_mult_reverse_check
+    unless self.y1.between?(0, 480) || self.y2.between?(0, 480)
+      @y_mult = -@y_mult
+      color_swap
+    end
+  end
+
+  def color_swap
+    self.color = ["white", "purple", "blue", "yellow"].sample
   end
 end
 
-num_of_points = 1000
+num_of_points = 5000
 points = []
 
 num_of_points.times do
@@ -26,24 +50,10 @@ end
 
 update do
   points.each do |point|
+    point.x_mult_reverse_check
+    point.y_mult_reverse_check
     x_move = point.x_mult
     y_move = point.y_mult
-
-    if point.x1 < 0 || point.x2 < 0
-      point.x1 += 640
-      point.x2 += 640
-    elsif point.x1 > 640 || point.x2 > 640
-      point.x1 -= 640
-      point.x2 -= 640
-    end
-
-    if point.y1 < 0 || point.y2 < 0
-      point.y1 += 480
-      point.y2 += 480
-    elsif point.y1 > 480 || point.y2 > 480
-      point.y1 -= 480
-      point.y2 -= 480
-    end
 
     point.x1 += x_move
     point.x2 += x_move
