@@ -3,38 +3,38 @@ require "ruby2d"
 set title: "Particles1"
 
 class Point < Line
-  def x_mult
-    @x_mult ||= x_mult_reset
+  def x_move
+    @x_move ||= x_move_reset
   end
 
-  def y_mult
-    @y_mult ||= y_mult_reset
+  def y_move
+    @y_move ||= y_move_reset
   end
 
-  def x_mult_reset
-    @x_mult = rand(-1.5..1.5)
+  def x_move_reset
+    @x_move = rand(-2.0..2.0)
   end
 
-  def y_mult_reset
-    @y_mult = rand(-1.5..1.5)
+  def y_move_reset
+    @y_move = rand(-2.0..2.0)
   end
 
-  def x_mult_reverse_check
+  def x_bounce
     unless self.x1.between?(0, 640) || self.x2.between?(0, 640)
-      @x_mult = -@x_mult
+      @x_move = -@x_move
       color_swap
     end
   end
 
-  def y_mult_reverse_check
+  def y_bounce
     unless self.y1.between?(0, 480) || self.y2.between?(0, 480)
-      @y_mult = -@y_mult
+      @y_move = -@y_move
       color_swap
     end
   end
 
   def color_swap
-    self.color = ["white", "purple", "blue", "yellow"].sample
+    self.color = ["white", "aqua", "teal", "blue"].sample
   end
 end
 
@@ -50,15 +50,14 @@ end
 
 update do
   points.each do |point|
-    point.x_mult_reverse_check
-    point.y_mult_reverse_check
-    x_move = point.x_mult
-    y_move = point.y_mult
+    # bounce and change color when point hits window edge
+    point.x_bounce
+    point.y_bounce
 
-    point.x1 += x_move
-    point.x2 += x_move
-    point.y1 += y_move
-    point.y2 += y_move
+    point.x1 += point.x_move
+    point.x2 += point.x_move
+    point.y1 += point.y_move
+    point.y2 += point.y_move
   end
 end
 
