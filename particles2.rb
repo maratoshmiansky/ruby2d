@@ -2,14 +2,16 @@ require "ruby2d"
 
 set title: "Particles2"
 
+set width: 600, height: 600
+
 # CONSTANTS
-NUM_OF_POINTS = 100
+NUM_OF_POINTS = 1000
 X_WINDOW_OFFSET, Y_WINDOW_OFFSET = 100, 100
 X_MOVE_BOUND, Y_MOVE_BOUND = 1, 1
 X_SPEED, Y_SPEED = 0.2, 0.2
 X_MAX_SPEED, Y_MAX_SPEED = 4.0, 4.0
 
-class Point < Line
+class Point < Square
   def x_move
     @x_move ||= x_move_reset
   end
@@ -51,14 +53,14 @@ class Point < Line
   end
 
   def x_edge_check
-    unless self.x1.between?(X_WINDOW_OFFSET, Window.width - X_WINDOW_OFFSET) && self.x2.between?(X_WINDOW_OFFSET, Window.width - X_WINDOW_OFFSET)
+    unless self.x.between?(X_WINDOW_OFFSET, Window.width - X_WINDOW_OFFSET)
       @x_move = -@x_move
       # color_swap
     end
   end
 
   def y_edge_check
-    unless self.y1.between?(Y_WINDOW_OFFSET, Window.height - Y_WINDOW_OFFSET) && self.y2.between?(Y_WINDOW_OFFSET, Window.height - Y_WINDOW_OFFSET)
+    unless self.y.between?(Y_WINDOW_OFFSET, Window.height - Y_WINDOW_OFFSET)
       @y_move = -@y_move
       # color_swap
     end
@@ -79,19 +81,16 @@ grid_square.times do |i|
   grid_square.times do |j|
     x_init = X_WINDOW_OFFSET + grid_square * (i + 1) * x_viewport_adj / NUM_OF_POINTS
     y_init = Y_WINDOW_OFFSET + grid_square * (j + 1) * y_viewport_adj / NUM_OF_POINTS
-    x_offset, y_offset = x_init + 1, y_init + 1
 
-    points << Point.new(x1: x_init, y1: y_init, x2: x_offset, y2: y_offset, width: 1, color: "white")
+    points << Point.new(x: x_init, y: y_init, size: 1, color: "white")
   end
 end
 
 update do
   points.each do |point|
     # move
-    point.x1 += point.x_move
-    point.x2 += point.x_move
-    point.y1 += point.y_move
-    point.y2 += point.y_move
+    point.x += point.x_move
+    point.y += point.y_move
     # bounce?
     point.x_edge_check
     point.y_edge_check
