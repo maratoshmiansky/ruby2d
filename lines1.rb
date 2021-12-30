@@ -5,7 +5,7 @@ set title: "Lines1"
 set width: 640, height: 600
 
 # CONSTANTS
-NUM_OF_LINES = 20
+NUM_OF_LINES = 25
 X_WINDOW_OFFSET, Y_WINDOW_OFFSET = 100, 100
 X_LINE_LENGTH_BOUND, Y_LINE_LENGTH_BOUND = 40.0, 40.0
 MAX_LINES = 20 * NUM_OF_LINES
@@ -14,45 +14,45 @@ X_SPEED, Y_SPEED = 0.2, 0.2
 X_MAX_SPEED, Y_MAX_SPEED = 4.0, 4.0
 
 class Line
-  def x_move
-    @x_move ||= x_move_reset
-  end
+  # def x_move
+  #   @x_move ||= x_move_reset
+  # end
 
-  def y_move
-    @y_move ||= y_move_reset
-  end
+  # def y_move
+  #   @y_move ||= y_move_reset
+  # end
 
-  def x_accel
-    if @x_move.abs < X_MAX_SPEED
-      if @x_move >= 0
-        @x_move += rand(-X_SPEED..X_SPEED)
-      else
-        @x_move -= rand(-X_SPEED..X_SPEED)
-      end
-    else
-      x_move_reset
-    end
-  end
+  # def x_accel
+  #   if @x_move.abs < X_MAX_SPEED
+  #     if @x_move >= 0
+  #       @x_move += rand(-X_SPEED..X_SPEED)
+  #     else
+  #       @x_move -= rand(-X_SPEED..X_SPEED)
+  #     end
+  #   else
+  #     x_move_reset
+  #   end
+  # end
 
-  def y_accel
-    if @y_move.abs < Y_MAX_SPEED
-      if @y_move >= 0
-        @y_move += rand(-Y_SPEED..Y_SPEED)
-      else
-        @y_move -= rand(-Y_SPEED..Y_SPEED)
-      end
-    else
-      y_move_reset
-    end
-  end
+  # def y_accel
+  #   if @y_move.abs < Y_MAX_SPEED
+  #     if @y_move >= 0
+  #       @y_move += rand(-Y_SPEED..Y_SPEED)
+  #     else
+  #       @y_move -= rand(-Y_SPEED..Y_SPEED)
+  #     end
+  #   else
+  #     y_move_reset
+  #   end
+  # end
 
-  def x_move_reset
-    @x_move = rand(-X_MOVE_BOUND..X_MOVE_BOUND)
-  end
+  # def x_move_reset
+  #   @x_move = rand(-X_MOVE_BOUND..X_MOVE_BOUND)
+  # end
 
-  def y_move_reset
-    @y_move = rand(-Y_MOVE_BOUND..Y_MOVE_BOUND)
-  end
+  # def y_move_reset
+  #   @y_move = rand(-Y_MOVE_BOUND..Y_MOVE_BOUND)
+  # end
 
   def x_edge_check
     unless self.x1.between?(X_WINDOW_OFFSET, Window.width - X_WINDOW_OFFSET) || self.x2.between?(X_WINDOW_OFFSET, Window.width - X_WINDOW_OFFSET)
@@ -76,7 +76,7 @@ end
 grid_square = Math.sqrt(NUM_OF_LINES).floor
 x_viewport_adj = (Window.width - X_WINDOW_OFFSET * 2)
 y_viewport_adj = (Window.height - Y_WINDOW_OFFSET * 2)
-lines = []
+lines, new_lines = [], []
 
 # set up line grid
 grid_square.times do |i|
@@ -90,18 +90,24 @@ grid_square.times do |i|
   end
 end
 
+all_lines = lines
+
 (MAX_LINES / NUM_OF_LINES).times do
   lines.each do |line|
     x1_new = line.x2
     y1_new = line.y2
     x2_new = x1_new + rand(-X_LINE_LENGTH_BOUND..X_LINE_LENGTH_BOUND)
     y2_new = y1_new + rand(-Y_LINE_LENGTH_BOUND..Y_LINE_LENGTH_BOUND)
-    Line.new(x1: x1_new, y1: y1_new, x2: x2_new, y2: y2_new, width: 1, color: "white")
+    new_lines << Line.new(x1: x1_new, y1: y1_new, x2: x2_new, y2: y2_new, width: 1, color: "white")
   end
+
+  lines = new_lines
+  new_lines = []
+  all_lines += lines
 end
 
 # update do
-#   lines.each do |line|
+#   all_lines.each do |line|
 #     # move
 #     line.x1 += line.x_move
 #     line.x2 += line.x_move
