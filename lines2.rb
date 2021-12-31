@@ -1,9 +1,9 @@
 require "ruby2d"
 
-set width: 660, height: 600, title: "Lines1"
+set width: 650, height: 600, title: "Lines1"
 
-X_WINDOW_OFFSET, Y_WINDOW_OFFSET = 100, 100
-X_LINE_MAX_LENGTH, Y_LINE_MAX_LENGTH = 40.0, 40.0
+X_WINDOW_OFFSET, Y_WINDOW_OFFSET = 75, 75
+X_LINE_MAX_LENGTH, Y_LINE_MAX_LENGTH = 50.0, 50.0
 
 class Line
   def x_hits_left?
@@ -23,8 +23,8 @@ class Line
   end
 end
 
-# gradients = [%w(white yellow orange red), %w(white aqua teal blue), %W(white fuchsia maroon purple), %W(white lime green olive)]
-# gradient = gradients.sample
+gradients = [%w(white yellow orange red), %w(white aqua teal blue), %W(white fuchsia maroon purple), %W(white lime green olive)]
+gradient = gradients.sample
 
 x1_init = rand(X_WINDOW_OFFSET..Window.width - X_WINDOW_OFFSET)
 y1_init = rand(Y_WINDOW_OFFSET..Window.height - Y_WINDOW_OFFSET)
@@ -34,10 +34,9 @@ y2_init = y1_init + 1
 line = Line.new(x1: x1_init, y1: y1_init, x2: x2_init, y2: y2_init, width: 1, color: "white")
 
 update do
-  # sprout some branches
   x1_new = line.x2
   y1_new = line.y2
-  # line_color = gradient.sample
+  line_color = gradient.sample
 
   if line.x1 != line.x2
     x2_new = x1_new
@@ -61,8 +60,8 @@ update do
     end
   end
     
-  line = Line.new(x1: x1_new, y1: y1_new, x2: x2_new, y2: y2_new, width: 1, color: "white")  
+  line = Line.new(x1: x1_new, y1: y1_new, x2: x2_new, y2: y2_new, width: 1, color: line_color)  
   puts "x1: #{line.x1.to_i}, x2: #{line.x2.to_i}, y1: #{line.y1.to_i}, y2: #{line.y2.to_i}"
 end
-  
+
 show
