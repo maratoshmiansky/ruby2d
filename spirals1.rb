@@ -6,11 +6,11 @@ X_WINDOW_OFFSET, Y_WINDOW_OFFSET = 75, 75
 X_MULT, Y_MULT = 3, 3
 DEGS_TO_RADIANS = Math::PI / 180
 ANGLE_INCR = 6
-RADIUS_INCR = 0.01
+RADIUS_INCR = 2
 
 class Line
   def x_hits_left?
-    self.x1 < X_WINDOW_OFFSET || self.x2 < X_WINDOW_OFFSET
+    self.x1 <= X_WINDOW_OFFSET || self.x2 <= X_WINDOW_OFFSET
   end
 
   def x_hits_right?
@@ -18,7 +18,7 @@ class Line
   end
 
   def y_hits_top?
-    self.y1 < Y_WINDOW_OFFSET || self.y2 < Y_WINDOW_OFFSET
+    self.y1 <= Y_WINDOW_OFFSET || self.y2 <= Y_WINDOW_OFFSET
   end
 
   def y_hits_bottom?
@@ -44,7 +44,6 @@ gradient = gradients.sample
 line_color = gradient.sample
 line = line_init(line_color)
 angle, radius = 0, 0
-radius_incr = RADIUS_INCR
 x_angle_mult = rand(9..44)
 y_angle_mult = x_angle_mult
 Text.new("x_angle_mult = #{x_angle_mult}", x: Window.width / 2 - 150)
@@ -55,7 +54,6 @@ update do
     line_color = gradient.sample
     line = line_init(line_color)
     angle, radius = 0, 0
-    radius_incr = RADIUS_INCR
     x_angle_mult = rand(9..44)
     y_angle_mult = x_angle_mult
     Text.new("x_angle_mult = #{x_angle_mult}", x: Window.width / 2 - 150)
@@ -70,17 +68,16 @@ update do
     y_offset = y_mult * Math.sin(y_angle_mult * angle * DEGS_TO_RADIANS)
     x2_new = x1_new + x_offset
     y2_new = y1_new + y_offset
-  
-    line = draw_segment(x1_new, y1_new, x2_new, y2_new, line_color)  
+
+    line = draw_segment(x1_new, y1_new, x2_new, y2_new, line_color)
     puts "x1: #{line.x1.to_i}, x2: #{line.x2.to_i}, y1: #{line.y1.to_i}, y2: #{line.y2.to_i}"
-  
-    radius_incr += RADIUS_INCR
-    radius += radius_incr
-  
+
+    radius += RADIUS_INCR
+
     if line.x_hits_left? || line.x_hits_right? || line.y_hits_top? || line.y_hits_bottom?
       clear
       start = true
-    end  
+    end
   end
 end
 
