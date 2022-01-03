@@ -1,12 +1,12 @@
 require "ruby2d"
 
-set width: 640, height: 600, title: "Lines1"
+set width: 660, height: 600, title: "Lines1"
 
 NUM_OF_LINES = 25
 MAX_LINE_MOVES = 15
-MAX_ITERATIONS = 6
+MAX_ITERATIONS = 12
 X_WINDOW_OFFSET, Y_WINDOW_OFFSET = 100, 100
-X_LINE_MAX_LENGTH, Y_LINE_MAX_LENGTH = 40.0, 40.0
+X_LINE_MAX_LENGTH, Y_LINE_MAX_LENGTH = 10.0, 10.0
 
 grid_square = Math.sqrt(NUM_OF_LINES).floor
 x_viewport_adj = (Window.width - X_WINDOW_OFFSET)
