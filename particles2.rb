@@ -2,14 +2,14 @@ require "ruby2d"
 
 set title: "Particles2"
 
-set width: 600, height: 600
+set width: 660, height: 600
 
 # CONSTANTS
 NUM_OF_POINTS = 1000
 X_WINDOW_OFFSET, Y_WINDOW_OFFSET = 100, 100
-X_MOVE_BOUND, Y_MOVE_BOUND = 1, 1
-X_SPEED, Y_SPEED = 0.2, 0.2
-X_MAX_SPEED, Y_MAX_SPEED = 4.0, 4.0
+X_MOVE_BOUND, Y_MOVE_BOUND = 1.0, 1.0
+X_SPEED, Y_SPEED = 0.1, 0.1
+X_MAX_SPEED, Y_MAX_SPEED = 2.0, 2.0
 
 class Point < Square
   def x_move
