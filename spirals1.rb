@@ -40,14 +40,10 @@ end
 
 gradients = [%w(white yellow orange red), %w(white aqua teal blue)]
 gradient = gradients.sample
-# how to avoid duplicating this code in the update loop?
-line_color = gradient.sample
-line = line_init(line_color)
-angle, radius = 0, 0
-x_angle_mult = rand(9..44)
-y_angle_mult = x_angle_mult
-Text.new("x_angle_mult = #{x_angle_mult}", x: Window.width / 2 - 150)
-start = false
+line_color, line = nil, nil
+angle, radius = nil, nil
+x_angle_mult, y_angle_mult = nil, nil
+start = true
 
 update do
   if start
