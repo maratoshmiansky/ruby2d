@@ -2,12 +2,12 @@ require "ruby2d"
 
 set width: 650, height: 600, title: "Lines2"
 
-X_WINDOW_OFFSET, Y_WINDOW_OFFSET = 75, 75
-X_LINE_MAX_LENGTH, Y_LINE_MAX_LENGTH = 50.0, 50.0
+X_WINDOW_OFFSET, Y_WINDOW_OFFSET = 65, 60
+X_LINE_MAX_LENGTH, Y_LINE_MAX_LENGTH = 20.0, 20.0
 
 class Line
   def x_hits_left?
-    self.x1 < X_WINDOW_OFFSET || self.x2 < X_WINDOW_OFFSET
+    self.x1 <= X_WINDOW_OFFSET || self.x2 <= X_WINDOW_OFFSET
   end
 
   def x_hits_right?
@@ -15,7 +15,7 @@ class Line
   end
 
   def y_hits_top?
-    self.y1 < Y_WINDOW_OFFSET || self.y2 < Y_WINDOW_OFFSET
+    self.y1 <= Y_WINDOW_OFFSET || self.y2 <= Y_WINDOW_OFFSET
   end
 
   def y_hits_bottom?
@@ -61,7 +61,7 @@ update do
   end
 
   line = Line.new(x1: x1_new, y1: y1_new, x2: x2_new, y2: y2_new, width: 1, color: line_color)
-  puts "x1: #{line.x1.to_i}, x2: #{line.x2.to_i}, y1: #{line.y1.to_i}, y2: #{line.y2.to_i}"
+  # puts "x1: #{line.x1.to_i}, x2: #{line.x2.to_i}, y1: #{line.y1.to_i}, y2: #{line.y2.to_i}"
 end
 
 show
