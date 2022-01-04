@@ -1,12 +1,12 @@
 require "ruby2d"
 
-set title: "Particles2"
+set title: "Particles!"
 
-set width: 660, height: 600
+set width: 650, height: 600
 
 # CONSTANTS
-NUM_OF_POINTS = 1000
-X_WINDOW_OFFSET, Y_WINDOW_OFFSET = 100, 100
+NUM_OF_POINTS = 900
+X_WINDOW_OFFSET, Y_WINDOW_OFFSET = 65, 60
 X_MOVE_BOUND, Y_MOVE_BOUND = 1.0, 1.0
 X_SPEED, Y_SPEED = 0.1, 0.1
 X_MAX_SPEED, Y_MAX_SPEED = 2.0, 2.0
@@ -31,7 +31,7 @@ class Point < Square
       x_move_reset
     end
   end
-  
+
   def y_accel
     if @y_move.abs < Y_MAX_SPEED
       if @y_move >= 0
@@ -79,8 +79,8 @@ points = []
 # set up point grid
 grid_square.times do |i|
   grid_square.times do |j|
-    x_init = X_WINDOW_OFFSET + grid_square * (i + 1) * x_viewport_adj / NUM_OF_POINTS
-    y_init = Y_WINDOW_OFFSET + grid_square * (j + 1) * y_viewport_adj / NUM_OF_POINTS
+    x_init = X_WINDOW_OFFSET + grid_square * (i + 0.5) * x_viewport_adj / NUM_OF_POINTS
+    y_init = Y_WINDOW_OFFSET + grid_square * (j + 0.5) * y_viewport_adj / NUM_OF_POINTS
 
     points << Point.new(x: x_init, y: y_init, size: 1, color: "white")
   end
