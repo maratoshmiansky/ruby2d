@@ -1,12 +1,13 @@
 require "ruby2d"
 
-set width: 650, height: 600, title: "Spirals!"
+set width: 650, height: 600, title: "Spirograph"
 
-X_WINDOW_OFFSET, Y_WINDOW_OFFSET = 75, 75
+X_WINDOW_OFFSET, Y_WINDOW_OFFSET = 75, 70
 X_MULT, Y_MULT = 3, 3
 DEGS_TO_RADIANS = Math::PI / 180
-ANGLE_INCR = 6
-RADIUS_INCR = 2
+ANGLE_INCR = 7
+RADIUS_INCR = 1.5
+X_ANGLE_MULT_MIN, X_ANGLE_MULT_MAX = 13, 44
 
 class Line
   def x_hits_left?
@@ -42,7 +43,7 @@ gradients = [%w(white yellow orange red), %w(white aqua teal blue)]
 gradient = gradients.sample
 line_color, line = nil, nil
 angle, radius = nil, nil
-x_angle_mult, y_angle_mult = nil, nil
+x_angle_mult, y_angle_mult = X_ANGLE_MULT_MIN - 1, nil
 start = true
 
 update do
@@ -50,13 +51,14 @@ update do
     line_color = gradient.sample
     line = line_init(line_color)
     angle, radius = 0, 0
-    x_angle_mult = rand(9..44)
+    x_angle_mult < X_ANGLE_MULT_MAX ? x_angle_mult += 1 : x_angle_mult = X_ANGLE_MULT_MIN
     y_angle_mult = x_angle_mult
-    Text.new("x_angle_mult = #{x_angle_mult}", x: Window.width / 2 - 150)
+    Text.new("x_angle_mult = #{x_angle_mult}", x: Window.width / 2 - 85)
     start = false
   else
     x1_new = line.x2
     y1_new = line.y2
+    radius += RADIUS_INCR
     x_mult = radius * X_MULT
     y_mult = radius * Y_MULT
     angle = (angle + ANGLE_INCR) % 360
@@ -66,9 +68,7 @@ update do
     y2_new = y1_new + y_offset
 
     line = draw_segment(x1_new, y1_new, x2_new, y2_new, line_color)
-    puts "x1: #{line.x1.to_i}, x2: #{line.x2.to_i}, y1: #{line.y1.to_i}, y2: #{line.y2.to_i}"
-
-    radius += RADIUS_INCR
+    # puts "x1: #{line.x1.to_i}, x2: #{line.x2.to_i}, y1: #{line.y1.to_i}, y2: #{line.y2.to_i}"
 
     if line.x_hits_left? || line.x_hits_right? || line.y_hits_top? || line.y_hits_bottom?
       clear
