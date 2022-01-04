@@ -1,6 +1,6 @@
 require "ruby2d"
 
-set width: 650, height: 600, title: "Lines1"
+set width: 650, height: 600, title: "Lines2"
 
 X_WINDOW_OFFSET, Y_WINDOW_OFFSET = 75, 75
 X_LINE_MAX_LENGTH, Y_LINE_MAX_LENGTH = 50.0, 50.0
@@ -42,7 +42,7 @@ update do
     x2_new = x1_new
     y_offset = rand(-Y_LINE_MAX_LENGTH..Y_LINE_MAX_LENGTH)
     y2_new = y1_new + y_offset
-    
+
     if line.y_hits_top?
       y2_new += y_offset.abs
     elsif line.y_hits_bottom?
@@ -52,15 +52,15 @@ update do
     y2_new = y1_new
     x_offset = rand(-X_LINE_MAX_LENGTH..X_LINE_MAX_LENGTH)
     x2_new = x1_new + x_offset
-    
+
     if line.x_hits_left?
       x2_new += x_offset.abs
     elsif line.x_hits_right?
       x2_new -= x_offset.abs
     end
   end
-    
-  line = Line.new(x1: x1_new, y1: y1_new, x2: x2_new, y2: y2_new, width: 1, color: line_color)  
+
+  line = Line.new(x1: x1_new, y1: y1_new, x2: x2_new, y2: y2_new, width: 1, color: line_color)
   puts "x1: #{line.x1.to_i}, x2: #{line.x2.to_i}, y1: #{line.y1.to_i}, y2: #{line.y2.to_i}"
 end
 
