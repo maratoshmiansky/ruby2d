@@ -4,81 +4,32 @@ set title: "Particles!"
 
 set width: 650, height: 600
 
-NUM_OF_POINTS_X, NUM_OF_POINTS_Y = 20, 20
+NUM_OF_POINTS_X, NUM_OF_POINTS_Y = 10, 10
 X_WINDOW_OFFSET, Y_WINDOW_OFFSET = 65, 60
 VIEWPORT_WIDTH = (Window.width - X_WINDOW_OFFSET * 2)
 VIEWPORT_HEIGHT = (Window.height - Y_WINDOW_OFFSET * 2)
 X_MOVE_BOUND, Y_MOVE_BOUND = 1.0, 1.0
 X_SPEED, Y_SPEED = 0.01, 0.01
 X_MAX_SPEED, Y_MAX_SPEED = 2.0, 2.0
+DEGS_TO_RADIANS = Math::PI / 180
+ANGLE_INCR = 6
+RADIUS = 10
+# RADIUS_INCR = 1.5
+# X_ANGLE_MULT, Y_ANGLE_MULT = 3, 3
 
 class Point < Square
-  def x_move
-    @x_move ||= x_move_reset
+  attr_accessor :x_init, :y_init
+
+  def angle
+    @angle ||= angle_reset
   end
 
-  def y_move
-    @y_move ||= y_move_reset
+  def angle_increment
+    @angle = (angle + ANGLE_INCR) % 360
   end
 
-  def x_accel
-    if @x_move.abs < X_MAX_SPEED
-      if @x_move >= 0
-        @x_move += X_SPEED
-      else
-        @x_move -= X_SPEED
-      end
-    else
-      x_move_reset
-    end
-  end
-
-  def y_accel
-    if @y_move.abs < Y_MAX_SPEED
-      if @y_move >= 0
-        @y_move += Y_SPEED
-      else
-        @y_move -= Y_SPEED
-      end
-    else
-      y_move_reset
-    end
-  end
-
-  def x_move_reset
-    @x_move = rand(-X_MOVE_BOUND..X_MOVE_BOUND)
-  end
-
-  def y_move_reset
-    @y_move = rand(-Y_MOVE_BOUND..Y_MOVE_BOUND)
-  end
-
-  def x_bounce
-    @x_move = -@x_move
-  end
-
-  def y_bounce
-    @y_move = -@y_move
-  end
-
-  def x_hits_left?
-    self.x <= X_WINDOW_OFFSET
-  end
-
-  def x_hits_right?
-    self.x >= Window.width - X_WINDOW_OFFSET
-  end
-
-  def y_hits_top?
-    self.y <= Y_WINDOW_OFFSET
-  end
-
-  def y_hits_bottom?
-    self.y >= Window.height - Y_WINDOW_OFFSET
-  end
-
-  def color_swap
-    self.color = %w(white yellow orange red).sample
+  def angle_reset
+    @angle = rand(0..360)
   end
 end
 
@@ -94,21 +45,17 @@ NUM_OF_POINTS_X.times do |i|
   end
 end
 
+# memorize initial positions of each point
+points.each do |point|
+  point.x_init = point.x
+  point.y_init = point.y
+end
+
 update do
   points.each do |point|
-    point.x += point.x_move
-    point.y += point.y_move
-
-    if point.x_hits_left? || point.x_hits_right?
-      point.x_bounce
-    end
-
-    if point.y_hits_top? || point.y_hits_bottom?
-      point.y_bounce
-    end
-
-    point.x_accel
-    point.y_accel
+    point.angle_increment
+    point.x = point.x_init + RADIUS * Math.cos(point.angle * DEGS_TO_RADIANS)
+    point.y = point.y_init + RADIUS * Math.sin(point.angle * DEGS_TO_RADIANS)
   end
 end
 
