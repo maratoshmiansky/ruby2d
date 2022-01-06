@@ -4,14 +4,15 @@ set title: "Particles!"
 
 set width: 650, height: 600
 
-NUM_OF_POINTS_X, NUM_OF_POINTS_Y = 40, 40
+NUM_OF_POINTS_X, NUM_OF_POINTS_Y = 30, 30
 X_WINDOW_OFFSET, Y_WINDOW_OFFSET = 65, 60
 VIEWPORT_WIDTH = (Window.width - X_WINDOW_OFFSET * 2)
 VIEWPORT_HEIGHT = (Window.height - Y_WINDOW_OFFSET * 2)
 DEGS_TO_RADIANS = Math::PI / 180
-ANGLE_INCR = 2
-ANGLE_MULT_MAX = 4
-RADIUS_MAX = 100
+ANGLE_INCR = 1
+X_ANGLE_MULT_MIN, X_ANGLE_MULT_MAX = 1, 4
+Y_ANGLE_MULT_MIN, Y_ANGLE_MULT_MAX = 2, 6
+RADIUS_MIN, RADIUS_MAX = 25.0, 100.0
 
 class Point < Square
   attr_accessor :x_init, :y_init
@@ -25,7 +26,7 @@ class Point < Square
   end
 
   def angle_increment
-    @angle = (angle + ANGLE_INCR) % 360
+    @angle = (@angle + ANGLE_INCR) % 360
   end
 
   def x_angle_mult
@@ -33,7 +34,7 @@ class Point < Square
   end
 
   def x_angle_mult_reset
-    @x_angle_mult = rand(2..ANGLE_MULT_MAX)
+    @x_angle_mult = rand(X_ANGLE_MULT_MIN..X_ANGLE_MULT_MAX)
   end
 
   def y_angle_mult
@@ -41,7 +42,7 @@ class Point < Square
   end
 
   def y_angle_mult_reset
-    @y_angle_mult = rand(2..ANGLE_MULT_MAX)
+    @y_angle_mult = rand(Y_ANGLE_MULT_MIN..Y_ANGLE_MULT_MAX)
   end
 
   def radius
@@ -49,7 +50,7 @@ class Point < Square
   end
 
   def radius_reset
-    @radius = rand((RADIUS_MAX / 2)..RADIUS_MAX)
+    @radius = rand(RADIUS_MIN..RADIUS_MAX)
   end
 end
 
@@ -73,9 +74,9 @@ end
 
 update do
   points.each do |point|
-    point.angle_increment
     point.x = point.x_init + point.radius * Math.cos(point.x_angle_mult * point.angle * DEGS_TO_RADIANS)
     point.y = point.y_init + point.radius * Math.sin(point.y_angle_mult * point.angle * DEGS_TO_RADIANS)
+    point.angle_increment
   end
 end
 
