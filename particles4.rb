@@ -1,0 +1,85 @@
+require "ruby2d"
+
+set width: 650, height: 600, title: "Particles!"
+
+NUM_OF_POINTS_X, NUM_OF_POINTS_Y = 40, 40
+X_WINDOW_OFFSET, Y_WINDOW_OFFSET = 65, 60
+VIEWPORT_WIDTH = (Window.width - X_WINDOW_OFFSET * 2)
+VIEWPORT_HEIGHT = (Window.height - Y_WINDOW_OFFSET * 2)
+X_CENTER, Y_CENTER = Window.width / 2, Window.height / 2
+DISTANCE_MIN = 1
+DISTANCE_DELTA = 2
+
+class Point < Square
+  attr_accessor :x_init, :y_init, :distance_init, :x_distance_init, :y_distance_init, :contracting
+
+  def recentrify
+    self.x = X_CENTER
+    self.y = Y_CENTER
+  end
+
+  def reinitialize
+    self.x = @x_init
+    self.y = @y_init
+  end
+
+  def contract
+    @x_distance = X_CENTER - self.x
+    @y_distance = Y_CENTER - self.y
+    @distance = Math.sqrt(@x_distance ** 2 + @y_distance ** 2)
+
+    if @distance > DISTANCE_MIN
+      self.x += @x_distance * DISTANCE_DELTA / @distance
+      self.y += @y_distance * DISTANCE_DELTA / @distance
+    else
+      @contracting = false
+      recentrify
+    end
+  end
+
+  def expand
+    @x_distance = @x_init - self.x
+    @y_distance = @y_init - self.y
+    @distance = Math.sqrt(@x_distance ** 2 + @y_distance ** 2)
+
+    if @distance.between?(DISTANCE_MIN, @distance_init)
+      self.x += @x_distance * DISTANCE_DELTA / @distance
+      self.y += @y_distance * DISTANCE_DELTA / @distance
+    else
+      @contracting = true
+      reinitialize
+    end
+  end
+end
+
+points = []
+
+# set up point grid
+NUM_OF_POINTS_X.times do |i|
+  NUM_OF_POINTS_Y.times do |j|
+    x_init = X_WINDOW_OFFSET + (i + 0.5) * VIEWPORT_WIDTH / NUM_OF_POINTS_X
+    y_init = Y_WINDOW_OFFSET + (j + 0.5) * VIEWPORT_HEIGHT / NUM_OF_POINTS_Y
+    points << Point.new(x: x_init, y: y_init, size: 1, color: "white")
+  end
+end
+
+points.each do |point|
+  point.x_init = point.x
+  point.y_init = point.y
+  point.x_distance_init = X_CENTER - point.x_init
+  point.y_distance_init = Y_CENTER - point.y_init
+  point.distance_init = Math.sqrt(point.x_distance_init ** 2 + point.y_distance_init ** 2)
+  point.contracting = true
+end
+
+update do
+  points.each do |point|
+    if point.contracting
+      point.contract
+    else
+      point.expand
+    end
+  end
+end
+
+show
