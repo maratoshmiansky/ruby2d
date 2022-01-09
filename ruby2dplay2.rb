@@ -2,13 +2,13 @@ require "ruby2d"
 
 set width: 650, height: 600, title: "Particles!"
 
-NUM_OF_POINTS = 900
+NUM_OF_POINTS = 400
 ANGLE_DELTA = 1
 ANGLE_DELTA_DELTA = 0.01
 X_MULT_MIN, X_MULT_MAX = 10.0, 100.0
 Y_MULT_MIN, Y_MULT_MAX = 10.0, 100.0
-X_ANGLE_MULT_MIN, X_ANGLE_MULT_MAX = 2, 6
-Y_ANGLE_MULT_MIN, Y_ANGLE_MULT_MAX = 2, 6
+X_ANGLE_MULT_MIN, X_ANGLE_MULT_MAX = 2.0, 6.0
+Y_ANGLE_MULT_MIN, Y_ANGLE_MULT_MAX = 2.0, 6.0
 DEGS_TO_RADIANS = Math::PI / 180
 X_WINDOW_OFFSET, Y_WINDOW_OFFSET = 65, 60
 
@@ -57,7 +57,7 @@ points.each do |point|
   point.y_mult = [-1, 1].sample * rand(Y_MULT_MIN..Y_MULT_MAX)
   point.x_angle_mult = rand(X_ANGLE_MULT_MIN..X_ANGLE_MULT_MAX)
   point.y_angle_mult = rand(Y_ANGLE_MULT_MIN..Y_ANGLE_MULT_MAX)
-  point.angle_delta = ANGLE_DELTA + point.angle * ANGLE_DELTA_DELTA / [point.x_angle_mult, point.y_angle_mult].max
+  point.angle_delta = ANGLE_DELTA + point.angle * ANGLE_DELTA_DELTA / [point.x_angle_mult.abs, point.y_angle_mult.abs].max
 end
 
 update do
