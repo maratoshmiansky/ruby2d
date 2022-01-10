@@ -2,7 +2,7 @@ require "ruby2d"
 
 set width: 650, height: 600, title: "Particles!"
 
-NUM_OF_POINTS_X, NUM_OF_POINTS_Y = 40, 40
+X_NUM_OF_POINTS, Y_NUM_OF_POINTS = 40, 40
 X_WINDOW_OFFSET, Y_WINDOW_OFFSET = 65, 60
 VIEWPORT_WIDTH = (Window.width - X_WINDOW_OFFSET * 2)
 VIEWPORT_HEIGHT = (Window.height - Y_WINDOW_OFFSET * 2)
@@ -13,38 +13,43 @@ DISTANCE_DELTA = 2
 class Point < Square
   attr_accessor :x_init, :y_init, :distance_init, :x_distance_init, :y_distance_init, :contracting
 
-  def recentrify
-    self.x = X_CENTER
-    self.y = Y_CENTER
+  def get_distance
+    @distance = Math.sqrt(@x_distance ** 2 + @y_distance ** 2)
+  end
+
+  def move
+    self.x += @x_distance * DISTANCE_DELTA / @distance
+    self.y += @y_distance * DISTANCE_DELTA / @distance
+  end
+
+  def centrify
+    self.x, self.y = X_CENTER, Y_CENTER
   end
 
   def reinitialize
-    self.x = @x_init
-    self.y = @y_init
+    self.x, self.y = @x_init, @y_init
   end
 
   def contract
     @x_distance = X_CENTER - self.x
     @y_distance = Y_CENTER - self.y
-    @distance = Math.sqrt(@x_distance ** 2 + @y_distance ** 2)
+    get_distance
 
     if @distance > DISTANCE_MIN
-      self.x += @x_distance * DISTANCE_DELTA / @distance
-      self.y += @y_distance * DISTANCE_DELTA / @distance
+      move
     else
       @contracting = false
-      recentrify
+      centrify
     end
   end
 
   def expand
     @x_distance = @x_init - self.x
     @y_distance = @y_init - self.y
-    @distance = Math.sqrt(@x_distance ** 2 + @y_distance ** 2)
+    get_distance
 
     if @distance.between?(DISTANCE_MIN, @distance_init)
-      self.x += @x_distance * DISTANCE_DELTA / @distance
-      self.y += @y_distance * DISTANCE_DELTA / @distance
+      move
     else
       @contracting = true
       reinitialize
@@ -55,10 +60,10 @@ end
 points = []
 
 # set up point grid
-NUM_OF_POINTS_X.times do |i|
-  NUM_OF_POINTS_Y.times do |j|
-    x_init = X_WINDOW_OFFSET + (i + 0.5) * VIEWPORT_WIDTH / NUM_OF_POINTS_X
-    y_init = Y_WINDOW_OFFSET + (j + 0.5) * VIEWPORT_HEIGHT / NUM_OF_POINTS_Y
+X_NUM_OF_POINTS.times do |i|
+  Y_NUM_OF_POINTS.times do |j|
+    x_init = X_WINDOW_OFFSET + (i + 0.5) * VIEWPORT_WIDTH / X_NUM_OF_POINTS
+    y_init = Y_WINDOW_OFFSET + (j + 0.5) * VIEWPORT_HEIGHT / Y_NUM_OF_POINTS
     points << Point.new(x: x_init, y: y_init, size: 1, color: "white")
   end
 end
