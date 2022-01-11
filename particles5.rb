@@ -18,8 +18,8 @@ class Point < Square
   end
 
   def move
-    self.x += MOVE_MULT * @x_distance / @distance
-    self.y += MOVE_MULT * @y_distance / @distance
+    self.x += MOVE_MULT * (@x_distance_init / @distance_init).abs * (@x_distance / @distance)
+    self.y += MOVE_MULT * (@y_distance_init / @distance_init).abs * (@y_distance / @distance)
   end
 
   def centrify
@@ -39,7 +39,7 @@ class Point < Square
       move
     else
       @contracting = false
-      # centrify
+      centrify
     end
   end
 
@@ -52,7 +52,7 @@ class Point < Square
       move
     else
       @contracting = true
-      # reinitialize
+      reinitialize
     end
   end
 end
