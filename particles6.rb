@@ -7,7 +7,7 @@ X_WINDOW_OFFSET, Y_WINDOW_OFFSET = 65, 60
 VIEWPORT_WIDTH = (Window.width - X_WINDOW_OFFSET * 2)
 VIEWPORT_HEIGHT = (Window.height - Y_WINDOW_OFFSET * 2)
 X_CENTER, Y_CENTER = Window.width / 2, Window.height / 2
-MOVE_MULT = 1
+MOVE_MULT = 5
 
 class Point < Square
   attr_accessor :x_init, :y_init, :distance_init, :x_distance_init, :y_distance_init
