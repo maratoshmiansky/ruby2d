@@ -9,18 +9,71 @@ VIEWPORT_HEIGHT = (Window.height - Y_WINDOW_OFFSET * 2)
 X_CENTER, Y_CENTER = Window.width / 2, Window.height / 2
 DEGS_TO_RADS = Math::PI / 180
 ANGLE_DELTA = 1
+ANGLE = ANGLE_DELTA * DEGS_TO_RADS
+COS, SIN = Math.cos(ANGLE), Math.sin(ANGLE)
+DISTANCE_DIV = 360
 
 class Point < Square
+  def animate
+    get_distance
+
+    if @contracting
+      contract
+    else
+      expand
+    end
+
+    rotate
+  end
+
+  def contract
+    if @contract_counter < DISTANCE_DIV
+      self.x += @x_delta
+      self.y += @y_delta
+      @contract_counter += 1
+    else
+      @contracting = false
+      @contract_counter = 0
+      self.color = "red"
+    end
+  end
+
+  def expand
+    if @contract_counter < DISTANCE_DIV
+      self.x -= @x_delta
+      self.y -= @y_delta
+      @contract_counter += 1
+    else
+      @contracting = true
+      @contract_counter = 0
+      self.color = "white"
+    end
+  end
+
   def rotate
-    angle = ANGLE_DELTA * DEGS_TO_RADS
-    cos = Math.cos(angle)
-    sin = Math.sin(angle)
     self.x -= X_CENTER
     self.y -= Y_CENTER
-    x = self.x * cos - self.y * sin
-    y = self.x * sin + self.y * cos
+    x = self.x * COS - self.y * SIN
+    y = self.x * SIN + self.y * COS
     self.x = x + X_CENTER
     self.y = y + Y_CENTER
+  end
+
+  def get_distance
+    @x_distance = X_CENTER - self.x
+    @y_distance = Y_CENTER - self.y
+    @distance = Math.sqrt(@x_distance ** 2 + @y_distance ** 2)
+  end
+
+  def init
+    @x_init, @y_init = self.x, self.y
+    @x_distance_init = X_CENTER - @x_init
+    @y_distance_init = Y_CENTER - @y_init
+    @distance_init = Math.sqrt(@x_distance_init ** 2 + @y_distance_init ** 2)
+    @x_delta = @x_distance_init / DISTANCE_DIV
+    @y_delta = @y_distance_init / DISTANCE_DIV
+    @contracting = true
+    @contract_counter = 0
   end
 end
 
@@ -35,9 +88,13 @@ X_NUM_OF_POINTS.times do |i|
   end
 end
 
+points.each do |point|
+  point.init
+end
+
 update do
   points.each do |point|
-    point.rotate
+    point.animate
   end
 end
 
