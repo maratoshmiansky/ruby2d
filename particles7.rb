@@ -2,28 +2,22 @@ require "ruby2d"
 
 set width: 600, height: 600, title: "Particles!"
 
-X_NUM_OF_POINTS, Y_NUM_OF_POINTS = 30, 30
+X_NUM_OF_POINTS, Y_NUM_OF_POINTS = 20, 20
 X_WINDOW_OFFSET, Y_WINDOW_OFFSET = 90, 90
 VIEWPORT_WIDTH = (Window.width - X_WINDOW_OFFSET * 2)
 VIEWPORT_HEIGHT = (Window.height - Y_WINDOW_OFFSET * 2)
 X_CENTER, Y_CENTER = Window.width / 2, Window.height / 2
 DEGS_TO_RADS = Math::PI / 180
-ANGLE_DELTA = 1
+ANGLE_DELTA = 2
 ANGLE = ANGLE_DELTA * DEGS_TO_RADS
 COS, SIN = Math.cos(ANGLE), Math.sin(ANGLE)
-DISTANCE_DIV = 360
+DISTANCE_DIV = 60
 
 class Point < Square
   def animate
-    get_distance
-
-    if @contracting
-      contract
-    else
-      expand
-    end
-
     rotate
+    get_distance
+    @contracting ? contract : expand
   end
 
   def contract
