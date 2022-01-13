@@ -11,36 +11,28 @@ DEGS_TO_RADS = Math::PI / 180
 ANGLE_DELTA = 2
 ANGLE = ANGLE_DELTA * DEGS_TO_RADS
 COS, SIN = Math.cos(ANGLE), Math.sin(ANGLE)
-DISTANCE_DIV = 60
+CONTRACT_FACTOR = 0.98
+ITERATIONS = 3 / (1 - CONTRACT_FACTOR)
 
 class Point < Square
   def animate
     rotate
-    get_distance
-    @contracting ? contract : expand
+    contract_expand
   end
 
-  def contract
-    if @contract_counter < DISTANCE_DIV
-      self.x += @x_delta
-      self.y += @y_delta
+  def contract_expand
+    if @contract_counter < ITERATIONS
+      self.x -= X_CENTER
+      self.y -= Y_CENTER
+      @contracting ? factor = CONTRACT_FACTOR : factor = 1 / CONTRACT_FACTOR
+      x = self.x * factor
+      y = self.y * factor
+      self.x = x + X_CENTER
+      self.y = y + Y_CENTER
       @contract_counter += 1
     else
-      @contracting = false
+      @contracting ? @contracting = false : @contracting = true
       @contract_counter = 0
-      self.color = "red"
-    end
-  end
-
-  def expand
-    if @contract_counter < DISTANCE_DIV
-      self.x -= @x_delta
-      self.y -= @y_delta
-      @contract_counter += 1
-    else
-      @contracting = true
-      @contract_counter = 0
-      self.color = "white"
     end
   end
 
@@ -53,19 +45,7 @@ class Point < Square
     self.y = y + Y_CENTER
   end
 
-  def get_distance
-    @x_distance = X_CENTER - self.x
-    @y_distance = Y_CENTER - self.y
-    @distance = Math.sqrt(@x_distance ** 2 + @y_distance ** 2)
-  end
-
   def init
-    @x_init, @y_init = self.x, self.y
-    @x_distance_init = X_CENTER - @x_init
-    @y_distance_init = Y_CENTER - @y_init
-    @distance_init = Math.sqrt(@x_distance_init ** 2 + @y_distance_init ** 2)
-    @x_delta = @x_distance_init / DISTANCE_DIV
-    @y_delta = @y_distance_init / DISTANCE_DIV
     @contracting = true
     @contract_counter = 0
   end
