@@ -11,8 +11,8 @@ DEGS_TO_RADS = Math::PI / 180
 ANGLE_DELTA = 2
 ANGLE = ANGLE_DELTA * DEGS_TO_RADS
 COS, SIN = Math.cos(ANGLE), Math.sin(ANGLE)
-CONTRACT_FACTOR = 0.98
-ITERATIONS = 3 / (1 - CONTRACT_FACTOR)
+SCALE_FACTOR = 0.98
+ITERATIONS = 180
 
 class Point < Square
   def animate
@@ -22,13 +22,11 @@ class Point < Square
 
   def contract_expand
     if @contract_counter < ITERATIONS
-      self.x -= X_CENTER
-      self.y -= Y_CENTER
-      @contracting ? factor = CONTRACT_FACTOR : factor = 1 / CONTRACT_FACTOR
+      translate_origin
+      @contracting ? factor = SCALE_FACTOR : factor = 1 / SCALE_FACTOR
       x = self.x * factor
       y = self.y * factor
-      self.x = x + X_CENTER
-      self.y = y + Y_CENTER
+      translate_center(x, y)
       @contract_counter += 1
     else
       @contracting ? @contracting = false : @contracting = true
@@ -37,12 +35,20 @@ class Point < Square
   end
 
   def rotate
-    self.x -= X_CENTER
-    self.y -= Y_CENTER
+    translate_origin
     x = self.x * COS - self.y * SIN
     y = self.x * SIN + self.y * COS
-    self.x = x + X_CENTER
-    self.y = y + Y_CENTER
+    translate_center(x, y)
+  end
+
+  def translate_origin
+    self.x -= X_CENTER
+    self.y -= Y_CENTER
+  end
+
+  def translate_center(x_coord, y_coord)
+    self.x = x_coord + X_CENTER
+    self.y = y_coord + Y_CENTER
   end
 
   def init
