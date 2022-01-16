@@ -13,7 +13,13 @@ DEGS_TO_RADIANS = Math::PI / 180
 X_WINDOW_OFFSET, Y_WINDOW_OFFSET = 65, 60
 
 class Point < Square
-  attr_accessor :x_init, :y_init, :x_mult, :y_mult, :angle, :angle_delta, :x_angle_mult, :y_angle_mult, :accelerating
+  def animate
+    angle_delta_check
+    @accelerating ? accelerate : decelerate
+    @angle += @angle_delta
+    self.x = @x_init + @x_mult * Math.cos(@x_angle_mult * @angle * DEGS_TO_RADIANS)
+    self.y = @y_init + @y_mult * Math.sin(@y_angle_mult * @angle * DEGS_TO_RADIANS)
+  end
 
   def angle_delta_check
     if @angle <= 0
@@ -38,6 +44,17 @@ class Point < Square
       @accelerating = true
     end
   end
+
+  def init
+    @x_init, @y_init = self.x, self.y
+    @angle = rand(0..359)
+    @angle.between?(0, 179) ? @accelerating = true : @accelerating = false
+    @x_mult = [-1, 1].sample * rand(X_MULT_MIN..X_MULT_MAX)
+    @y_mult = [-1, 1].sample * rand(Y_MULT_MIN..Y_MULT_MAX)
+    @x_angle_mult = rand(X_ANGLE_MULT_MIN..X_ANGLE_MULT_MAX)
+    @y_angle_mult = rand(Y_ANGLE_MULT_MIN..Y_ANGLE_MULT_MAX)
+    @angle_delta = ANGLE_DELTA + @angle * ANGLE_DELTA_DELTA / [@x_angle_mult.abs, @y_angle_mult.abs].max
+  end
 end
 
 points = []
@@ -49,24 +66,12 @@ NUM_OF_POINTS.times do
 end
 
 points.each do |point|
-  point.x_init = point.x
-  point.y_init = point.y
-  point.angle = rand(0..359)
-  point.angle.between?(0, 179) ? point.accelerating = true : point.accelerating = false
-  point.x_mult = [-1, 1].sample * rand(X_MULT_MIN..X_MULT_MAX)
-  point.y_mult = [-1, 1].sample * rand(Y_MULT_MIN..Y_MULT_MAX)
-  point.x_angle_mult = rand(X_ANGLE_MULT_MIN..X_ANGLE_MULT_MAX)
-  point.y_angle_mult = rand(Y_ANGLE_MULT_MIN..Y_ANGLE_MULT_MAX)
-  point.angle_delta = ANGLE_DELTA + point.angle * ANGLE_DELTA_DELTA / [point.x_angle_mult.abs, point.y_angle_mult.abs].max
+  point.init
 end
 
 update do
   points.each do |point|
-    point.angle_delta_check
-    point.accelerating ? point.accelerate : point.decelerate
-    point.angle += point.angle_delta
-    point.x = point.x_init + point.x_mult * Math.cos(point.x_angle_mult * point.angle * DEGS_TO_RADIANS)
-    point.y = point.y_init + point.y_mult * Math.sin(point.y_angle_mult * point.angle * DEGS_TO_RADIANS)
+    point.animate
   end
 end
 
