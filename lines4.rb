@@ -8,7 +8,7 @@ VIEWPORT_WIDTH = (Window.width - X_WINDOW_OFFSET * 2)
 VIEWPORT_HEIGHT = (Window.height - Y_WINDOW_OFFSET * 2)
 X_CENTER, Y_CENTER = Window.width / 2, Window.height / 2
 DEGS_TO_RADS = Math::PI / 180
-ANGLE_DELTA1, ANGLE_DELTA2 = -0.1, 0.1
+ANGLE_DELTA1, ANGLE_DELTA2 = 1, 1.2
 ANGLE1 = ANGLE_DELTA1 * DEGS_TO_RADS
 ANGLE2 = ANGLE_DELTA2 * DEGS_TO_RADS
 COS1, SIN1 = Math.cos(ANGLE1), Math.sin(ANGLE1)
@@ -17,25 +17,25 @@ COS2, SIN2 = Math.cos(ANGLE2), Math.sin(ANGLE2)
 class Line
   def rotate
     translate_origin
-    x1 = self.x1 * COS1 - self.y1 * SIN1
-    y1 = self.x1 * SIN1 + self.y1 * COS1
-    x2 = self.x2 * COS2 - self.y2 * SIN2
-    y2 = self.x2 * SIN2 + self.y2 * COS2
+    x1 = @x1 * COS1 - @y1 * SIN1
+    y1 = @x1 * SIN1 + @y1 * COS1
+    x2 = @x2 * COS2 - @y2 * SIN2
+    y2 = @x2 * SIN2 + @y2 * COS2
     translate_center(x1, y1, x2, y2)
   end
 
   def translate_origin
-    self.x1 -= X_CENTER
-    self.y1 -= Y_CENTER
-    self.x2 -= X_CENTER
-    self.y2 -= Y_CENTER
+    @x1 -= X_CENTER
+    @y1 -= Y_CENTER
+    @x2 -= X_CENTER
+    @y2 -= Y_CENTER
   end
 
   def translate_center(x1_coord, y1_coord, x2_coord, y2_coord)
-    self.x1 = x1_coord + X_CENTER
-    self.y1 = y1_coord + Y_CENTER
-    self.x2 = x2_coord + X_CENTER
-    self.y2 = y2_coord + Y_CENTER
+    @x1 = x1_coord + X_CENTER
+    @y1 = y1_coord + Y_CENTER
+    @x2 = x2_coord + X_CENTER
+    @y2 = y2_coord + Y_CENTER
   end
 end
 
