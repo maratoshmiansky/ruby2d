@@ -16,8 +16,8 @@ class Point < Square
   end
 
   def get_distance
-    @x_distance = X_CENTER - self.x
-    @y_distance = Y_CENTER - self.y
+    @x_distance = X_CENTER - @x
+    @y_distance = Y_CENTER - @y
     @distance = Math.sqrt(@x_distance ** 2 + @y_distance ** 2)
   end
 
@@ -27,8 +27,8 @@ class Point < Square
   end
 
   def init
-    @x_init = self.x
-    @y_init = self.y
+    @x_init = @x
+    @y_init = @y
     @x_distance_init = X_CENTER - @x_init
     @y_distance_init = Y_CENTER - @y_init
     @distance_init = Math.sqrt(@x_distance_init ** 2 + @y_distance_init ** 2)
