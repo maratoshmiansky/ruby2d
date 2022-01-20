@@ -17,11 +17,11 @@ COS2, SIN2 = Math.cos(ANGLE2), Math.sin(ANGLE2)
 class Line
   def rotate
     translate_origin
-    x1 = @x1 * COS1 - @y1 * SIN1
-    y1 = @x1 * SIN1 + @y1 * COS1
-    x2 = @x2 * COS2 - @y2 * SIN2
-    y2 = @x2 * SIN2 + @y2 * COS2
-    translate_center(x1, y1, x2, y2)
+    x1_rot = @x1 * COS1 - @y1 * SIN1
+    y1_rot = @x1 * SIN1 + @y1 * COS1
+    x2_rot = @x2 * COS2 - @y2 * SIN2
+    y2_rot = @x2 * SIN2 + @y2 * COS2
+    translate_center(x1_rot, y1_rot, x2_rot, y2_rot)
   end
 
   def translate_origin
