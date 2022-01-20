@@ -23,14 +23,14 @@ class Point < Square
 
   def rotate
     translate_origin
-    x = self.x * COS - self.y * SIN
-    y = self.x * SIN + self.y * COS
-    translate_center(x, y)
+    x_rot = @x * COS - @y * SIN
+    y_rot = @x * SIN + @y * COS
+    translate_center(x_rot, y_rot)
   end
 
   def translate_origin
-    self.x -= X_CENTER
-    self.y -= Y_CENTER
+    @x -= X_CENTER
+    @y -= Y_CENTER
   end
 
   def translate_center(x_coord, y_coord)
@@ -39,24 +39,24 @@ class Point < Square
   end
 
   def get_distance
-    @x_distance = X_CENTER - self.x
-    @y_distance = Y_CENTER - self.y
+    @x_distance = X_CENTER - @x
+    @y_distance = Y_CENTER - @y
     @distance = Math.sqrt(@x_distance ** 2 + @y_distance ** 2)
   end
 
   def swirl
     if @swirl_mult < SWIRL_MULT_MAX
-      self.x += @swirl_mult * (@x_distance + @x_distance_init) / (@distance + @distance_init)
-      self.y += @swirl_mult * (@y_distance + @y_distance_init) / (@distance + @distance_init)
+      @x += @swirl_mult * (@x_distance + @x_distance_init) / (@distance + @distance_init)
+      @y += @swirl_mult * (@y_distance + @y_distance_init) / (@distance + @distance_init)
       @swirl_mult += SWIRL_MULT_DELTA
     else
-      self.x, self.y = @x_init, @y_init
+      @x, @y = @x_init, @y_init
       @swirl_mult = SWIRL_MULT_MIN
     end
   end
 
   def init
-    @x_init, @y_init = self.x, self.y
+    @x_init, @y_init = @x, @y
     @x_distance_init = X_CENTER - @x_init
     @y_distance_init = Y_CENTER - @y_init
     @distance_init = Math.sqrt(@x_distance_init ** 2 + @y_distance_init ** 2)
