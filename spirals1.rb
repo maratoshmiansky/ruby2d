@@ -11,28 +11,25 @@ X_ANGLE_MULT_MIN, X_ANGLE_MULT_MAX = 13, 44
 
 class Line
   def x_hits_left?
-    self.x1 <= X_WINDOW_OFFSET || self.x2 <= X_WINDOW_OFFSET
+    @x1 <= X_WINDOW_OFFSET || @x2 <= X_WINDOW_OFFSET
   end
 
   def x_hits_right?
-    self.x1 >= Window.width - X_WINDOW_OFFSET || self.x2 >= Window.width - X_WINDOW_OFFSET
+    @x1 >= Window.width - X_WINDOW_OFFSET || @x2 >= Window.width - X_WINDOW_OFFSET
   end
 
   def y_hits_top?
-    self.y1 <= Y_WINDOW_OFFSET || self.y2 <= Y_WINDOW_OFFSET
+    @y1 <= Y_WINDOW_OFFSET || @y2 <= Y_WINDOW_OFFSET
   end
 
   def y_hits_bottom?
-    self.y1 >= Window.height - Y_WINDOW_OFFSET || self.y2 >= Window.height - Y_WINDOW_OFFSET
+    @y1 >= Window.height - Y_WINDOW_OFFSET || @y2 >= Window.height - Y_WINDOW_OFFSET
   end
 end
 
 def line_init(line_color)
-  # x1_init = rand(X_WINDOW_OFFSET..Window.width - X_WINDOW_OFFSET)
-  # y1_init = rand(Y_WINDOW_OFFSET..Window.height - Y_WINDOW_OFFSET)
   x1_init, y1_init = Window.width / 2, Window.height / 2
-  x2_init, y2_init = x1_init + 1, y1_init + 1
-  draw_segment(x1_init, y1_init, x2_init, y2_init, line_color)
+  draw_segment(x1_init, y1_init, x1_init, y1_init, line_color)
 end
 
 def draw_segment(x1, y1, x2, y2, line_color)
@@ -68,7 +65,6 @@ update do
     y2_new = y1_new + y_offset
 
     line = draw_segment(x1_new, y1_new, x2_new, y2_new, line_color)
-    # puts "x1: #{line.x1.to_i}, x2: #{line.x2.to_i}, y1: #{line.y1.to_i}, y2: #{line.y2.to_i}"
 
     if line.x_hits_left? || line.x_hits_right? || line.y_hits_top? || line.y_hits_bottom?
       clear
