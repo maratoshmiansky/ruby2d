@@ -11,7 +11,7 @@ DISTANCE_MIN = 1
 MOVE_MULT = 2
 
 class Point < Square
-  attr_accessor :x_init, :y_init, :distance_init, :x_distance_init, :y_distance_init, :contracting
+  attr_reader :contracting
 
   def get_distance
     @distance = Math.sqrt(@x_distance ** 2 + @y_distance ** 2)
@@ -23,16 +23,16 @@ class Point < Square
   end
 
   def centrify
-    self.x, self.y = X_CENTER, Y_CENTER
+    @x, @y = X_CENTER, Y_CENTER
   end
 
   def reinitialize
-    self.x, self.y = @x_init, @y_init
+    @x, @y = @x_init, @y_init
   end
 
   def contract
-    @x_distance = X_CENTER - self.x
-    @y_distance = Y_CENTER - self.y
+    @x_distance = X_CENTER - @x
+    @y_distance = Y_CENTER - @y
     get_distance
 
     if @distance > DISTANCE_MIN
@@ -44,8 +44,8 @@ class Point < Square
   end
 
   def expand
-    @x_distance = self.x - X_CENTER
-    @y_distance = self.y - Y_CENTER
+    @x_distance = @x - X_CENTER
+    @y_distance = @y - Y_CENTER
     get_distance
 
     if @distance < @distance_init
@@ -54,6 +54,15 @@ class Point < Square
       @contracting = true
       reinitialize
     end
+  end
+
+  def init
+    @x_init = @x
+    @y_init = @y
+    @x_distance_init = X_CENTER - @x_init
+    @y_distance_init = Y_CENTER - @y_init
+    @distance_init = Math.sqrt(@x_distance_init ** 2 + @y_distance_init ** 2)
+    @contracting = true
   end
 end
 
@@ -69,12 +78,7 @@ X_NUM_OF_POINTS.times do |i|
 end
 
 points.each do |point|
-  point.x_init = point.x
-  point.y_init = point.y
-  point.x_distance_init = X_CENTER - point.x_init
-  point.y_distance_init = Y_CENTER - point.y_init
-  point.distance_init = Math.sqrt(point.x_distance_init ** 2 + point.y_distance_init ** 2)
-  point.contracting = true
+  point.init
 end
 
 update do
