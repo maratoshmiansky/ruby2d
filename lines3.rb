@@ -15,19 +15,19 @@ COS, SIN = Math.cos(ANGLE), Math.sin(ANGLE)
 class Line
   def rotate
     translate_origin
-    x = self.x1 * COS - self.y1 * SIN
-    y = self.x1 * SIN + self.y1 * COS
+    x = @x1 * COS - @y1 * SIN
+    y = @x1 * SIN + @y1 * COS
     translate_center(x, y)
   end
 
   def translate_origin
-    self.x1 -= X_CENTER
-    self.y1 -= Y_CENTER
+    @x1 -= X_CENTER
+    @y1 -= Y_CENTER
   end
 
   def translate_center(x_coord, y_coord)
-    self.x1 = x_coord + X_CENTER
-    self.y1 = y_coord + Y_CENTER
+    @x1 = x_coord + X_CENTER
+    @y1 = y_coord + Y_CENTER
   end
 end
 

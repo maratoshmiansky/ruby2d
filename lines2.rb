@@ -7,19 +7,19 @@ X_LINE_MAX_LENGTH, Y_LINE_MAX_LENGTH = 20.0, 20.0
 
 class Line
   def x_hits_left?
-    self.x1 <= X_WINDOW_OFFSET || self.x2 <= X_WINDOW_OFFSET
+    @x1 <= X_WINDOW_OFFSET || @x2 <= X_WINDOW_OFFSET
   end
 
   def x_hits_right?
-    self.x1 >= Window.width - X_WINDOW_OFFSET || self.x2 >= Window.width - X_WINDOW_OFFSET
+    @x1 >= Window.width - X_WINDOW_OFFSET || @x2 >= Window.width - X_WINDOW_OFFSET
   end
 
   def y_hits_top?
-    self.y1 <= Y_WINDOW_OFFSET || self.y2 <= Y_WINDOW_OFFSET
+    @y1 <= Y_WINDOW_OFFSET || @y2 <= Y_WINDOW_OFFSET
   end
 
   def y_hits_bottom?
-    self.y1 >= Window.height - Y_WINDOW_OFFSET || self.y2 >= Window.height - Y_WINDOW_OFFSET
+    @y1 >= Window.height - Y_WINDOW_OFFSET || @y2 >= Window.height - Y_WINDOW_OFFSET
   end
 end
 
