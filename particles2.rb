@@ -4,7 +4,6 @@ set title: "Particles!"
 
 set width: 650, height: 600
 
-# CONSTANTS
 NUM_OF_POINTS_X, NUM_OF_POINTS_Y = 30, 30
 X_WINDOW_OFFSET, Y_WINDOW_OFFSET = 65, 60
 VIEWPORT_WIDTH = (Window.width - X_WINDOW_OFFSET * 2)
@@ -55,22 +54,16 @@ class Point < Square
   end
 
   def x_edge_check
-    unless self.x.between?(X_WINDOW_OFFSET, Window.width - X_WINDOW_OFFSET)
+    unless @x.between?(X_WINDOW_OFFSET, Window.width - X_WINDOW_OFFSET)
       @x_move = -@x_move
-      # color_swap
     end
   end
 
   def y_edge_check
-    unless self.y.between?(Y_WINDOW_OFFSET, Window.height - Y_WINDOW_OFFSET)
+    unless @y.between?(Y_WINDOW_OFFSET, Window.height - Y_WINDOW_OFFSET)
       @y_move = -@y_move
-      # color_swap
     end
   end
-
-  # def color_swap
-  #   self.color = ["white", "fuchsia", "yellow"].sample
-  # end
 end
 
 points = []
@@ -80,7 +73,6 @@ NUM_OF_POINTS_X.times do |i|
   NUM_OF_POINTS_Y.times do |j|
     x_init = X_WINDOW_OFFSET + (i + 0.5) * VIEWPORT_WIDTH / NUM_OF_POINTS_X
     y_init = Y_WINDOW_OFFSET + (j + 0.5) * VIEWPORT_HEIGHT / NUM_OF_POINTS_Y
-    # puts "x: #{x_init}, y: #{y_init}"
     points << Point.new(x: x_init, y: y_init, size: 1, color: "white")
   end
 end
