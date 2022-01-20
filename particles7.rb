@@ -24,8 +24,8 @@ class Point < Square
     if @contract_counter < ITERATIONS
       translate_origin
       @contracting ? factor = SCALE_FACTOR : factor = 1 / SCALE_FACTOR
-      x = self.x * factor
-      y = self.y * factor
+      x = @x * factor
+      y = @y * factor
       translate_center(x, y)
       @contract_counter += 1
     else
@@ -36,14 +36,14 @@ class Point < Square
 
   def rotate
     translate_origin
-    x = self.x * COS - self.y * SIN
-    y = self.x * SIN + self.y * COS
-    translate_center(x, y)
+    x_rot = @x * COS - @y * SIN
+    y_rot = @x * SIN + @y * COS
+    translate_center(x_rot, y_rot)
   end
 
   def translate_origin
-    self.x -= X_CENTER
-    self.y -= Y_CENTER
+    @x -= X_CENTER
+    @y -= Y_CENTER
   end
 
   def translate_center(x_coord, y_coord)
