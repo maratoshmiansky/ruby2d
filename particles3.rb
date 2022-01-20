@@ -16,7 +16,7 @@ Y_ANGLE_MULT_MIN, Y_ANGLE_MULT_MAX = 1, 4
 RADIUS_MIN, RADIUS_MAX = 50.0, 100.0
 
 class Point < Square
-  attr_accessor :x_init, :y_init, :clockwise, :angle_delta, :accelerating
+  attr_reader :x_init, :y_init, :clockwise, :accelerating
 
   def angle
     @angle ||= angle_reset
@@ -73,6 +73,14 @@ class Point < Square
   def radius_reset
     @radius = rand(RADIUS_MIN..RADIUS_MAX)
   end
+
+  def init
+    @x_init = @x
+    @y_init = @y
+    @clockwise = [true, false].sample
+    @angle_delta = rand(ANGLE_DELTA_MIN..ANGLE_DELTA_MAX)
+    @accelerating = true
+  end
 end
 
 points = []
@@ -86,13 +94,8 @@ NUM_OF_POINTS_X.times do |i|
   end
 end
 
-# memorize initial positions of each point and initialize some attributes
 points.each do |point|
-  point.x_init = point.x
-  point.y_init = point.y
-  point.clockwise = [true, false].sample
-  point.angle_delta = rand(ANGLE_DELTA_MIN..ANGLE_DELTA_MAX)
-  point.accelerating = true
+  point.init
 end
 
 update do
