@@ -46,7 +46,7 @@ class Point < Square
   end
 
   def init
-    @x_init, @y_init = self.x, self.y
+    @x_init, @y_init = @x, @y
     @angle = rand(0..359)
     @angle.between?(0, 179) ? @accelerating = true : @accelerating = false
     @x_mult = [-1, 1].sample * rand(X_MULT_MIN..X_MULT_MAX)
