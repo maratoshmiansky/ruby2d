@@ -6,12 +6,11 @@ X_WINDOW_OFFSET, Y_WINDOW_OFFSET = 60, 60
 X_CENTER, Y_CENTER = Window.width / 2, Window.height / 2
 DEGS_TO_RADS = Math::PI / 180
 ANGLE_DELTA = 31.0
-CIRCLE_RADIUS_MIN = 2.0
-# CIRCLE_RADIUS_MAX = 12.0
-CIRCLE_RADIUS_DELTA = 1.01
-CIRCLE_RADIUS_MULT = 6.0
+CIRCLE_RADIUS_MIN = 5.0
+CIRCLE_RADIUS_LAST_MULT = 3.0
+CIRCLE_RADIUS_DELTA = 1.012
 SWIRL_RADIUS_MIN = 5.0
-SWIRL_RADIUS_DELTA = 1.018
+SWIRL_RADIUS_DELTA = 1.021
 NUM_OF_CIRCLES = 240
 
 class Circle
@@ -35,8 +34,8 @@ class Circle
 
   def init
     @radius_init = @radius
-    @radius_last = @radius * CIRCLE_RADIUS_MULT
-    @radius < @radius_last ? @growing = true : @growing = false
+    @radius_last = @radius * CIRCLE_RADIUS_LAST_MULT
+    @growing = true
   end
 end
 
