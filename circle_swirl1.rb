@@ -6,10 +6,9 @@ X_WINDOW_OFFSET, Y_WINDOW_OFFSET = 60, 60
 X_CENTER, Y_CENTER = Window.width / 2, Window.height / 2
 DEGS_TO_RADS = Math::PI / 180
 ANGLE_DELTA = 30.0
-CIRCLE_RADIUS_MIN = 10.0
-CIRCLE_RADIUS_MAX = 60.0
+CIRCLE_RADIUS_MIN = 5.0
+CIRCLE_RADIUS_LAST_MULT = 3.0
 CIRCLE_RADIUS_DELTA = 1.01
-CIRCLE_RADIUS_FIN = 2.0
 SWIRL_RADIUS_MIN = 5.0
 SWIRL_RADIUS_DELTA = 1.02
 NUM_OF_CIRCLES = 240
@@ -26,17 +25,17 @@ class Circle
   end
 
   def set_growing
-    if @radius < [@radius_init, CIRCLE_RADIUS_MIN].min
+    if @radius < CIRCLE_RADIUS_MIN
       @growing = true
-    elsif @radius > [@radius_fin, CIRCLE_RADIUS_MAX].max
+    elsif @radius > @radius_last
       @growing = false
     end
   end
 
   def init
     @radius_init = @radius
-    @radius_fin = @radius * CIRCLE_RADIUS_FIN
-    @radius < @radius_fin ? @growing = true : @growing = false
+    @radius_last = @radius * CIRCLE_RADIUS_LAST_MULT
+    @growing = true
   end
 end
 
@@ -48,8 +47,6 @@ swirl_radius = SWIRL_RADIUS_MIN
 angle = 0
 
 NUM_OF_CIRCLES.times do
-  # x_coord = rand(X_WINDOW_OFFSET..Window.width - X_WINDOW_OFFSET)
-  # y_coord = rand(Y_WINDOW_OFFSET..Window.height - Y_WINDOW_OFFSET)
   x_coord = x_init + swirl_radius * Math.cos(angle * DEGS_TO_RADS)
   y_coord = y_init + swirl_radius * Math.sin(angle * DEGS_TO_RADS)
   circles << Circle.new(x: x_coord, y: y_coord, z: z_depth, radius: circle_radius, color: "navy")
