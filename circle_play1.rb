@@ -6,25 +6,24 @@ X_WINDOW_OFFSET, Y_WINDOW_OFFSET = 60, 60
 X_CENTER, Y_CENTER = Window.width / 2, Window.height / 2
 DEGS_TO_RADS = Math::PI / 180
 CIRCLE_RADIUS_INIT = 3.0
+CIRCLE_RADIUS_INNER_MULT = 0.8
 CIRCLE_RADIUS_LAST_MULT = 4.0
 CIRCLE_RADIUS_DELTA = 1.08
+CIRCLE_ROT_ANGLE_DIV = 10
 NUM_OF_CIRCLES_INIT = 12
 NUM_OF_CIRCLES_DELTA = 2.0
 ANGLE_DELTA_INIT = 360 / NUM_OF_CIRCLES_INIT
 NUM_OF_RINGS = 11
 RING_RADIUS_INIT = 40.0
 RING_RADIUS_DELTA = 1.2
-ROT_ANGLE_DELTA = 1
-ROT_ANGLE = ROT_ANGLE_DELTA * DEGS_TO_RADS
-COS, SIN = Math.cos(ROT_ANGLE), Math.sin(ROT_ANGLE)
 
 class Circle
-  attr_reader :growing
+  attr_reader :radius, :growing
 
   def rotate
     translate_origin
-    x_rot = @x * COS - @y * SIN
-    y_rot = @x * SIN + @y * COS
+    x_rot = @x * @cos - @y * @sin
+    y_rot = @x * @sin + @y * @cos
     translate_center(x_rot, y_rot)
   end
 
@@ -54,9 +53,12 @@ class Circle
     end
   end
 
-  def init
-    @radius_init = @radius
-    @radius_last = @radius * CIRCLE_RADIUS_LAST_MULT
+  def init(circ_radius)
+    @radius_init = circ_radius
+    @radius_last = circ_radius * CIRCLE_RADIUS_LAST_MULT
+    @rot_angle_delta = circ_radius / CIRCLE_ROT_ANGLE_DIV
+    @rot_angle = @rot_angle_delta * DEGS_TO_RADS
+    @cos, @sin = Math.cos(@rot_angle), Math.sin(@rot_angle)
     @growing = true
   end
 end
@@ -76,7 +78,7 @@ NUM_OF_RINGS.times do
     x_coord = x_init + ring_radius * Math.cos(angle * DEGS_TO_RADS)
     y_coord = y_init + ring_radius * Math.sin(angle * DEGS_TO_RADS)
     circles << Circle.new(x: x_coord, y: y_coord, z: z_depth, radius: circle_radius, color: "black")
-    circles << Circle.new(x: x_coord, y: y_coord, z: z_depth + 1, radius: circle_radius * 0.8, color: "purple")
+    circles << Circle.new(x: x_coord, y: y_coord, z: z_depth + 1, radius: circle_radius * CIRCLE_RADIUS_INNER_MULT, color: "purple")
     angle += angle_delta
     z_depth += 2
   end
@@ -89,7 +91,8 @@ NUM_OF_RINGS.times do
 end
 
 circles.each_slice(2) do |circle|
-  circle[0].init
+  circle[0].init(circle[0].radius)
+  circle[1].init(circle[1].radius / CIRCLE_RADIUS_INNER_MULT)
 end
 
 update do
