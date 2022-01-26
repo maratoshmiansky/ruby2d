@@ -14,9 +14,29 @@ ANGLE_DELTA_INIT = 360 / NUM_OF_CIRCLES_INIT
 NUM_OF_RINGS = 11
 RING_RADIUS_INIT = 40.0
 RING_RADIUS_DELTA = 1.2
+ROT_ANGLE_DELTA = 1
+ROT_ANGLE = ROT_ANGLE_DELTA * DEGS_TO_RADS
+COS, SIN = Math.cos(ROT_ANGLE), Math.sin(ROT_ANGLE)
 
 class Circle
   attr_reader :growing
+
+  def rotate
+    translate_origin
+    x_rot = @x * COS - @y * SIN
+    y_rot = @x * SIN + @y * COS
+    translate_center(x_rot, y_rot)
+  end
+
+  def translate_origin
+    @x -= X_CENTER
+    @y -= Y_CENTER
+  end
+
+  def translate_center(x_coord, y_coord)
+    @x = x_coord + X_CENTER
+    @y = y_coord + Y_CENTER
+  end
 
   def grow
     @radius *= CIRCLE_RADIUS_DELTA
@@ -83,6 +103,8 @@ update do
     end
 
     circle[0].set_growing
+    circle[0].rotate
+    circle[1].rotate
   end
 end
 
