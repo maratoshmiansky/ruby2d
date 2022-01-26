@@ -1,6 +1,6 @@
 require "ruby2d"
 
-set width: 600, height: 600, background: "white", title: "Circle Swirl"
+set width: 600, height: 600, background: "white", title: "Circle Play"
 
 X_WINDOW_OFFSET, Y_WINDOW_OFFSET = 60, 60
 X_CENTER, Y_CENTER = Window.width / 2, Window.height / 2
@@ -9,13 +9,13 @@ CIRCLE_RADIUS_INIT = 3.0
 CIRCLE_RADIUS_INNER_MULT = 0.8
 CIRCLE_RADIUS_LAST_MULT = 4.0
 CIRCLE_RADIUS_DELTA = 1.08
-CIRCLE_ROT_ANGLE_DIV = 10
+CIRCLE_ROT_ANGLE_DIV = 8
 NUM_OF_CIRCLES_INIT = 12
 NUM_OF_CIRCLES_DELTA = 2.0
 ANGLE_DELTA_INIT = 360 / NUM_OF_CIRCLES_INIT
-NUM_OF_RINGS = 11
 RING_RADIUS_INIT = 40.0
 RING_RADIUS_DELTA = 1.2
+NUM_OF_RINGS = 11
 
 class Circle
   attr_reader :radius, :growing
