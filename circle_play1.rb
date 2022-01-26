@@ -53,13 +53,16 @@ class Circle
     end
   end
 
-  def init(circ_radius)
-    @radius_init = circ_radius
-    @radius_last = circ_radius * CIRCLE_RADIUS_LAST_MULT
+  def rad_init
+    @radius_init = @radius
+    @radius_last = @radius * CIRCLE_RADIUS_LAST_MULT
+    @growing = true
+  end
+
+  def rot_init(circ_radius)
     @rot_angle_delta = circ_radius / CIRCLE_ROT_ANGLE_DIV
     @rot_angle = @rot_angle_delta * DEGS_TO_RADS
     @cos, @sin = Math.cos(@rot_angle), Math.sin(@rot_angle)
-    @growing = true
   end
 end
 
@@ -91,8 +94,9 @@ NUM_OF_RINGS.times do
 end
 
 circles.each_slice(2) do |circle|
-  circle[0].init(circle[0].radius)
-  circle[1].init(circle[1].radius / CIRCLE_RADIUS_INNER_MULT)
+  circle[0].rad_init
+  circle[0].rot_init(circle[0].radius)
+  circle[1].rot_init(circle[1].radius / CIRCLE_RADIUS_INNER_MULT)
 end
 
 update do
