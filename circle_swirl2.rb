@@ -7,7 +7,7 @@ X_CENTER, Y_CENTER = Window.width / 2, Window.height / 2
 DEGS_TO_RADS = Math::PI / 180
 ANGLE_DELTA = 62.0
 CIRCLE_RADIUS_MIN = 5.0
-CIRCLE_RADIUS_LAST_MULT = 2.0
+CIRCLE_RADIUS_MULT = 2.0
 CIRCLE_RADIUS_DELTA = 1.012
 SWIRL_RADIUS_MIN = 5.0
 SWIRL_RADIUS_DELTA = 1.021
@@ -25,7 +25,7 @@ class Circle
   end
 
   def set_growing
-    if @radius < CIRCLE_RADIUS_MIN * CIRCLE_RADIUS_LAST_MULT
+    if @radius < CIRCLE_RADIUS_MIN * CIRCLE_RADIUS_MULT
       @growing = true
     elsif @radius > @radius_last
       @growing = false
@@ -34,7 +34,7 @@ class Circle
 
   def init
     @radius_init = @radius
-    @radius_last = @radius * CIRCLE_RADIUS_LAST_MULT
+    @radius_last = @radius * CIRCLE_RADIUS_MULT
     @growing = true
   end
 end
