@@ -6,16 +6,16 @@ X_WINDOW_OFFSET, Y_WINDOW_OFFSET = 60, 60
 X_CENTER, Y_CENTER = Window.width / 2, Window.height / 2
 DEGS_TO_RADS = Math::PI / 180
 CIRCLE_RADIUS_INIT = 3.0
-CIRCLE_RADIUS_INNER_MULT = 0.8
-CIRCLE_RADIUS_LAST_MULT = 4.0
 CIRCLE_RADIUS_DELTA = 1.08
-CIRCLE_ROT_ANGLE_DIV = 8
+CIRCLE_RADIUS_MULT = 4.0
+CIRCLE_BORDER_MULT = 0.8
 NUM_OF_CIRCLES_INIT = 12
 NUM_OF_CIRCLES_DELTA = 2.0
 ANGLE_DELTA_INIT = 360 / NUM_OF_CIRCLES_INIT
 RING_RADIUS_INIT = 40.0
 RING_RADIUS_DELTA = 1.2
 NUM_OF_RINGS = 11
+ROT_ANGLE_DIV = 8
 
 class Circle
   attr_reader :radius, :growing
@@ -55,12 +55,12 @@ class Circle
 
   def rad_init
     @radius_init = @radius
-    @radius_last = @radius * CIRCLE_RADIUS_LAST_MULT
+    @radius_last = @radius * CIRCLE_RADIUS_MULT
     @growing = true
   end
 
   def rot_init(circ_radius)
-    @rot_angle_delta = circ_radius / CIRCLE_ROT_ANGLE_DIV
+    @rot_angle_delta = circ_radius / ROT_ANGLE_DIV
     @rot_angle = @rot_angle_delta * DEGS_TO_RADS
     @cos, @sin = Math.cos(@rot_angle), Math.sin(@rot_angle)
   end
@@ -81,7 +81,7 @@ NUM_OF_RINGS.times do
     x_coord = x_init + ring_radius * Math.cos(angle * DEGS_TO_RADS)
     y_coord = y_init + ring_radius * Math.sin(angle * DEGS_TO_RADS)
     circles << Circle.new(x: x_coord, y: y_coord, z: z_depth, radius: circle_radius, color: "black")
-    circles << Circle.new(x: x_coord, y: y_coord, z: z_depth + 1, radius: circle_radius * CIRCLE_RADIUS_INNER_MULT, color: "purple")
+    circles << Circle.new(x: x_coord, y: y_coord, z: z_depth + 1, radius: circle_radius * CIRCLE_BORDER_MULT, color: "purple")
     angle += angle_delta
     z_depth += 2
   end
@@ -96,7 +96,7 @@ end
 circles.each_slice(2) do |circle|
   circle[0].rad_init
   circle[0].rot_init(circle[0].radius)
-  circle[1].rot_init(circle[1].radius / CIRCLE_RADIUS_INNER_MULT)
+  circle[1].rot_init(circle[1].radius / CIRCLE_BORDER_MULT)
 end
 
 update do
