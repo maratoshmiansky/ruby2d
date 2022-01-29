@@ -11,7 +11,7 @@ CIRCLE_RADIUS_MULT = 4.0
 CIRCLE_BORDER_MULT = 0.8
 NUM_OF_CIRCLES_INIT = 12
 NUM_OF_CIRCLES_DELTA = 2.0
-ANGLE_DELTA_INIT = 360 / NUM_OF_CIRCLES_INIT
+ANGLE_DELTA_INIT = 360.0 / NUM_OF_CIRCLES_INIT
 RING_RADIUS_INIT = 40.0
 RING_RADIUS_DELTA = 1.2
 NUM_OF_RINGS = 11
@@ -89,7 +89,7 @@ NUM_OF_RINGS.times do
   ring_radius *= RING_RADIUS_DELTA
   circle_radius *= CIRCLE_RADIUS_DELTA
   num_of_circles += NUM_OF_CIRCLES_DELTA
-  angle_delta = 360 / num_of_circles
+  angle_delta = 360.0 / num_of_circles
   num_of_circles = num_of_circles.ceil
 end
 
