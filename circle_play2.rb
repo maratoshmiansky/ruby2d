@@ -6,12 +6,11 @@ X_WINDOW_OFFSET, Y_WINDOW_OFFSET = 60, 60
 X_CENTER, Y_CENTER = Window.width / 2, Window.height / 2
 DEGS_TO_RADS = Math::PI / 180
 CIRCLE_RADIUS_INIT = 6.0
-CIRCLE_RADIUS_DELTA = 1.08
-CIRCLE_RADIUS_MULT = 3.0
+CIRCLE_RADIUS_DELTA = 1.18
 CIRCLE_BORDER_MULT = 0.75
 NUM_OF_CIRCLES_INIT = 12
 NUM_OF_CIRCLES_DELTA = 1.0
-ANGLE_DELTA_INIT = 360 / NUM_OF_CIRCLES_INIT
+ANGLE_DELTA = 360 / NUM_OF_CIRCLES_INIT
 RING_RADIUS_INIT = 40.0
 RING_RADIUS_DELTA = 1.15
 NUM_OF_RINGS = 14
@@ -37,29 +36,7 @@ class Circle
     @y = y_coord + Y_CENTER
   end
 
-  def grow
-    @radius *= CIRCLE_RADIUS_DELTA
-  end
-
-  def shrink
-    @radius /= CIRCLE_RADIUS_DELTA
-  end
-
-  def set_growing
-    if @radius < @radius_init
-      @growing = true
-    elsif @radius > @radius_last
-      @growing = false
-    end
-  end
-
-  def rad_init
-    @radius_init = @radius
-    @radius_last = @radius * CIRCLE_RADIUS_MULT
-    @growing = true
-  end
-
-  def rot_init(circ_radius)
+  def init(circ_radius)
     @rot_angle_delta = circ_radius / ROT_ANGLE_DIV
     @rot_angle = @rot_angle_delta * DEGS_TO_RADS
     @cos, @sin = Math.cos(@rot_angle), Math.sin(@rot_angle)
@@ -72,10 +49,9 @@ z_depth = 0
 circle_radius = CIRCLE_RADIUS_INIT
 ring_radius = RING_RADIUS_INIT
 num_of_circles = NUM_OF_CIRCLES_INIT
-angle_delta = ANGLE_DELTA_INIT
 
 NUM_OF_RINGS.times do |num|
-  angle = angle_delta
+  angle = 0
   num.odd? ? circle_color = "green" : circle_color = "fuchsia"
 
   num_of_circles.times do
@@ -83,36 +59,23 @@ NUM_OF_RINGS.times do |num|
     y_coord = y_init + ring_radius * Math.sin(angle * DEGS_TO_RADS)
     circles << Circle.new(x: x_coord, y: y_coord, z: z_depth, radius: circle_radius, color: "black")
     circles << Circle.new(x: x_coord, y: y_coord, z: z_depth + 1, radius: circle_radius * CIRCLE_BORDER_MULT, color: circle_color)
-    angle += angle_delta
+    angle += ANGLE_DELTA
     z_depth += 2
   end
 
   ring_radius *= RING_RADIUS_DELTA
   circle_radius *= CIRCLE_RADIUS_DELTA
-  num_of_circles += NUM_OF_CIRCLES_DELTA
-  # angle_delta = 360 / num_of_circles
-  num_of_circles = num_of_circles.ceil
+  num_of_circles = (num_of_circles + NUM_OF_CIRCLES_DELTA).ceil
 end
 
 circles.each_slice(2) do |circle|
-  circle[0].rad_init
-  circle[0].rot_init(circle[0].radius)
-  circle[1].rot_init(circle[1].radius / CIRCLE_BORDER_MULT)
+  circle[0].init(circle[0].radius)
+  circle[1].init(circle[1].radius / CIRCLE_BORDER_MULT)
 end
 
 update do
-  circles.each_slice(2) do |circle|
-    if circle[0].growing
-      circle[0].grow
-      circle[1].grow
-    else
-      circle[0].shrink
-      circle[1].shrink
-    end
-
-    circle[0].set_growing
-    circle[0].rotate
-    circle[1].rotate
+  circles.each do |circle|
+    circle.rotate
   end
 end
 
