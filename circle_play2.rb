@@ -43,7 +43,6 @@ class Circle
 end
 
 circles = []
-x_init, y_init = X_CENTER, Y_CENTER
 z_depth = 0
 circle_radius = CIRCLE_RADIUS_INIT
 ring_radius = RING_RADIUS_INIT
@@ -53,8 +52,8 @@ NUM_OF_RINGS.times do |num|
   num.odd? ? circle_color = "green" : circle_color = "fuchsia"
 
   NUM_OF_CIRCLES.times do
-    x_coord = x_init + ring_radius * Math.cos(angle * DEGS_TO_RADS)
-    y_coord = y_init + ring_radius * Math.sin(angle * DEGS_TO_RADS)
+    x_coord = X_CENTER + ring_radius * Math.cos(angle * DEGS_TO_RADS)
+    y_coord = Y_CENTER + ring_radius * Math.sin(angle * DEGS_TO_RADS)
     circles << Circle.new(x: x_coord, y: y_coord, z: z_depth, radius: circle_radius, color: "black")
     circles << Circle.new(x: x_coord, y: y_coord, z: z_depth + 1, radius: circle_radius * CIRCLE_BORDER_MULT, color: circle_color)
     angle += ANGLE_DELTA
