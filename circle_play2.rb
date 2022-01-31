@@ -67,7 +67,7 @@ end
 
 circles.each_slice(2) do |circle|
   circle[0].init(circle[0].radius)
-  circle[1].init(circle[1].radius / CIRCLE_BORDER_MULT)
+  circle[1].init(circle[0].radius)
 end
 
 update do
