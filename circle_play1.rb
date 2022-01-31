@@ -7,10 +7,10 @@ X_CENTER, Y_CENTER = Window.width / 2, Window.height / 2
 DEGS_TO_RADS = Math::PI / 180
 CIRCLE_RADIUS_INIT = 3.0
 CIRCLE_RADIUS_DELTA = 1.08
-CIRCLE_RADIUS_MULT = 4.0
+CIRCLE_RADIUS_MULT = 3.0
 CIRCLE_BORDER_MULT = 0.8
 NUM_OF_CIRCLES_INIT = 12
-NUM_OF_CIRCLES_DELTA = 2.0
+NUM_OF_CIRCLES_DELTA = 3
 ANGLE_DELTA_INIT = 360.0 / NUM_OF_CIRCLES_INIT
 RING_RADIUS_INIT = 40.0
 RING_RADIUS_DELTA = 1.2
@@ -90,7 +90,6 @@ NUM_OF_RINGS.times do
   circle_radius *= CIRCLE_RADIUS_DELTA
   num_of_circles += NUM_OF_CIRCLES_DELTA
   angle_delta = 360.0 / num_of_circles
-  num_of_circles = num_of_circles.ceil
 end
 
 circles.each_slice(2) do |circle|
