@@ -2,7 +2,6 @@ require "ruby2d"
 
 set width: 600, height: 600, background: "white", title: "Circle Swirl"
 
-X_WINDOW_OFFSET, Y_WINDOW_OFFSET = 60, 60
 X_CENTER, Y_CENTER = Window.width / 2, Window.height / 2
 DEGS_TO_RADS = Math::PI / 180
 ANGLE_DELTA = 62.0
