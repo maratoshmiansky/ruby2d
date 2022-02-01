@@ -2,18 +2,17 @@ require "ruby2d"
 
 set width: 600, height: 600, background: "white", title: "Circle Play"
 
-X_WINDOW_OFFSET, Y_WINDOW_OFFSET = 60, 60
 X_CENTER, Y_CENTER = Window.width / 2, Window.height / 2
 DEGS_TO_RADS = Math::PI / 180
 CIRCLE_RADIUS_INIT = 3.0
-CIRCLE_RADIUS_DELTA = 1.1
+CIRCLE_RADIUS_DELTA = 1.11
 CIRCLE_BORDER_MULT = 0.75
-NUM_OF_CIRCLES = 16
+NUM_OF_CIRCLES = 13
 ANGLE_DELTA = 360.0 / NUM_OF_CIRCLES
 RING_RADIUS_INIT = 10.0
 RING_RADIUS_DELTA = 1.15
 NUM_OF_RINGS = 24
-ROT_ANGLE_DIV = 60
+ROT_ANGLE_DIV = 30
 
 class Circle
   attr_reader :radius, :growing
