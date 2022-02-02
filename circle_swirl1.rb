@@ -39,15 +39,14 @@ class Circle
 end
 
 circles = []
-x_init, y_init = X_CENTER, Y_CENTER
 z_depth = 0
 circle_radius = CIRCLE_RADIUS_MIN
 swirl_radius = SWIRL_RADIUS_MIN
 angle = 0
 
 NUM_OF_CIRCLES.times do
-  x_coord = x_init + swirl_radius * Math.cos(angle * DEGS_TO_RADS)
-  y_coord = y_init + swirl_radius * Math.sin(angle * DEGS_TO_RADS)
+  x_coord = X_CENTER + swirl_radius * Math.cos(angle * DEGS_TO_RADS)
+  y_coord = Y_CENTER + swirl_radius * Math.sin(angle * DEGS_TO_RADS)
   circles << Circle.new(x: x_coord, y: y_coord, z: z_depth, radius: circle_radius, color: "navy")
   circles << Circle.new(x: x_coord, y: y_coord, z: z_depth + 1, radius: circle_radius * 0.9, color: "fuchsia")
   angle = (angle + ANGLE_DELTA) % 360
