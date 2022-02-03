@@ -33,7 +33,6 @@ class Circle
   end
 
   def init
-    @radius_init = @radius
     @radius_last = @radius * CIRCLE_RADIUS_MULT
     @growing = true
   end
