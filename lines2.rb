@@ -1,6 +1,6 @@
 require "ruby2d"
 
-set width: 650, height: 600, title: "Lines2"
+set width: 650, height: 600, title: "Line Symmetry"
 
 X_WINDOW_OFFSET, Y_WINDOW_OFFSET = 65, 60
 X_LINE_MAX_LENGTH, Y_LINE_MAX_LENGTH = 20.0, 20.0
@@ -28,8 +28,8 @@ gradient = gradients.sample
 
 x1_init = rand(X_WINDOW_OFFSET..Window.width - X_WINDOW_OFFSET)
 y1_init = rand(Y_WINDOW_OFFSET..Window.height - Y_WINDOW_OFFSET)
-x2_init = x1_init + 1
-y2_init = y1_init + 1
+x2_init = x1_init
+y2_init = y1_init
 
 line = Line.new(x1: x1_init, y1: y1_init, x2: x2_init, y2: y2_init, width: 1, color: "white")
 
@@ -61,7 +61,9 @@ update do
   end
 
   line = Line.new(x1: x1_new, y1: y1_new, x2: x2_new, y2: y2_new, width: 1, color: line_color)
-  # puts "x1: #{line.x1.to_i}, x2: #{line.x2.to_i}, y1: #{line.y1.to_i}, y2: #{line.y2.to_i}"
+  Line.new(x1: Window.width - x1_new, y1: y1_new, x2: Window.width - x2_new, y2: y2_new, width: 1, color: line_color)
+  Line.new(x1: x1_new, y1: Window.height - y1_new, x2: x2_new, y2: Window.height - y2_new, width: 1, color: line_color)
+  Line.new(x1: Window.width - x1_new, y1: Window.height - y1_new, x2: Window.width - x2_new, y2: Window.height - y2_new, width: 1, color: line_color)
 end
 
 show
