@@ -15,7 +15,7 @@ NUM_OF_RINGS = 24
 ROT_ANGLE_DIV = 30
 
 class Circle
-  attr_reader :radius, :growing
+  attr_reader :radius
 
   def rotate
     translate_origin
