@@ -10,15 +10,37 @@ X_CENTER, Y_CENTER = Window.width / 2, Window.height / 2
 X_GRID = VIEWPORT_WIDTH / X_NUM_OF_CIRCLES
 DEGS_TO_RADS = Math::PI / 180
 ANGLE_DELTA = 3.0
+ANGLE_DIST_DELTA_MIN = -2.0
+ANGLE_DIST_DELTA_MAX = 2.0
+ANGLE_DIST_DELTA = 0.01
 Y_AMP = 100.0
 CIRCLE_RADIUS_INIT = 8.0
 CIRCLE_BORDER_MULT = 0.75
 
 class Circle
+  attr_reader :angle_div_growing
+
   def wave
+    @angle = (X_CENTER - @x_init) * @angle_dist_delta
     @angle = (@angle + ANGLE_DELTA) % 360
     @y = @y_init + Y_AMP * Math.sin(@angle * DEGS_TO_RADS)
     @radius = @radius_init * (@y_init - @y).abs / Y_AMP
+  end
+
+  def angle_dist_delta_increment
+    @angle_dist_delta += ANGLE_DIST_DELTA
+  end
+
+  def angle_dist_delta_decrement
+    @angle_dist_delta -= ANGLE_DIST_DELTA
+  end
+
+  def set_angle_div_growing
+    if @angle_dist_delta < ANGLE_DIST_DELTA_MIN
+      @angle_div_growing = true
+    elsif @angle_dist_delta > ANGLE_DIST_DELTA_MAX
+      @angle_div_growing = false
+    end
   end
 
   def init
@@ -26,7 +48,8 @@ class Circle
     @x_distance_init = X_CENTER - @x_init
     # @y_distance_init = Y_CENTER - @y_init
     # @distance_init = Math.sqrt(@x_distance_init ** 2 + @y_distance_init ** 2)
-    @angle = @x_distance_init * X_GRID / 24.0
+    @angle_dist_delta = ANGLE_DIST_DELTA_MIN
+    @angle = @x_distance_init / @angle_dist_delta
     @radius_init = @radius
   end
 end
@@ -50,7 +73,14 @@ end
 
 update do
   circles.each do |circle|
+    if circle.angle_div_growing
+      circle.angle_dist_delta_increment
+    else
+      circle.angle_dist_delta_decrement
+    end
+
     circle.wave
+    circle.set_angle_div_growing
   end
 end
 
