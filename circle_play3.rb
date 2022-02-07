@@ -14,13 +14,13 @@ ANGLE_DIV = 1.5
 Y_AMP = 80.0
 CIRCLE_RADIUS_INIT = 6.0
 CIRCLE_BORDER_MULT = 0.8
-RADIUS_DIV = 15.0
+RADIUS_DIV = 5.0
 
 class Circle
   def wave
     @angle = (@angle + ANGLE_DELTA) % 360
     @y = @y_init + Y_AMP * Math.sin(@angle * DEGS_TO_RADS)
-    @radius = @radius_init * (@y_init - @y).abs / RADIUS_DIV
+    @radius = @radius_init + (@y_init - @y).abs / RADIUS_DIV
   end
 
   def init
@@ -33,13 +33,12 @@ end
 circles = []
 y_coord = Y_CENTER
 z_depth = 0
-circle_radius = CIRCLE_RADIUS_INIT
 
 NUM_OF_CIRCLES.times do |i|
   i.odd? ? circle_color = "green" : circle_color = "fuchsia"
   x_coord = X_WINDOW_OFFSET + (i + 0.5) * X_GRID
-  circles << Circle.new(x: x_coord, y: y_coord, z: z_depth, radius: circle_radius, color: "black")
-  circles << Circle.new(x: x_coord, y: y_coord, z: z_depth + 1, radius: circle_radius * CIRCLE_BORDER_MULT, color: circle_color)
+  circles << Circle.new(x: x_coord, y: y_coord, z: z_depth, radius: CIRCLE_RADIUS_INIT, color: "black")
+  circles << Circle.new(x: x_coord, y: y_coord, z: z_depth + 1, radius: CIRCLE_RADIUS_INIT * CIRCLE_BORDER_MULT, color: circle_color)
   z_depth += 2
 end
 
