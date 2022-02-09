@@ -2,7 +2,7 @@ require "ruby2d"
 
 set width: 600, height: 600, background: "white", title: "Circle Play"
 
-NUM_OF_CIRCLES = 36
+NUM_OF_CIRCLES = 48
 NUM_OF_WAVES = 8
 X_WINDOW_OFFSET, Y_WINDOW_OFFSET = 60, 60
 VIEWPORT_WIDTH = (Window.width - X_WINDOW_OFFSET * 2)
