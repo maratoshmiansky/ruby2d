@@ -3,7 +3,7 @@ require "ruby2d"
 set width: 600, height: 600, background: "white", title: "Circle Play"
 
 NUM_OF_CIRCLES = 36
-NUM_OF_WAVES = 12
+NUM_OF_WAVES = 16
 X_WINDOW_OFFSET, Y_WINDOW_OFFSET = 60, 60
 VIEWPORT_WIDTH = (Window.width - X_WINDOW_OFFSET * 2)
 VIEWPORT_HEIGHT = (Window.height - Y_WINDOW_OFFSET * 2)
@@ -15,8 +15,8 @@ ANGLE_DELTA = 4.0
 ANGLE_DIV = 1.5
 Y_AMP = 20.0
 CIRCLE_RADIUS_INIT = 6.0
-CIRCLE_INNER_MULT = 0.8
-RADIUS_DIV = 8.0
+CIRCLE_INNER_MULT = 0.75
+RADIUS_DIV = 6.0
 
 class Circle
   def wave
