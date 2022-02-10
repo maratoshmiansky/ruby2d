@@ -7,7 +7,7 @@ DEGS_TO_RADS = Math::PI / 180
 CIRCLE_RADIUS_INIT = 2.0
 CIRCLE_RADIUS_DELTA = 1.05
 CIRCLE_RADIUS_MULT = 4.0
-CIRCLE_BORDER_MULT = 0.8
+CIRCLE_INNER_MULT = 0.8
 NUM_OF_CIRCLES_INIT = 8
 NUM_OF_CIRCLES_DELTA = 2
 ANGLE_DELTA_INIT = 360.0 / NUM_OF_CIRCLES_INIT
@@ -79,7 +79,7 @@ NUM_OF_RINGS.times do
     x_coord = X_CENTER + ring_radius * Math.cos(angle * DEGS_TO_RADS)
     y_coord = Y_CENTER + ring_radius * Math.sin(angle * DEGS_TO_RADS)
     circles << Circle.new(x: x_coord, y: y_coord, z: z_depth, radius: circle_radius, color: "black")
-    circles << Circle.new(x: x_coord, y: y_coord, z: z_depth + 1, radius: circle_radius * CIRCLE_BORDER_MULT, color: "purple")
+    circles << Circle.new(x: x_coord, y: y_coord, z: z_depth + 1, radius: circle_radius * CIRCLE_INNER_MULT, color: "purple")
     angle += angle_delta
     z_depth += 2
   end

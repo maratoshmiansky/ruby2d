@@ -6,7 +6,7 @@ X_CENTER, Y_CENTER = Window.width / 2, Window.height / 2
 DEGS_TO_RADS = Math::PI / 180
 CIRCLE_RADIUS_INIT = 3.0
 CIRCLE_RADIUS_DELTA = 1.11
-CIRCLE_BORDER_MULT = 0.75
+CIRCLE_INNER_MULT = 0.75
 NUM_OF_CIRCLES = 13
 ANGLE_DELTA = 360.0 / NUM_OF_CIRCLES
 RING_RADIUS_INIT = 10.0
@@ -54,7 +54,7 @@ NUM_OF_RINGS.times do |num|
     x_coord = X_CENTER + ring_radius * Math.cos(angle * DEGS_TO_RADS)
     y_coord = Y_CENTER + ring_radius * Math.sin(angle * DEGS_TO_RADS)
     circles << Circle.new(x: x_coord, y: y_coord, z: z_depth, radius: circle_radius, color: "black")
-    circles << Circle.new(x: x_coord, y: y_coord, z: z_depth + 1, radius: circle_radius * CIRCLE_BORDER_MULT, color: circle_color)
+    circles << Circle.new(x: x_coord, y: y_coord, z: z_depth + 1, radius: circle_radius * CIRCLE_INNER_MULT, color: circle_color)
     angle += ANGLE_DELTA
     z_depth += 2
   end

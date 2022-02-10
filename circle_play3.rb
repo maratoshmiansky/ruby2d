@@ -15,7 +15,7 @@ ANGLE_DELTA = 4.0
 ANGLE_DIV = 1.5
 Y_AMP = 20.0
 CIRCLE_RADIUS_INIT = 6.0
-CIRCLE_BORDER_MULT = 0.8
+CIRCLE_INNER_MULT = 0.8
 RADIUS_DIV = 8.0
 
 class Circle
@@ -41,7 +41,7 @@ NUM_OF_WAVES.times do |j|
     x_coord = X_WINDOW_OFFSET + (i + 0.5) * X_GRID
     y_coord = Y_WINDOW_OFFSET + (j + 0.5) * Y_GRID
     circles << Circle.new(x: x_coord, y: y_coord, z: z_depth, radius: CIRCLE_RADIUS_INIT, color: "black")
-    circles << Circle.new(x: x_coord, y: y_coord, z: z_depth + 1, radius: CIRCLE_RADIUS_INIT * CIRCLE_BORDER_MULT, color: circle_color)
+    circles << Circle.new(x: x_coord, y: y_coord, z: z_depth + 1, radius: CIRCLE_RADIUS_INIT * CIRCLE_INNER_MULT, color: circle_color)
     z_depth += 2
   end
 end
