@@ -1,28 +1,29 @@
 require "ruby2d"
 
-set width: 650, height: 600, title: "Spirograph"
+set width: 600, height: 600, title: "Spirograph"
 
-X_WINDOW_OFFSET, Y_WINDOW_OFFSET = 75, 70
+X_WINDOW_OFFSET, Y_WINDOW_OFFSET = 60, 60
 X_MULT, Y_MULT = 3, 3
 DEGS_TO_RADIANS = Math::PI / 180
-ANGLE_INCR = 7
-RADIUS_INCR = 1.5
+ANGLE_DELTA = 7
+RADIUS_DELTA = 1
 X_ANGLE_MULT_MIN, X_ANGLE_MULT_MAX = 13, 44
+X_ANGLE_MULT_DELTA = 1
 
 class Line
-  def x_hits_left?
+  def hits_left?
     @x1 <= X_WINDOW_OFFSET || @x2 <= X_WINDOW_OFFSET
   end
 
-  def x_hits_right?
+  def hits_right?
     @x1 >= Window.width - X_WINDOW_OFFSET || @x2 >= Window.width - X_WINDOW_OFFSET
   end
 
-  def y_hits_top?
+  def hits_top?
     @y1 <= Y_WINDOW_OFFSET || @y2 <= Y_WINDOW_OFFSET
   end
 
-  def y_hits_bottom?
+  def hits_bottom?
     @y1 >= Window.height - Y_WINDOW_OFFSET || @y2 >= Window.height - Y_WINDOW_OFFSET
   end
 end
@@ -40,7 +41,7 @@ gradients = [%w(white yellow orange red), %w(white aqua teal blue)]
 gradient = gradients.sample
 line_color, line = nil, nil
 angle, radius = nil, nil
-x_angle_mult, y_angle_mult = X_ANGLE_MULT_MIN - 1, nil
+x_angle_mult, y_angle_mult = X_ANGLE_MULT_MIN - X_ANGLE_MULT_DELTA, nil
 start = true
 
 update do
@@ -48,17 +49,17 @@ update do
     line_color = gradient.sample
     line = line_init(line_color)
     angle, radius = 0, 0
-    x_angle_mult < X_ANGLE_MULT_MAX ? x_angle_mult += 1 : x_angle_mult = X_ANGLE_MULT_MIN
+    x_angle_mult < X_ANGLE_MULT_MAX ? x_angle_mult += X_ANGLE_MULT_DELTA : x_angle_mult = X_ANGLE_MULT_MIN
     y_angle_mult = x_angle_mult
     Text.new("x_angle_mult = #{x_angle_mult}", x: Window.width / 2 - 85)
     start = false
   else
     x1_new = line.x2
     y1_new = line.y2
-    radius += RADIUS_INCR
+    radius += RADIUS_DELTA
     x_mult = radius * X_MULT
     y_mult = radius * Y_MULT
-    angle = (angle + ANGLE_INCR) % 360
+    angle = (angle + ANGLE_DELTA) % 360
     x_offset = x_mult * Math.cos(x_angle_mult * angle * DEGS_TO_RADIANS)
     y_offset = y_mult * Math.sin(y_angle_mult * angle * DEGS_TO_RADIANS)
     x2_new = x1_new + x_offset
@@ -66,7 +67,7 @@ update do
 
     line = draw_segment(x1_new, y1_new, x2_new, y2_new, line_color)
 
-    if line.x_hits_left? || line.x_hits_right? || line.y_hits_top? || line.y_hits_bottom?
+    if line.hits_left? || line.hits_right? || line.hits_top? || line.hits_bottom?
       clear
       start = true
     end
