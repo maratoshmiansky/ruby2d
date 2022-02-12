@@ -1,16 +1,16 @@
 require "ruby2d"
 
-set width: 650, height: 600, title: "Particles!"
+set width: 600, height: 600, title: "Particles!"
 
-NUM_OF_POINTS = 400
+X_WINDOW_OFFSET, Y_WINDOW_OFFSET = 60, 60
+DEGS_TO_RADIANS = Math::PI / 180
+NUM_OF_POINTS = 1000
 ANGLE_DELTA = 1
 ANGLE_DELTA_DELTA = 0.01
-X_MULT_MIN, X_MULT_MAX = 10.0, 100.0
-Y_MULT_MIN, Y_MULT_MAX = 10.0, 100.0
+X_MULT_MIN, X_MULT_MAX = 10.0, 60.0
+Y_MULT_MIN, Y_MULT_MAX = 10.0, 60.0
 X_ANGLE_MULT_MIN, X_ANGLE_MULT_MAX = 2.0, 6.0
 Y_ANGLE_MULT_MIN, Y_ANGLE_MULT_MAX = 2.0, 6.0
-DEGS_TO_RADIANS = Math::PI / 180
-X_WINDOW_OFFSET, Y_WINDOW_OFFSET = 65, 60
 
 class Point < Square
   def animate
@@ -22,7 +22,7 @@ class Point < Square
   end
 
   def angle_delta_check
-    if @angle <= 0
+    if @angle < 0
       @angle_delta = ANGLE_DELTA
     elsif @angle >= 360
       @angle_delta = -ANGLE_DELTA
@@ -53,7 +53,7 @@ class Point < Square
     @y_mult = [-1, 1].sample * rand(Y_MULT_MIN..Y_MULT_MAX)
     @x_angle_mult = rand(X_ANGLE_MULT_MIN..X_ANGLE_MULT_MAX)
     @y_angle_mult = rand(Y_ANGLE_MULT_MIN..Y_ANGLE_MULT_MAX)
-    @angle_delta = ANGLE_DELTA + @angle * ANGLE_DELTA_DELTA / [@x_angle_mult.abs, @y_angle_mult.abs].max
+    @angle_delta = ANGLE_DELTA + @angle * ANGLE_DELTA_DELTA / [@x_angle_mult, @y_angle_mult].max
   end
 end
 
