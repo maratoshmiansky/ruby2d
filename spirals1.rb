@@ -5,7 +5,7 @@ set width: 600, height: 600, title: "Spirograph"
 X_WINDOW_OFFSET, Y_WINDOW_OFFSET = 60, 60
 DEGS_TO_RADIANS = Math::PI / 180
 ANGLE_DELTA = 7
-RADIUS_DELTA = 3
+RADIUS_DELTA = 1
 ANGLE_MULT_MIN, ANGLE_MULT_MAX = 13, 44
 ANGLE_MULT_DELTA = 1
 
@@ -28,8 +28,8 @@ class Line
 end
 
 def line_init(line_color)
-  x1_init, y1_init = Window.width / 2, Window.height / 2
-  draw_segment(x1_init, y1_init, x1_init, y1_init, line_color)
+  x_init, y_init = Window.width / 2, Window.height / 2
+  draw_segment(x_init, y_init, x_init, y_init, line_color)
 end
 
 def draw_segment(x1, y1, x2, y2, line_color)
@@ -38,8 +38,7 @@ end
 
 gradients = [%w(white yellow orange red), %w(white aqua teal blue)]
 gradient = gradients.sample
-line_color, line = nil, nil
-angle, radius = nil, nil
+line_color, line, angle, radius = nil, nil, nil, nil
 angle_mult = ANGLE_MULT_MIN - ANGLE_MULT_DELTA
 start = true
 
@@ -56,8 +55,9 @@ update do
     y1_new = line.y2
     radius += RADIUS_DELTA
     angle = (angle + ANGLE_DELTA) % 360
-    x2_new = x1_new + radius * Math.cos(angle_mult * angle * DEGS_TO_RADIANS)
-    y2_new = y1_new + radius * Math.sin(angle_mult * angle * DEGS_TO_RADIANS)
+    rot_angle = angle_mult * angle * DEGS_TO_RADIANS
+    x2_new = x1_new + radius * Math.cos(rot_angle)
+    y2_new = y1_new + radius * Math.sin(rot_angle)
 
     line = draw_segment(x1_new, y1_new, x2_new, y2_new, line_color)
 
