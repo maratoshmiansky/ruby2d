@@ -7,8 +7,8 @@ X_MULT, Y_MULT = 3, 3
 DEGS_TO_RADIANS = Math::PI / 180
 ANGLE_DELTA = 7
 RADIUS_DELTA = 1
-X_ANGLE_MULT_MIN, X_ANGLE_MULT_MAX = 13, 44
-X_ANGLE_MULT_DELTA = 1
+ANGLE_MULT_MIN, ANGLE_MULT_MAX = 13, 44
+ANGLE_MULT_DELTA = 1
 
 class Line
   def hits_left?
@@ -41,7 +41,7 @@ gradients = [%w(white yellow orange red), %w(white aqua teal blue)]
 gradient = gradients.sample
 line_color, line = nil, nil
 angle, radius = nil, nil
-x_angle_mult, y_angle_mult = X_ANGLE_MULT_MIN - X_ANGLE_MULT_DELTA, nil
+angle_mult = ANGLE_MULT_MIN - ANGLE_MULT_DELTA
 start = true
 
 update do
@@ -49,9 +49,8 @@ update do
     line_color = gradient.sample
     line = line_init(line_color)
     angle, radius = 0, 0
-    x_angle_mult < X_ANGLE_MULT_MAX ? x_angle_mult += X_ANGLE_MULT_DELTA : x_angle_mult = X_ANGLE_MULT_MIN
-    y_angle_mult = x_angle_mult
-    Text.new("x_angle_mult = #{x_angle_mult}", x: Window.width / 2 - 85)
+    angle_mult < ANGLE_MULT_MAX ? angle_mult += ANGLE_MULT_DELTA : angle_mult = ANGLE_MULT_MIN
+    Text.new("angle_mult = #{angle_mult}", x: Window.width / 2 - 75)
     start = false
   else
     x1_new = line.x2
@@ -60,8 +59,8 @@ update do
     x_mult = radius * X_MULT
     y_mult = radius * Y_MULT
     angle = (angle + ANGLE_DELTA) % 360
-    x_offset = x_mult * Math.cos(x_angle_mult * angle * DEGS_TO_RADIANS)
-    y_offset = y_mult * Math.sin(y_angle_mult * angle * DEGS_TO_RADIANS)
+    x_offset = x_mult * Math.cos(angle_mult * angle * DEGS_TO_RADIANS)
+    y_offset = y_mult * Math.sin(angle_mult * angle * DEGS_TO_RADIANS)
     x2_new = x1_new + x_offset
     y2_new = y1_new + y_offset
 
