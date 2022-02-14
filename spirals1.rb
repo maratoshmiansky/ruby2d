@@ -3,10 +3,9 @@ require "ruby2d"
 set width: 600, height: 600, title: "Spirograph"
 
 X_WINDOW_OFFSET, Y_WINDOW_OFFSET = 60, 60
-X_MULT, Y_MULT = 3, 3
 DEGS_TO_RADIANS = Math::PI / 180
 ANGLE_DELTA = 7
-RADIUS_DELTA = 1
+RADIUS_DELTA = 3
 ANGLE_MULT_MIN, ANGLE_MULT_MAX = 13, 44
 ANGLE_MULT_DELTA = 1
 
@@ -56,13 +55,9 @@ update do
     x1_new = line.x2
     y1_new = line.y2
     radius += RADIUS_DELTA
-    x_mult = radius * X_MULT
-    y_mult = radius * Y_MULT
     angle = (angle + ANGLE_DELTA) % 360
-    x_offset = x_mult * Math.cos(angle_mult * angle * DEGS_TO_RADIANS)
-    y_offset = y_mult * Math.sin(angle_mult * angle * DEGS_TO_RADIANS)
-    x2_new = x1_new + x_offset
-    y2_new = y1_new + y_offset
+    x2_new = x1_new + radius * Math.cos(angle_mult * angle * DEGS_TO_RADIANS)
+    y2_new = y1_new + radius * Math.sin(angle_mult * angle * DEGS_TO_RADIANS)
 
     line = draw_segment(x1_new, y1_new, x2_new, y2_new, line_color)
 
