@@ -2,13 +2,15 @@ require "ruby2d"
 
 set width: 600, height: 600, title: "Lines!"
 
-X_NUM_OF_LINES, Y_NUM_OF_LINES = 10, 10
+X_NUM_OF_LINES, Y_NUM_OF_LINES = 16, 16
 X_WINDOW_OFFSET, Y_WINDOW_OFFSET = 90, 90
 VIEWPORT_WIDTH = (Window.width - X_WINDOW_OFFSET * 2)
 VIEWPORT_HEIGHT = (Window.height - Y_WINDOW_OFFSET * 2)
+X_GRID = VIEWPORT_WIDTH / X_NUM_OF_LINES
+Y_GRID = VIEWPORT_HEIGHT / Y_NUM_OF_LINES
 X_CENTER, Y_CENTER = Window.width / 2, Window.height / 2
 DEGS_TO_RADS = Math::PI / 180
-ANGLE_DELTA = 2
+ANGLE_DELTA = 1.0
 ANGLE = ANGLE_DELTA * DEGS_TO_RADS
 COS, SIN = Math.cos(ANGLE), Math.sin(ANGLE)
 
@@ -35,9 +37,9 @@ lines = []
 
 X_NUM_OF_LINES.times do |i|
   Y_NUM_OF_LINES.times do |j|
-    x1_init = X_WINDOW_OFFSET + (i + 0.5) * VIEWPORT_WIDTH / X_NUM_OF_LINES
-    y1_init = Y_WINDOW_OFFSET + (j + 0.5) * VIEWPORT_HEIGHT / Y_NUM_OF_LINES
-    lines << Line.new(x1: x1_init, y1: y1_init, x2: x1_init, y2: y1_init, width: 1, color: "white")
+    x_init = X_WINDOW_OFFSET + (i + 0.5) * X_GRID
+    y_init = Y_WINDOW_OFFSET + (j + 0.5) * Y_GRID
+    lines << Line.new(x1: x_init, y1: y_init, x2: x_init, y2: y_init, width: 1, color: "white")
   end
 end
 
