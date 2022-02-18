@@ -11,7 +11,9 @@ X_CENTER, Y_CENTER = Window.width / 2, Window.height / 2
 X_GRID = VIEWPORT_WIDTH / NUM_OF_CIRCLES
 Y_GRID = VIEWPORT_HEIGHT / NUM_OF_WAVES
 DEGS_TO_RADS = Math::PI / 180
-ANGLE_DELTA = 4.0
+ANGLE_DELTA_MIN = 1.0
+ANGLE_DELTA_MAX = 6.0
+ANGLE_DELTA_DELTA = 0.02
 ANGLE_DIV = 0.5
 Y_AMP = 20.0
 CIRCLE_RADIUS_INIT = 20.0
@@ -19,15 +21,34 @@ CIRCLE_INNER_MULT = 0.8
 RADIUS_DIV = 2.5
 
 class Circle
+  attr_reader :accel
+
   def wave
-    @angle = (@angle + ANGLE_DELTA) % 360
+    @angle = (@angle + @angle_delta) % 360
     @y = @y_init + Y_AMP * Math.sin(@angle * DEGS_TO_RADS)
     @radius = @radius_init + (@y_init - @y).abs / RADIUS_DIV
+  end
+
+  def faster
+    @angle_delta += ANGLE_DELTA_DELTA
+  end
+
+  def slower
+    @angle_delta -= ANGLE_DELTA_DELTA
+  end
+
+  def set_accel
+    if @angle_delta > ANGLE_DELTA_MAX
+      @accel = false
+    elsif @angle_delta < ANGLE_DELTA_MIN
+      @accel = true
+    end
   end
 
   def init
     @x_init, @y_init = @x, @y
     @angle = ((X_CENTER - @x_init) + (Y_CENTER - @y_init)) / ANGLE_DIV
+    @angle_delta = ANGLE_DELTA_MIN
     @radius_init = @radius
   end
 end
@@ -53,6 +74,13 @@ end
 update do
   circles.each do |circle|
     circle.wave
+    circle.set_accel
+
+    if circle.accel
+      circle.faster
+    else
+      circle.slower
+    end
   end
 end
 
