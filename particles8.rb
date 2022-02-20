@@ -6,12 +6,14 @@ X_NUM_OF_POINTS, Y_NUM_OF_POINTS = 20, 20
 X_WINDOW_OFFSET, Y_WINDOW_OFFSET = 90, 90
 VIEWPORT_WIDTH = (Window.width - X_WINDOW_OFFSET * 2)
 VIEWPORT_HEIGHT = (Window.height - Y_WINDOW_OFFSET * 2)
+X_GRID = VIEWPORT_WIDTH / X_NUM_OF_POINTS
+Y_GRID = VIEWPORT_HEIGHT / Y_NUM_OF_POINTS
 X_CENTER, Y_CENTER = Window.width / 2, Window.height / 2
 DEGS_TO_RADS = Math::PI / 180
 ANGLE_DELTA = 4
 ANGLE = ANGLE_DELTA * DEGS_TO_RADS
 COS, SIN = Math.cos(ANGLE), Math.sin(ANGLE)
-SWIRL_MULT_MIN, SWIRL_MULT_MAX = 10, 20
+SWIRL_MULT_MIN, SWIRL_MULT_MAX = 6.0, 20.0
 SWIRL_MULT_DELTA = 0.1
 
 class Point < Square
@@ -69,8 +71,8 @@ points = []
 # set up point grid
 X_NUM_OF_POINTS.times do |i|
   Y_NUM_OF_POINTS.times do |j|
-    x_init = X_WINDOW_OFFSET + (i + 0.5) * VIEWPORT_WIDTH / X_NUM_OF_POINTS
-    y_init = Y_WINDOW_OFFSET + (j + 0.5) * VIEWPORT_HEIGHT / Y_NUM_OF_POINTS
+    x_init = X_WINDOW_OFFSET + (i + 0.5) * X_GRID
+    y_init = Y_WINDOW_OFFSET + (j + 0.5) * Y_GRID
     points << Point.new(x: x_init, y: y_init, size: 1, color: "white")
   end
 end
