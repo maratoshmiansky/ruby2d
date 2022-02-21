@@ -4,10 +4,12 @@ set title: "Particles!"
 
 set width: 650, height: 600
 
-NUM_OF_POINTS_X, NUM_OF_POINTS_Y = 30, 30
+X_NUM_OF_POINTS, Y_NUM_OF_POINTS = 30, 30
 X_WINDOW_OFFSET, Y_WINDOW_OFFSET = 65, 60
 VIEWPORT_WIDTH = (Window.width - X_WINDOW_OFFSET * 2)
 VIEWPORT_HEIGHT = (Window.height - Y_WINDOW_OFFSET * 2)
+X_GRID = VIEWPORT_WIDTH / X_NUM_OF_POINTS
+Y_GRID = VIEWPORT_HEIGHT / Y_NUM_OF_POINTS
 X_MOVE_BOUND, Y_MOVE_BOUND = 1.0, 1.0
 X_SPEED, Y_SPEED = 0.1, 0.1
 X_MAX_SPEED, Y_MAX_SPEED = 2.0, 2.0
@@ -69,10 +71,10 @@ end
 points = []
 
 # set up point grid
-NUM_OF_POINTS_X.times do |i|
-  NUM_OF_POINTS_Y.times do |j|
-    x_init = X_WINDOW_OFFSET + (i + 0.5) * VIEWPORT_WIDTH / NUM_OF_POINTS_X
-    y_init = Y_WINDOW_OFFSET + (j + 0.5) * VIEWPORT_HEIGHT / NUM_OF_POINTS_Y
+X_NUM_OF_POINTS.times do |i|
+  Y_NUM_OF_POINTS.times do |j|
+    x_init = X_WINDOW_OFFSET + (i + 0.5) * X_GRID
+    y_init = Y_WINDOW_OFFSET + (j + 0.5) * Y_GRID
     points << Point.new(x: x_init, y: y_init, size: 1, color: "white")
   end
 end
