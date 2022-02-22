@@ -1,8 +1,8 @@
 require "ruby2d"
 
-set width: 650, height: 600, title: "Line Symmetry"
+set width: 600, height: 600, title: "Line Symmetry"
 
-X_WINDOW_OFFSET, Y_WINDOW_OFFSET = 65, 60
+X_WINDOW_OFFSET, Y_WINDOW_OFFSET = 60, 60
 X_LINE_MAX_LENGTH, Y_LINE_MAX_LENGTH = 20.0, 20.0
 
 class Line
