@@ -2,15 +2,15 @@ require "ruby2d"
 
 set width: 600, height: 600, title: "Lines1"
 
-NUM_OF_LINES = 25
+X_NUM_OF_LINES, Y_NUM_OF_LINES = 5, 5
+X_WINDOW_OFFSET, Y_WINDOW_OFFSET = 60, 60
+VIEWPORT_WIDTH = (Window.width - X_WINDOW_OFFSET * 2)
+VIEWPORT_HEIGHT = (Window.height - Y_WINDOW_OFFSET * 2)
+X_GRID = VIEWPORT_WIDTH / X_NUM_OF_LINES
+Y_GRID = VIEWPORT_HEIGHT / Y_NUM_OF_LINES
 MAX_LINE_MOVES = 15
 MAX_ITERATIONS = 12
-X_WINDOW_OFFSET, Y_WINDOW_OFFSET = 60, 60
 X_LINE_MAX_LENGTH, Y_LINE_MAX_LENGTH = 10.0, 10.0
-
-grid_square = Math.sqrt(NUM_OF_LINES).floor
-x_viewport_adj = (Window.width - X_WINDOW_OFFSET * 2)
-y_viewport_adj = (Window.height - Y_WINDOW_OFFSET * 2)
 
 gradients = [%w(white yellow orange red), %w(white aqua teal blue), %W(white fuchsia maroon purple), %W(white lime green olive)]
 gradient = gradients.sample
@@ -21,12 +21,12 @@ update do
   # set up point grid
   lines, new_lines = [], []
 
-  grid_square.times do |i|
-    grid_square.times do |j|
-      x1_init = X_WINDOW_OFFSET + grid_square * (i + 0.5) * x_viewport_adj / NUM_OF_LINES
-      y1_init = Y_WINDOW_OFFSET + grid_square * (j + 0.5) * y_viewport_adj / NUM_OF_LINES
-      x2_init = x1_init + 1
-      y2_init = y1_init + 1
+  X_NUM_OF_LINES.times do |i|
+    Y_NUM_OF_LINES.times do |j|
+      x1_init = X_WINDOW_OFFSET + (i + 0.5) * X_GRID
+      y1_init = Y_WINDOW_OFFSET + (j + 0.5) * Y_GRID
+      x2_init = x1_init
+      y2_init = y1_init
 
       lines << Line.new(x1: x1_init, y1: y1_init, x2: x2_init, y2: y2_init, width: 1, color: "white")
     end
