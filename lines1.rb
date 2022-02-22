@@ -2,20 +2,21 @@ require "ruby2d"
 
 set width: 600, height: 600, title: "Lines1"
 
-X_NUM_OF_LINES, Y_NUM_OF_LINES = 5, 5
+X_NUM_OF_LINES, Y_NUM_OF_LINES = 8, 8
 X_WINDOW_OFFSET, Y_WINDOW_OFFSET = 60, 60
 VIEWPORT_WIDTH = (Window.width - X_WINDOW_OFFSET * 2)
 VIEWPORT_HEIGHT = (Window.height - Y_WINDOW_OFFSET * 2)
 X_GRID = VIEWPORT_WIDTH / X_NUM_OF_LINES
 Y_GRID = VIEWPORT_HEIGHT / Y_NUM_OF_LINES
-MAX_LINE_MOVES = 10
-MAX_ITERATIONS = 30
+MAX_LINE_MOVES = 1
+MAX_ITERATIONS = 150
 X_LINE_MAX_LENGTH, Y_LINE_MAX_LENGTH = 10.0, 10.0
 
 gradients = [%w(white yellow orange red), %w(white aqua teal blue), %W(white fuchsia maroon purple), %W(white lime green olive)]
 gradient = gradients.sample
 lines, new_lines, all_lines = [], [], []
 num_of_iterations = 0
+line_text = nil
 start = true
 
 update do
@@ -28,12 +29,12 @@ update do
         y1_init = Y_WINDOW_OFFSET + (j + 0.5) * Y_GRID
         x2_init = x1_init
         y2_init = y1_init
-
-        lines << Line.new(x1: x1_init, y1: y1_init, x2: x2_init, y2: y2_init, width: 1, color: "white")
+        lines << Line.new(x1: x1_init, y1: y1_init, x2: x2_init, y2: y2_init, width: 1, color: gradient.sample)
       end
     end
 
-    # all_lines = lines
+    all_lines = lines
+    line_text = Text.new("Total number of lines = #{all_lines.length}", x: Window.width / 2 - 125)
     start = false
   else
     # sprout some branches
@@ -56,7 +57,8 @@ update do
 
       lines = new_lines
       new_lines = []
-      # all_lines += lines
+      all_lines += lines
+      line_text.text = "Total number of lines = #{all_lines.length}"
     end
   end
 
