@@ -2,15 +2,15 @@ require "ruby2d"
 
 set width: 600, height: 600, title: "Lines1"
 
-X_NUM_OF_LINES, Y_NUM_OF_LINES = 8, 8
+X_NUM_OF_POINTS, Y_NUM_OF_POINTS = 8, 8
 X_WINDOW_OFFSET, Y_WINDOW_OFFSET = 60, 60
 VIEWPORT_WIDTH = (Window.width - X_WINDOW_OFFSET * 2)
 VIEWPORT_HEIGHT = (Window.height - Y_WINDOW_OFFSET * 2)
-X_GRID = VIEWPORT_WIDTH / X_NUM_OF_LINES
-Y_GRID = VIEWPORT_HEIGHT / Y_NUM_OF_LINES
-MAX_LINE_MOVES = 1
-MAX_ITERATIONS = 150
-X_LINE_MAX_LENGTH, Y_LINE_MAX_LENGTH = 10.0, 10.0
+X_GRID = VIEWPORT_WIDTH / X_NUM_OF_POINTS
+Y_GRID = VIEWPORT_HEIGHT / Y_NUM_OF_POINTS
+NUM_OF_LINE_MOVES = 1
+NUM_OF_ITERATIONS = 150
+MAX_LINE_LENGTH = 10.0
 
 gradients = [%w(white yellow orange red), %w(white aqua teal blue), %W(white fuchsia maroon purple), %W(white lime green olive)]
 gradient = gradients.sample
@@ -23,8 +23,8 @@ update do
   if start
     lines = []
     # set up point grid
-    X_NUM_OF_LINES.times do |i|
-      Y_NUM_OF_LINES.times do |j|
+    X_NUM_OF_POINTS.times do |i|
+      Y_NUM_OF_POINTS.times do |j|
         x1_init = X_WINDOW_OFFSET + (i + 0.5) * X_GRID
         y1_init = Y_WINDOW_OFFSET + (j + 0.5) * Y_GRID
         x2_init = x1_init
@@ -37,8 +37,8 @@ update do
     line_text = Text.new("Total number of lines = #{all_lines.length}", x: Window.width / 2 - 125)
     start = false
   else
-    # sprout some branches
-    MAX_LINE_MOVES.times do
+    # branch out
+    NUM_OF_LINE_MOVES.times do
       lines.each do |line|
         x1_new = line.x2
         y1_new = line.y2
@@ -46,9 +46,9 @@ update do
         # branch vertically if previous branch was horizontal and vice-versa
         if line.x1 != line.x2
           x2_new = x1_new
-          y2_new = y1_new + rand(-Y_LINE_MAX_LENGTH..Y_LINE_MAX_LENGTH)
+          y2_new = y1_new + rand(-MAX_LINE_LENGTH..MAX_LINE_LENGTH)
         else
-          x2_new = x1_new + rand(-X_LINE_MAX_LENGTH..X_LINE_MAX_LENGTH)
+          x2_new = x1_new + rand(-MAX_LINE_LENGTH..MAX_LINE_LENGTH)
           y2_new = y1_new
         end
 
@@ -62,7 +62,7 @@ update do
     end
   end
 
-  if num_of_iterations < MAX_ITERATIONS
+  if num_of_iterations < NUM_OF_ITERATIONS
     num_of_iterations += 1
   else
     num_of_iterations = 0
