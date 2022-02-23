@@ -3,7 +3,7 @@ require "ruby2d"
 set width: 600, height: 600, title: "Line Symmetry"
 
 X_WINDOW_OFFSET, Y_WINDOW_OFFSET = 60, 60
-X_LINE_MAX_LENGTH, Y_LINE_MAX_LENGTH = 20.0, 20.0
+MAX_LINE_LENGTH = 20.0
 
 class Line
   def x_hits_left?
@@ -40,7 +40,7 @@ update do
 
   if line.x1 != line.x2
     x2_new = x1_new
-    y_offset = rand(-Y_LINE_MAX_LENGTH..Y_LINE_MAX_LENGTH)
+    y_offset = rand(-MAX_LINE_LENGTH..MAX_LINE_LENGTH)
     y2_new = y1_new + y_offset
 
     if line.y_hits_top?
@@ -50,7 +50,7 @@ update do
     end
   else
     y2_new = y1_new
-    x_offset = rand(-X_LINE_MAX_LENGTH..X_LINE_MAX_LENGTH)
+    x_offset = rand(-MAX_LINE_LENGTH..MAX_LINE_LENGTH)
     x2_new = x1_new + x_offset
 
     if line.x_hits_left?
