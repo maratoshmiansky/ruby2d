@@ -6,7 +6,7 @@ X_WINDOW_OFFSET, Y_WINDOW_OFFSET = 60, 60
 DEGS_TO_RADIANS = Math::PI / 180
 NUM_OF_POINTS = 200
 ANGLE_DELTA = 1.0
-ANGLE_DELTA_DELTA = 0.02
+ANGLE_DELTA_DELTA = 0.05
 X_MULT_MIN, X_MULT_MAX = 30.0, 60.0
 Y_MULT_MIN, Y_MULT_MAX = 30.0, 60.0
 X_ANGLE_MULT_MIN, X_ANGLE_MULT_MAX = 1.0, 3.0
@@ -53,7 +53,7 @@ class Point < Square
     @y_mult = [-1, 1].sample * rand(Y_MULT_MIN..Y_MULT_MAX)
     @x_angle_mult = rand(X_ANGLE_MULT_MIN..X_ANGLE_MULT_MAX)
     @y_angle_mult = rand(Y_ANGLE_MULT_MIN..Y_ANGLE_MULT_MAX)
-    @angle_delta = ANGLE_DELTA + @angle * ANGLE_DELTA_DELTA / [@x_angle_mult, @y_angle_mult].max
+    @angle_delta = @angle * ANGLE_DELTA_DELTA
   end
 end
 
