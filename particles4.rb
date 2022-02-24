@@ -1,9 +1,9 @@
 require "ruby2d"
 
-set width: 650, height: 600, title: "Particles!"
+set width: 600, height: 600, title: "Particles!"
 
 X_NUM_OF_POINTS, Y_NUM_OF_POINTS = 40, 40
-X_WINDOW_OFFSET, Y_WINDOW_OFFSET = 65, 60
+X_WINDOW_OFFSET, Y_WINDOW_OFFSET = 60, 60
 VIEWPORT_WIDTH = (Window.width - X_WINDOW_OFFSET * 2)
 VIEWPORT_HEIGHT = (Window.height - Y_WINDOW_OFFSET * 2)
 X_GRID = VIEWPORT_WIDTH / X_NUM_OF_POINTS
@@ -20,7 +20,7 @@ class Point < Square
   end
 
   def move
-    self.x += @x_distance * DISTANCE_DELTA / @distance
+    self.x += (@x_distance - @y_distance) * DISTANCE_DELTA / @distance
     self.y += @y_distance * DISTANCE_DELTA / @distance
   end
 
@@ -54,7 +54,7 @@ class Point < Square
       move
     else
       @contracting = true
-      reinitialize
+      # reinitialize
     end
   end
 
@@ -68,7 +68,6 @@ class Point < Square
 end
 
 points = []
-
 # set up point grid
 X_NUM_OF_POINTS.times do |i|
   Y_NUM_OF_POINTS.times do |j|
