@@ -50,7 +50,7 @@ class Point < Square
     @y_distance = @y_init - @y
     get_distance
 
-    if @distance.between?(DISTANCE_MIN, @distance_init)
+    if @distance.between?(0, @distance_init)
       move
     else
       @contracting = true
