@@ -2,17 +2,17 @@ require "ruby2d"
 
 set title: "Particles!"
 
-set width: 650, height: 600
+set width: 600, height: 600
 
-X_NUM_OF_POINTS, Y_NUM_OF_POINTS = 30, 30
-X_WINDOW_OFFSET, Y_WINDOW_OFFSET = 65, 60
+X_NUM_OF_POINTS, Y_NUM_OF_POINTS = 20, 20
+X_WINDOW_OFFSET, Y_WINDOW_OFFSET = 60, 60
 VIEWPORT_WIDTH = (Window.width - X_WINDOW_OFFSET * 2)
 VIEWPORT_HEIGHT = (Window.height - Y_WINDOW_OFFSET * 2)
 X_GRID = VIEWPORT_WIDTH / X_NUM_OF_POINTS
 Y_GRID = VIEWPORT_HEIGHT / Y_NUM_OF_POINTS
 X_MOVE_BOUND, Y_MOVE_BOUND = 1.0, 1.0
-X_SPEED, Y_SPEED = 0.1, 0.1
-X_MAX_SPEED, Y_MAX_SPEED = 2.0, 2.0
+X_SPEED, Y_SPEED = 0.3, 0.3
+X_SPEED_MAX, Y_SPEED_MAX = 2.0, 2.0
 
 class Point < Square
   def x_move
@@ -24,7 +24,7 @@ class Point < Square
   end
 
   def x_accel
-    if @x_move.abs < X_MAX_SPEED
+    if @x_move.abs < X_SPEED_MAX
       if @x_move >= 0
         @x_move += rand(-X_SPEED..X_SPEED)
       else
@@ -36,7 +36,7 @@ class Point < Square
   end
 
   def y_accel
-    if @y_move.abs < Y_MAX_SPEED
+    if @y_move.abs < Y_SPEED_MAX
       if @y_move >= 0
         @y_move += rand(-Y_SPEED..Y_SPEED)
       else
