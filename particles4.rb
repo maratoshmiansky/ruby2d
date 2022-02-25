@@ -28,10 +28,6 @@ class Point < Square
     @x, @y = X_CENTER, Y_CENTER
   end
 
-  def reinitialize
-    @x, @y = @x_init, @y_init
-  end
-
   def contract
     @x_distance = X_CENTER - @x
     @y_distance = Y_CENTER - @y
@@ -50,11 +46,10 @@ class Point < Square
     @y_distance = @y_init - @y
     get_distance
 
-    if @distance.between?(0, @distance_init)
+    if @distance.between?(DISTANCE_MIN, @distance_init)
       move
     else
       @contracting = true
-      # reinitialize
     end
   end
 
