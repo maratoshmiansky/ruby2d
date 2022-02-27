@@ -15,21 +15,14 @@ X_SPEED, Y_SPEED = 0.5, 0.5
 X_SPEED_MAX, Y_SPEED_MAX = 4.0, 4.0
 
 class Point < Square
-  def x_move
-    @x_move ||= x_move_reset
-  end
-
-  def y_move
-    @y_move ||= y_move_reset
+  def move
+    self.x += @x_move
+    self.y += @y_move
   end
 
   def x_accel
     if @x_move.abs < X_SPEED_MAX
-      if @x_move >= 0
-        @x_move += rand(-X_SPEED..X_SPEED)
-      else
-        @x_move -= rand(-X_SPEED..X_SPEED)
-      end
+      @x_move += rand(-X_SPEED..X_SPEED)
     else
       x_move_reset
     end
@@ -37,11 +30,7 @@ class Point < Square
 
   def y_accel
     if @y_move.abs < Y_SPEED_MAX
-      if @y_move >= 0
-        @y_move += rand(-Y_SPEED..Y_SPEED)
-      else
-        @y_move -= rand(-Y_SPEED..Y_SPEED)
-      end
+      @y_move += rand(-Y_SPEED..Y_SPEED)
     else
       y_move_reset
     end
@@ -66,6 +55,11 @@ class Point < Square
       @y_move = -@y_move
     end
   end
+
+  def init
+    x_move_reset
+    y_move_reset
+  end
 end
 
 points = []
@@ -79,11 +73,13 @@ X_NUM_OF_POINTS.times do |i|
   end
 end
 
+points.each do |point|
+  point.init
+end
+
 update do
   points.each do |point|
-    # move
-    point.x += point.x_move
-    point.y += point.y_move
+    point.move
     # bounce?
     point.x_edge_check
     point.y_edge_check
