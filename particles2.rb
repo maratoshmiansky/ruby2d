@@ -4,13 +4,12 @@ set title: "Particles!"
 
 set width: 600, height: 600
 
-X_NUM_OF_POINTS, Y_NUM_OF_POINTS = 5, 5
+X_NUM_OF_POINTS, Y_NUM_OF_POINTS = 3, 3
 X_WINDOW_OFFSET, Y_WINDOW_OFFSET = 60, 60
 VIEWPORT_WIDTH = (Window.width - X_WINDOW_OFFSET * 2)
 VIEWPORT_HEIGHT = (Window.height - Y_WINDOW_OFFSET * 2)
 X_GRID = VIEWPORT_WIDTH / X_NUM_OF_POINTS
 Y_GRID = VIEWPORT_HEIGHT / Y_NUM_OF_POINTS
-X_MOVE_BOUND, Y_MOVE_BOUND = 1.0, 1.0
 X_SPEED, Y_SPEED = 0.5, 0.5
 X_SPEED_MAX, Y_SPEED_MAX = 12.0, 12.0
 
@@ -26,7 +25,7 @@ class Point < Square
     if @x_move.abs < X_SPEED_MAX
       @x_move += rand(0.0..X_SPEED)
     else
-      x_reinitialize
+      # x_reinitialize
       x_move_reset
     end
   end
@@ -35,7 +34,7 @@ class Point < Square
     if @y_move.abs < Y_SPEED_MAX
       @y_move += rand(0.0..Y_SPEED)
     else
-      y_reinitialize
+      # y_reinitialize
       y_move_reset
     end
   end
@@ -49,11 +48,29 @@ class Point < Square
   end
 
   def x_move_reset
-    @x_move = rand(-X_MOVE_BOUND..X_MOVE_BOUND)
+    @x_move = 0.0
   end
 
   def y_move_reset
-    @y_move = rand(-Y_MOVE_BOUND..Y_MOVE_BOUND)
+    @y_move = 0.0
+  end
+
+  def x_edge_check
+    if !@x_bounced && (x_hits_left? || x_hits_right?)
+      @x_move = -@x_move
+      @x_bounced = true
+    elsif !(x_hits_left? || x_hits_right?)
+      @x_bounced = false
+    end
+  end
+
+  def y_edge_check
+    if !@y_bounced && (y_hits_top? || y_hits_bottom?)
+      @y_move = -@y_move
+      @y_bounced = true
+    elsif !(y_hits_top? || y_hits_bottom?)
+      @y_bounced = false
+    end
   end
 
   def x_hits_left?
@@ -97,22 +114,11 @@ end
 
 update do
   points.each do |point|
-    point.move
     # bounce?
-    if !point.x_bounced && (point.x_hits_left? || point.x_hits_right?)
-      point.x_move = -point.x_move
-      point.x_bounced = true
-    else
-      point.x_bounced = false
-    end
-
-    if !point.y_bounced && (point.y_hits_top? || point.y_hits_bottom?)
-      point.y_move = -point.y_move
-      point.y_bounced = true
-    else
-      point.y_bounced = false
-    end
-
+    point.x_edge_check
+    point.y_edge_check
+    # move
+    point.move
     # speed up?
     point.x_accel
     point.y_accel
