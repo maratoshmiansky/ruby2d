@@ -4,78 +4,80 @@ set title: "Particles!"
 
 set width: 600, height: 600
 
-X_NUM_OF_POINTS, Y_NUM_OF_POINTS = 5, 5
+X_NUM_OF_POINTS, Y_NUM_OF_POINTS = 20, 20
 X_WINDOW_OFFSET, Y_WINDOW_OFFSET = 60, 60
 VIEWPORT_WIDTH = (Window.width - X_WINDOW_OFFSET * 2)
 VIEWPORT_HEIGHT = (Window.height - Y_WINDOW_OFFSET * 2)
 X_GRID = VIEWPORT_WIDTH / X_NUM_OF_POINTS
 Y_GRID = VIEWPORT_HEIGHT / Y_NUM_OF_POINTS
-X_MOVE_MIN, Y_MOVE_MIN = 1.0, 1.0
-X_SPEED_MIN, Y_SPEED_MIN = 1.0, 1.0
-X_SPEED_MAX, Y_SPEED_MAX = 12.0, 12.0
-# X_SPEED_DELTA, Y_SPEED_DELTA = 0.1, 0.1
-Y_GRAVITY = 0.005
+X_SPEED_MIN, Y_SPEED_MIN = 0.0, 0.0
+X_SPEED_MAX, Y_SPEED_MAX = 6.0, 6.0
+X_SPEED_DELTA, Y_SPEED_DELTA = 0.5, 0.5
 
 class Point < Square
   attr_reader :x_accelerating, :y_accelerating
 
   def move
-    self.x += @x_move_mult * @x_move
-    self.y += @y_move_mult * @y_move
+    self.x += @x_mult * @x_speed
+    self.y += @y_mult * @y_speed
   end
 
   def x_accelerate
-    # @x_speed += X_SPEED_DELTA
-    @x_move += @x_speed
+    if @x_speed < X_SPEED_MAX
+      @x_speed += rand(0.0..X_SPEED_DELTA)
+    end
   end
 
   def x_decelerate
-    # @x_speed -= X_SPEED_DELTA
-    @x_move -= @x_speed
+    if @x_speed > X_SPEED_MIN
+      @x_speed -= rand(0.0..X_SPEED_DELTA)
+    end
   end
 
   def y_accelerate
-    @y_speed += Y_GRAVITY
-    @y_move += @y_speed
+    if @y_speed < Y_SPEED_MAX
+      @y_speed += rand(0.0..Y_SPEED_DELTA)
+    end
   end
 
   def y_decelerate
-    @y_speed -= Y_GRAVITY
-    @y_move -= @y_speed
+    if @y_speed > Y_SPEED_MIN
+      @y_speed -= rand(0.0..Y_SPEED_DELTA)
+    end
   end
 
   def set_x_accelerating
-    if @x_speed <= X_SPEED_MAX
+    if @x_speed <= X_SPEED_MIN
       @x_accelerating = true
-    else
+    elsif @x_speed >= X_SPEED_MAX
       @x_accelerating = false
     end
   end
 
   def set_y_accelerating
-    if @y_speed <= Y_SPEED_MAX
+    if @y_speed <= Y_SPEED_MIN
       @y_accelerating = true
-    else
+    elsif @y_speed >= Y_SPEED_MAX
       @y_accelerating = false
     end
   end
 
   def x_edge_check
     if x_hits_left? && !@x_moving_right
-      @x_move_mult = 1
+      @x_mult = 1
       @x_moving_right = true
     elsif x_hits_right? && @x_moving_right
-      @x_move_mult = -1
+      @x_mult = -1
       @x_moving_right = false
     end
   end
 
   def y_edge_check
     if y_hits_top? && !@y_moving_down
-      @y_move_mult = 1
+      @y_mult = 1
       @y_moving_down = true
     elsif y_hits_bottom? && @y_moving_down
-      @y_move_mult = -1
+      @y_mult = -1
       @y_moving_down = false
     end
   end
@@ -97,14 +99,10 @@ class Point < Square
   end
 
   def init
-    @x_init, @y_init = @x, @y
-    @x_move_mult, @y_move_mult = 1, 1
+    @x_mult, @y_mult = 1, 1
     @x_moving_right, @y_moving_down = true, true
-    @x_speed = X_SPEED_MIN
-    @y_speed = Y_SPEED_MIN
+    @x_speed, @y_speed = X_SPEED_MIN, Y_SPEED_MIN
     @x_accelerating, @y_accelerating = true, true
-    @x_move = X_MOVE_MIN
-    @y_move = Y_MOVE_MIN
   end
 end
 
@@ -125,13 +123,15 @@ end
 
 update do
   points.each do |point|
+    # move point
     point.move
     # bounce?
     point.x_edge_check
     point.y_edge_check
+    # speed up?
     point.set_x_accelerating
     point.set_y_accelerating
-    # speed up?
+
     if point.x_accelerating
       point.x_accelerate
     else
