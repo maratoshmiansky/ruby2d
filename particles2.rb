@@ -4,7 +4,7 @@ set title: "Particles!"
 
 set width: 600, height: 600
 
-X_NUM_OF_POINTS, Y_NUM_OF_POINTS = 3, 3
+X_NUM_OF_POINTS, Y_NUM_OF_POINTS = 6, 6
 X_WINDOW_OFFSET, Y_WINDOW_OFFSET = 60, 60
 VIEWPORT_WIDTH = (Window.width - X_WINDOW_OFFSET * 2)
 VIEWPORT_HEIGHT = (Window.height - Y_WINDOW_OFFSET * 2)
@@ -14,62 +14,46 @@ X_SPEED, Y_SPEED = 0.5, 0.5
 X_SPEED_MAX, Y_SPEED_MAX = 12.0, 12.0
 
 class Point < Square
-  attr_accessor :x_move, :y_move, :x_bounced, :y_bounced
+  attr_accessor :x_speed, :y_speed
 
   def move
-    self.x += @x_move
-    self.y += @y_move
+    self.x += @x_speed
+    self.y += @y_speed
   end
 
   def x_accel
-    if @x_move.abs < X_SPEED_MAX
-      @x_move += rand(0.0..X_SPEED)
+    if @x_speed <= X_SPEED_MAX
+      @x_speed += rand(-X_SPEED..X_SPEED)
     else
-      # x_reinitialize
-      x_move_reset
+      x_speed_reset
     end
   end
 
   def y_accel
-    if @y_move.abs < Y_SPEED_MAX
-      @y_move += rand(0.0..Y_SPEED)
+    if @y_speed <= Y_SPEED_MAX
+      @y_speed += rand(0.0..Y_SPEED)
     else
-      # y_reinitialize
-      y_move_reset
+      y_speed_reset
     end
   end
 
-  def x_reinitialize
-    @x = @x_init
+  def x_speed_reset
+    @x_speed = 0.0
   end
 
-  def y_reinitialize
-    @y = @y_init
-  end
-
-  def x_move_reset
-    @x_move = 0.0
-  end
-
-  def y_move_reset
-    @y_move = 0.0
+  def y_speed_reset
+    @y_speed = 0.0
   end
 
   def x_edge_check
-    if !@x_bounced && (x_hits_left? || x_hits_right?)
-      @x_move = -@x_move
-      @x_bounced = true
-    elsif !(x_hits_left? || x_hits_right?)
-      @x_bounced = false
+    if x_hits_left? || x_hits_right?
+      @x_speed = -@x_speed
     end
   end
 
   def y_edge_check
-    if !@y_bounced && (y_hits_top? || y_hits_bottom?)
-      @y_move = -@y_move
-      @y_bounced = true
-    elsif !(y_hits_top? || y_hits_bottom?)
-      @y_bounced = false
+    if y_hits_top? || y_hits_bottom?
+      @y_speed = -@y_speed
     end
   end
 
@@ -90,10 +74,8 @@ class Point < Square
   end
 
   def init
-    @x_init, @y_init = @x, @y
-    @x_bounced, @y_bounced = false, false
-    x_move_reset
-    y_move_reset
+    x_speed_reset
+    y_speed_reset
   end
 end
 
