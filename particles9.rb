@@ -4,7 +4,7 @@ set title: "Particles!"
 
 set width: 600, height: 600
 
-X_NUM_OF_POINTS, Y_NUM_OF_POINTS = 20, 20
+X_NUM_OF_POINTS, Y_NUM_OF_POINTS = 10, 10
 X_WINDOW_OFFSET, Y_WINDOW_OFFSET = 60, 60
 VIEWPORT_WIDTH = (Window.width - X_WINDOW_OFFSET * 2)
 VIEWPORT_HEIGHT = (Window.height - Y_WINDOW_OFFSET * 2)
@@ -63,22 +63,18 @@ class Point < Square
   end
 
   def x_edge_check
-    if x_hits_left? && !@x_moving_right
+    if x_hits_left?
       @x_mult = 1
-      @x_moving_right = true
-    elsif x_hits_right? && @x_moving_right
+    elsif x_hits_right?
       @x_mult = -1
-      @x_moving_right = false
     end
   end
 
   def y_edge_check
-    if y_hits_top? && !@y_moving_down
+    if y_hits_top?
       @y_mult = 1
-      @y_moving_down = true
-    elsif y_hits_bottom? && @y_moving_down
+    elsif y_hits_bottom?
       @y_mult = -1
-      @y_moving_down = false
     end
   end
 
@@ -100,7 +96,6 @@ class Point < Square
 
   def init
     @x_mult, @y_mult = 1, 1
-    @x_moving_right, @y_moving_down = true, true
     @x_speed, @y_speed = X_SPEED_MIN, Y_SPEED_MIN
     @x_accelerating, @y_accelerating = true, true
   end
