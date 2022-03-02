@@ -4,12 +4,10 @@ set title: "Particles!"
 
 set width: 600, height: 600
 
-X_NUM_OF_POINTS, Y_NUM_OF_POINTS = 10, 10
+NUM_OF_POINTS = 100
 X_WINDOW_OFFSET, Y_WINDOW_OFFSET = 60, 60
-VIEWPORT_WIDTH = (Window.width - X_WINDOW_OFFSET * 2)
-VIEWPORT_HEIGHT = (Window.height - Y_WINDOW_OFFSET * 2)
-X_GRID = VIEWPORT_WIDTH / X_NUM_OF_POINTS
-Y_GRID = VIEWPORT_HEIGHT / Y_NUM_OF_POINTS
+X_CENTER, Y_CENTER = Window.width / 2, Window.height / 2
+X_CENTER_OFFSET, Y_CENTER_OFFSET = 40, 40
 X_SPEED_MIN, Y_SPEED_MIN = 0.0, 0.0
 X_SPEED_MAX, Y_SPEED_MAX = 6.0, 6.0
 X_SPEED_DELTA, Y_SPEED_DELTA = 0.5, 0.5
@@ -103,13 +101,10 @@ end
 
 points = []
 
-# set up point grid
-X_NUM_OF_POINTS.times do |i|
-  Y_NUM_OF_POINTS.times do |j|
-    x_init = X_WINDOW_OFFSET + (i + 0.5) * X_GRID
-    y_init = Y_WINDOW_OFFSET + (j + 0.5) * Y_GRID
-    points << Point.new(x: x_init, y: y_init, size: 1, color: "white")
-  end
+NUM_OF_POINTS.times do
+  x_init = rand(X_CENTER - X_CENTER_OFFSET..X_CENTER + X_CENTER_OFFSET)
+  y_init = rand(Y_CENTER - Y_CENTER_OFFSET..Y_CENTER + Y_CENTER_OFFSET)
+  points << Point.new(x: x_init, y: y_init, size: 1, color: "white")
 end
 
 points.each do |point|
