@@ -14,8 +14,6 @@ X_SPEED, Y_SPEED = 0.5, 0.5
 X_SPEED_MAX, Y_SPEED_MAX = 12.0, 12.0
 
 class Point < Square
-  attr_accessor :x_speed, :y_speed
-
   def move
     self.x += @x_speed
     self.y += @y_speed
