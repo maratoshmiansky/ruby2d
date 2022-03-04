@@ -7,9 +7,9 @@ set width: 600, height: 600
 NUM_OF_POINTS = 1000
 X_WINDOW_OFFSET, Y_WINDOW_OFFSET = 60, 60
 X_CENTER, Y_CENTER = Window.width / 2, Window.height / 2
-X_CENTER_OFFSET, Y_CENTER_OFFSET = 30, 30
+X_CENTER_OFFSET, Y_CENTER_OFFSET = 0, 0
 X_SPEED_MIN, Y_SPEED_MIN = 0.0, 0.0
-X_SPEED_MAX, Y_SPEED_MAX = 6.0, 9.0
+X_SPEED_MAX, Y_SPEED_MAX = 8.0, 8.0
 X_SPEED_DELTA, Y_SPEED_DELTA = 0.5, 0.5
 
 class Point < Square
@@ -85,7 +85,7 @@ class Point < Square
   end
 
   def init
-    @x_mult, @y_mult = 1, 1
+    @x_mult, @y_mult = [-1, 1].sample, [-1, 1].sample
     @x_speed, @y_speed = X_SPEED_MIN, Y_SPEED_MIN
     @x_accelerating, @y_accelerating = true, true
   end
