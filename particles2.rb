@@ -4,13 +4,14 @@ set title: "Particles!"
 
 set width: 600, height: 600
 
-X_NUM_OF_POINTS, Y_NUM_OF_POINTS = 10, 10
+X_NUM_OF_POINTS, Y_NUM_OF_POINTS = 6, 6
 X_WINDOW_OFFSET, Y_WINDOW_OFFSET = 60, 60
 VIEWPORT_WIDTH = (Window.width - X_WINDOW_OFFSET * 2)
 VIEWPORT_HEIGHT = (Window.height - Y_WINDOW_OFFSET * 2)
 X_GRID = VIEWPORT_WIDTH / X_NUM_OF_POINTS
 Y_GRID = VIEWPORT_HEIGHT / Y_NUM_OF_POINTS
-X_SPEED, Y_SPEED = 0.1, 0.5
+X_SPEED, Y_SPEED = 0.2, 0.5
+X_SPEED_MIN, Y_SPEED_MIN = 0.0, 0.0
 X_SPEED_MAX, Y_SPEED_MAX = 12.0, 12.0
 
 class Point < Square
@@ -36,11 +37,11 @@ class Point < Square
   end
 
   def x_speed_reset
-    @x_speed = 0.0
+    @x_speed = X_SPEED_MIN
   end
 
   def y_speed_reset
-    @y_speed = 0.0
+    @y_speed = Y_SPEED_MIN
   end
 
   def x_edge_check
