@@ -9,8 +9,8 @@ X_WINDOW_OFFSET, Y_WINDOW_OFFSET = 60, 60
 X_CENTER, Y_CENTER = Window.width / 2, Window.height / 2
 X_CENTER_OFFSET, Y_CENTER_OFFSET = 0, 0
 X_SPEED_MIN, Y_SPEED_MIN = 0.0, 0.0
-X_SPEED_MAX, Y_SPEED_MAX = 8.0, 8.0
-X_SPEED_DELTA, Y_SPEED_DELTA = 0.5, 0.5
+X_SPEED_MAX, Y_SPEED_MAX = 4.0, 4.0
+X_SPEED_DELTA, Y_SPEED_DELTA = 0.2, 0.2
 
 class Point < Square
   attr_reader :x_accelerating, :y_accelerating
