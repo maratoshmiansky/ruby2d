@@ -3,7 +3,7 @@ require "ruby2d"
 set width: 600, height: 600, title: "Particles!"
 
 DEGS_TO_RADIANS = Math::PI / 180
-ANGLE_DELTA = 0.001
+ANGLE_DELTA = 0.002
 NUM_OF_POINTS = 1000
 
 points = []
@@ -20,8 +20,8 @@ update do
   points.each do |point|
     x_mult = rand(1.0..100.0)
     y_mult = rand(1.0..100.0)
-    x_angle_mult = rand(1.0..1.5)
-    y_angle_mult = rand(1.0..1.5)
+    x_angle_mult = rand(1.0..1.2)
+    y_angle_mult = rand(1.0..1.2)
     angle = (angle + ANGLE_DELTA) % 360
     x_move = x_mult * Math.cos(x_angle_mult * angle * DEGS_TO_RADIANS)
     y_move = y_mult * Math.sin(y_angle_mult * angle * DEGS_TO_RADIANS)
