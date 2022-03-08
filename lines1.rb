@@ -24,11 +24,9 @@ update do
     # set up point grid
     X_NUM_OF_POINTS.times do |i|
       Y_NUM_OF_POINTS.times do |j|
-        x1_init = X_WINDOW_OFFSET + (i + 0.5) * X_GRID
-        y1_init = Y_WINDOW_OFFSET + (j + 0.5) * Y_GRID
-        x2_init = x1_init
-        y2_init = y1_init
-        lines << Line.new(x1: x1_init, y1: y1_init, x2: x2_init, y2: y2_init, width: 1, color: gradient.sample)
+        x_init = X_WINDOW_OFFSET + (i + 0.5) * X_GRID
+        y_init = Y_WINDOW_OFFSET + (j + 0.5) * Y_GRID
+        lines << Line.new(x1: x_init, y1: y_init, x2: x_init, y2: y_init, width: 1, color: gradient.sample)
       end
     end
 
