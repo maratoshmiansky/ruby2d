@@ -25,10 +25,6 @@ class Point < Square
     self.y = @y_init + @radius * Math.sin(@y_angle_mult * @angle * DEGS_TO_RADIANS)
   end
 
-  def angle_reset
-    @angle = rand(0..360)
-  end
-
   def angle_increment
     @angle = (@angle + @angle_delta) % 360
   end
@@ -53,28 +49,16 @@ class Point < Square
     end
   end
 
-  def x_angle_mult_reset
-    @x_angle_mult = rand(X_ANGLE_MULT_MIN..X_ANGLE_MULT_MAX)
-  end
-
-  def y_angle_mult_reset
-    @y_angle_mult = rand(Y_ANGLE_MULT_MIN..Y_ANGLE_MULT_MAX)
-  end
-
-  def radius_reset
-    @radius = rand(RADIUS_MIN..RADIUS_MAX)
-  end
-
   def init
     @x_init = @x
     @y_init = @y
     @clockwise = [true, false].sample
     @angle_delta = rand(ANGLE_DELTA_MIN..ANGLE_DELTA_MAX)
     @accelerating = true
-    angle_reset
-    radius_reset
-    x_angle_mult_reset
-    y_angle_mult_reset
+    @radius = rand(RADIUS_MIN..RADIUS_MAX)
+    @angle = rand(0..360)
+    @x_angle_mult = rand(X_ANGLE_MULT_MIN..X_ANGLE_MULT_MAX)
+    @y_angle_mult = rand(Y_ANGLE_MULT_MIN..Y_ANGLE_MULT_MAX)
   end
 end
 
