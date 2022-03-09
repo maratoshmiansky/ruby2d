@@ -2,10 +2,10 @@ require "ruby2d"
 
 set title: "Particles!"
 
-set width: 650, height: 600
+set width: 600, height: 600
 
 X_NUM_OF_POINTS, Y_NUM_OF_POINTS = 10, 10
-X_WINDOW_OFFSET, Y_WINDOW_OFFSET = 65, 60
+X_WINDOW_OFFSET, Y_WINDOW_OFFSET = 60, 60
 VIEWPORT_WIDTH = (Window.width - X_WINDOW_OFFSET * 2)
 VIEWPORT_HEIGHT = (Window.height - Y_WINDOW_OFFSET * 2)
 X_GRID = VIEWPORT_WIDTH / X_NUM_OF_POINTS
@@ -18,10 +18,11 @@ Y_ANGLE_MULT_MIN, Y_ANGLE_MULT_MAX = 1, 4
 RADIUS_MIN, RADIUS_MAX = 50.0, 100.0
 
 class Point < Square
-  attr_reader :x_init, :y_init, :clockwise, :accelerating
+  attr_reader :clockwise, :accelerating
 
-  def angle
-    @angle ||= angle_reset
+  def move
+    self.x = @x_init + @radius * Math.cos(@x_angle_mult * @angle * DEGS_TO_RADIANS)
+    self.y = @y_init + @radius * Math.sin(@y_angle_mult * @angle * DEGS_TO_RADIANS)
   end
 
   def angle_reset
@@ -52,24 +53,12 @@ class Point < Square
     end
   end
 
-  def x_angle_mult
-    @x_angle_mult ||= x_angle_mult_reset
-  end
-
   def x_angle_mult_reset
     @x_angle_mult = rand(X_ANGLE_MULT_MIN..X_ANGLE_MULT_MAX)
   end
 
-  def y_angle_mult
-    @y_angle_mult ||= y_angle_mult_reset
-  end
-
   def y_angle_mult_reset
     @y_angle_mult = rand(Y_ANGLE_MULT_MIN..Y_ANGLE_MULT_MAX)
-  end
-
-  def radius
-    @radius ||= radius_reset
   end
 
   def radius_reset
@@ -82,6 +71,10 @@ class Point < Square
     @clockwise = [true, false].sample
     @angle_delta = rand(ANGLE_DELTA_MIN..ANGLE_DELTA_MAX)
     @accelerating = true
+    angle_reset
+    radius_reset
+    x_angle_mult_reset
+    y_angle_mult_reset
   end
 end
 
@@ -102,8 +95,7 @@ end
 
 update do
   points.each do |point|
-    point.x = point.x_init + point.radius * Math.cos(point.x_angle_mult * point.angle * DEGS_TO_RADIANS)
-    point.y = point.y_init + point.radius * Math.sin(point.y_angle_mult * point.angle * DEGS_TO_RADIANS)
+    point.move
 
     if point.clockwise
       point.angle_increment
