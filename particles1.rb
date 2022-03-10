@@ -6,8 +6,6 @@ NUM_OF_POINTS = 5000
 X_MOVE_BOUND, Y_MOVE_BOUND = 2.0, 2.0
 
 class Point < Square
-  attr_reader :x_move, :y_move
-
   def move
     self.x += @x_move
     self.y += @y_move
