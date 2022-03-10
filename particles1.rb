@@ -2,13 +2,14 @@ require "ruby2d"
 
 set title: "Particles!"
 
-class Point < Square
-  def x_move
-    @x_move ||= x_move_reset
-  end
+NUM_OF_POINTS = 5000
 
-  def y_move
-    @y_move ||= y_move_reset
+class Point < Square
+  attr_reader :x_move, :y_move
+
+  def move
+    self.x += @x_move
+    self.y += @y_move
   end
 
   def x_move_reset
@@ -36,14 +37,22 @@ class Point < Square
   def color_swap
     self.color = ["white", "aqua", "teal", "blue"].sample
   end
+
+  def init
+    x_move_reset
+    y_move_reset
+  end
 end
 
-num_of_points = 5000
 points = []
 
-num_of_points.times do
+NUM_OF_POINTS.times do
   x_init, y_init = rand(0..640), rand(0..480)
   points << Point.new(x: x_init, y: y_init, size: 1, color: "white")
+end
+
+points.each do |point|
+  point.init
 end
 
 update do
@@ -51,8 +60,7 @@ update do
     # bounce and change color when point hits window edge
     point.x_bounce
     point.y_bounce
-    point.x += point.x_move
-    point.y += point.y_move
+    point.move
   end
 end
 
