@@ -2,13 +2,13 @@ require "ruby2d"
 
 set width: 600, height: 600, title: "Line Symmetry"
 
-X_NUM_OF_POINTS, Y_NUM_OF_POINTS = 4, 4
-X_WINDOW_OFFSET, Y_WINDOW_OFFSET = 40, 40
+X_NUM_OF_POINTS, Y_NUM_OF_POINTS = 8, 8
+X_WINDOW_OFFSET, Y_WINDOW_OFFSET = 60, 60
 VIEWPORT_WIDTH = (Window.width - X_WINDOW_OFFSET * 2)
 VIEWPORT_HEIGHT = (Window.height - Y_WINDOW_OFFSET * 2)
 X_GRID = VIEWPORT_WIDTH / X_NUM_OF_POINTS
 Y_GRID = VIEWPORT_HEIGHT / Y_NUM_OF_POINTS
-NUM_OF_ITERATIONS = 600
+NUM_OF_ITERATIONS = 200
 MAX_LINE_LENGTH = 10.0
 
 class Line
@@ -62,7 +62,7 @@ update do
         x2_new = x1_new
         y_offset = rand(-MAX_LINE_LENGTH..MAX_LINE_LENGTH)
         y2_new = y1_new + y_offset
-
+        # top/bottom edge check
         if line.y_hits_top?
           y2_new += y_offset.abs
         elsif line.y_hits_bottom?
@@ -72,7 +72,7 @@ update do
         y2_new = y1_new
         x_offset = rand(-MAX_LINE_LENGTH..MAX_LINE_LENGTH)
         x2_new = x1_new + x_offset
-
+        # left/right edge check
         if line.x_hits_left?
           x2_new += x_offset.abs
         elsif line.x_hits_right?
