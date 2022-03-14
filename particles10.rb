@@ -4,7 +4,7 @@ set title: "Particles!"
 
 set width: 600, height: 600
 
-NUM_OF_POINTS = 100
+NUM_OF_POINTS = 36
 X_WINDOW_OFFSET, Y_WINDOW_OFFSET = 60, 60
 X_CENTER, Y_CENTER = Window.width / 2, Window.height / 2
 X_CENTER_OFFSET, Y_CENTER_OFFSET = 0, 0
@@ -21,12 +21,16 @@ class Point < Square
   def x_accel
     if @x_accelerating
       @x_speed += rand(-X_SPEED_DELTA..X_SPEED_DELTA)
+    else
+      @x_speed -= rand(-X_SPEED_DELTA..X_SPEED_DELTA)
     end
   end
 
   def y_accel
     if @y_accelerating
       @y_speed += rand(0.0..Y_SPEED_DELTA)
+    else
+      @y_speed -= rand(0.0..Y_SPEED_DELTA)
     end
   end
 
