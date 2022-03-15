@@ -19,11 +19,7 @@ class Point < Square
   end
 
   def x_accel
-    if @x_accelerating
-      @x_speed += rand(-X_SPEED_DELTA..X_SPEED_DELTA)
-    else
-      @x_speed -= rand(-X_SPEED_DELTA..X_SPEED_DELTA)
-    end
+    @x_speed += rand(-X_SPEED_DELTA..X_SPEED_DELTA)
   end
 
   def y_accel
@@ -31,14 +27,6 @@ class Point < Square
       @y_speed += rand(0.0..Y_SPEED_DELTA)
     else
       @y_speed -= rand(0.0..Y_SPEED_DELTA)
-    end
-  end
-
-  def set_x_accelerating
-    if @x_speed < X_SPEED_MIN
-      @x_accelerating = true
-    elsif @x_speed > X_SPEED_MAX
-      @x_accelerating = false
     end
   end
 
@@ -80,7 +68,7 @@ class Point < Square
 
   def init
     @x_speed, @y_speed = X_SPEED_MIN, Y_SPEED_MIN
-    @x_accelerating, @y_accelerating = true, true
+    @y_accelerating = true
   end
 end
 
@@ -104,7 +92,6 @@ update do
     # move point
     point.move
     # speed up?
-    point.set_x_accelerating
     point.set_y_accelerating
     point.x_accel
     point.y_accel
