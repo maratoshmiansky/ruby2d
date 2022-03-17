@@ -9,8 +9,8 @@ X_WINDOW_OFFSET, Y_WINDOW_OFFSET = 60, 60
 X_CENTER, Y_CENTER = Window.width / 2, Window.height / 2
 X_CENTER_OFFSET, Y_CENTER_OFFSET = 100, 100
 X_SPEED_MIN, Y_SPEED_MIN = 0.0, 0.0
-X_SPEED_MAX, Y_SPEED_MAX = 6.0, 20.0
-X_SPEED_DELTA, Y_SPEED_DELTA = 0.1, 0.5
+X_SPEED_MAX, Y_SPEED_MAX = 6.0, 10.0
+X_SPEED_DELTA, Y_SPEED_DELTA = 0.1, 0.2
 
 class Point < Square
   def move
@@ -19,22 +19,22 @@ class Point < Square
   end
 
   def x_accel
-    if @x_speed < X_SPEED_MAX
+    if @x_speed.abs < X_SPEED_MAX
       @x_speed += [-X_SPEED_DELTA, X_SPEED_DELTA].sample
     else
-      @x_speed = X_SPEED_MIN
+      @x_speed = rand(0.0..X_SPEED_MAX)
     end
   end
 
   def y_accel
-    if @y_speed < Y_SPEED_MAX
+    if @y_speed.abs < Y_SPEED_MAX
       if @y_accelerating
         @y_speed += Y_SPEED_DELTA
       else
         @y_speed -= Y_SPEED_DELTA
       end
     else
-      @y_speed = Y_SPEED_MIN
+      @y_speed = rand(0.0..Y_SPEED_MAX)
     end
   end
 
