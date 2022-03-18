@@ -7,9 +7,9 @@ set width: 600, height: 600
 NUM_OF_POINTS = 1000
 X_WINDOW_OFFSET, Y_WINDOW_OFFSET = 60, 60
 X_CENTER, Y_CENTER = Window.width / 2, Window.height / 2
-X_CENTER_OFFSET, Y_CENTER_OFFSET = 100, 100
+X_CENTER_OFFSET, Y_CENTER_OFFSET = 20.0, 20.0
 X_SPEED_MIN, Y_SPEED_MIN = 0.0, 0.0
-X_SPEED_MAX, Y_SPEED_MAX = 6.0, 10.0
+X_SPEED_MAX, Y_SPEED_MAX = 4.0, 10.0
 X_SPEED_DELTA, Y_SPEED_DELTA = 0.1, 0.2
 
 class Point < Square
@@ -22,7 +22,7 @@ class Point < Square
     if @x_speed < X_SPEED_MAX
       @x_speed += [-X_SPEED_DELTA, X_SPEED_DELTA].sample
     else
-      @x_speed = rand(0.0..X_SPEED_MAX)
+      @x_speed = rand(-X_SPEED_MAX..X_SPEED_MAX)
     end
   end
 
@@ -34,7 +34,7 @@ class Point < Square
         @y_speed -= Y_SPEED_DELTA
       end
     else
-      @y_speed = rand(0.0..Y_SPEED_MAX)
+      @y_speed = rand(Y_SPEED_MIN..Y_SPEED_MAX)
     end
   end
 
@@ -75,7 +75,7 @@ class Point < Square
   end
 
   def init
-    @x_speed, @y_speed = X_SPEED_MIN, Y_SPEED_MIN
+    @x_speed, @y_speed = rand(-X_SPEED_MAX / 2..X_SPEED_MAX / 2), rand(Y_SPEED_MIN / 2..Y_SPEED_MAX / 2)
     @y_accelerating = true
   end
 end
