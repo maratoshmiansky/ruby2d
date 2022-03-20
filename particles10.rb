@@ -4,7 +4,7 @@ set title: "Particles!"
 
 set width: 600, height: 600
 
-NUM_OF_POINTS = 1000
+NUM_OF_POINTS = 20
 X_WINDOW_OFFSET, Y_WINDOW_OFFSET = 60, 60
 X_CENTER, Y_CENTER = Window.width / 2, Window.height / 2
 X_CENTER_OFFSET, Y_CENTER_OFFSET = 20.0, 20.0
@@ -19,30 +19,26 @@ class Point < Square
   end
 
   def x_accel
-    if @x_speed < X_SPEED_MAX
-      @x_speed += [-X_SPEED_DELTA, X_SPEED_DELTA].sample
-    else
-      @x_speed = rand(-X_SPEED_MAX..X_SPEED_MAX)
-    end
+    @x_speed += [-X_SPEED_DELTA, X_SPEED_DELTA].sample
   end
 
   def y_accel
-    if @y_speed < Y_SPEED_MAX
-      if @y_accelerating
-        @y_speed += Y_SPEED_DELTA
-      else
-        @y_speed -= Y_SPEED_DELTA
-      end
+    if @y_accelerating
+      @y_speed += Y_SPEED_DELTA
     else
-      @y_speed = rand(Y_SPEED_MIN..Y_SPEED_MAX)
+      @y_speed -= Y_SPEED_DELTA
     end
   end
 
   def set_y_accelerating
     if @y_speed < Y_SPEED_MIN
       @y_accelerating = true
+      p @y_accelerating
+      p @y_speed
     elsif @y_speed > Y_SPEED_MAX
       @y_accelerating = false
+      p @y_accelerating
+      p @y_speed
     end
   end
 
@@ -94,12 +90,9 @@ end
 
 update do
   points.each do |point|
-    # bounce?
     point.x_edge_check
     point.y_edge_check
-    # move point
     point.move
-    # speed up?
     point.set_y_accelerating
     point.x_accel
     point.y_accel
