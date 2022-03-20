@@ -13,27 +13,25 @@ X_SPEED_MAX, Y_SPEED_MAX = 6.0, 6.0
 X_SPEED_DELTA, Y_SPEED_DELTA = 2.0, 2.0
 
 class Point < Square
-  attr_reader :x_accelerating, :y_accelerating
-
   def move
     self.x += @x_mult * @x_speed
     self.y += @y_mult * @y_speed
   end
 
-  def x_accelerate
-    @x_speed += rand(0.0..X_SPEED_DELTA)
+  def x_accelerate_decelerate
+    if @x_accelerating
+      @x_speed += rand(0.0..X_SPEED_DELTA)
+    else
+      @x_speed -= rand(0.0..X_SPEED_DELTA)
+    end
   end
 
-  def x_decelerate
-    @x_speed -= rand(0.0..X_SPEED_DELTA)
-  end
-
-  def y_accelerate
-    @y_speed += rand(0.0..Y_SPEED_DELTA)
-  end
-
-  def y_decelerate
-    @y_speed -= rand(0.0..Y_SPEED_DELTA)
+  def y_accelerate_decelerate
+    if @y_accelerating
+      @y_speed += rand(0.0..Y_SPEED_DELTA)
+    else
+      @y_speed -= rand(0.0..Y_SPEED_DELTA)
+    end
   end
 
   def set_x_accelerating
@@ -105,26 +103,13 @@ end
 
 update do
   points.each do |point|
-    # move point
     point.move
-    # bounce?
     point.x_edge_check
     point.y_edge_check
-    # speed up?
     point.set_x_accelerating
     point.set_y_accelerating
-
-    if point.x_accelerating
-      point.x_accelerate
-    else
-      point.x_decelerate
-    end
-
-    if point.y_accelerating
-      point.y_accelerate
-    else
-      point.y_decelerate
-    end
+    point.x_accelerate_decelerate
+    point.y_accelerate_decelerate
   end
 end
 
