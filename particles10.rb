@@ -9,8 +9,8 @@ X_WINDOW_OFFSET, Y_WINDOW_OFFSET = 60, 60
 X_CENTER, Y_CENTER = Window.width / 2, Window.height / 2
 X_CENTER_OFFSET, Y_CENTER_OFFSET = 20.0, 20.0
 X_SPEED_MIN, Y_SPEED_MIN = 0.0, 0.0
-X_SPEED_MAX, Y_SPEED_MAX = 4.0, 12.0
-X_SPEED_DELTA, Y_SPEED_DELTA = 0.1, 0.2
+X_SPEED_MAX, Y_SPEED_MAX = 2.0, 12.0
+X_SPEED_DELTA, Y_SPEED_DELTA = 0.05, 0.3
 
 class Point < Square
   def move
@@ -28,17 +28,15 @@ class Point < Square
     else
       @y_speed -= Y_SPEED_DELTA
     end
+    p @y_accelerating
+    p @y_speed
   end
 
   def set_y_accelerating
     if @y_speed < Y_SPEED_MIN
       @y_accelerating = true
-      p @y_accelerating
-      p @y_speed
     elsif @y_speed > Y_SPEED_MAX
       @y_accelerating = false
-      p @y_accelerating
-      p @y_speed
     end
   end
 
