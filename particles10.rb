@@ -4,13 +4,13 @@ set title: "Particles!"
 
 set width: 600, height: 600
 
-NUM_OF_POINTS = 20
+NUM_OF_POINTS = 40
 X_WINDOW_OFFSET, Y_WINDOW_OFFSET = 60, 60
 X_CENTER, Y_CENTER = Window.width / 2, Window.height / 2
 X_CENTER_OFFSET, Y_CENTER_OFFSET = 20.0, 20.0
 X_SPEED_MIN, Y_SPEED_MIN = 0.0, 0.0
-X_SPEED_MAX, Y_SPEED_MAX = 2.0, 12.0
-X_SPEED_DELTA, Y_SPEED_DELTA = 0.05, 0.3
+X_SPEED_MAX, Y_SPEED_MAX = 4.0, 12.0
+X_SPEED_DELTA, Y_SPEED_DELTA = 0.1, 0.3
 
 class Point < Square
   def move
@@ -18,9 +18,9 @@ class Point < Square
     self.y += @y_speed
   end
 
-  def x_accel
-    @x_speed += [-X_SPEED_DELTA, X_SPEED_DELTA].sample
-  end
+  # def x_accel
+  #   @x_speed += [-X_SPEED_DELTA, X_SPEED_DELTA].sample
+  # end
 
   def y_accel
     if @y_accelerating
@@ -28,8 +28,6 @@ class Point < Square
     else
       @y_speed -= Y_SPEED_DELTA
     end
-    p @y_accelerating
-    p @y_speed
   end
 
   def set_y_accelerating
@@ -92,7 +90,7 @@ update do
     point.y_edge_check
     point.move
     point.set_y_accelerating
-    point.x_accel
+    # point.x_accel
     point.y_accel
   end
 end
