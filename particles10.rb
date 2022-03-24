@@ -8,7 +8,7 @@ NUM_OF_POINTS = 40
 X_WINDOW_OFFSET, Y_WINDOW_OFFSET = 60, 60
 X_CENTER, Y_CENTER = Window.width / 2, Window.height / 2
 X_CENTER_OFFSET, Y_CENTER_OFFSET = 20.0, 20.0
-X_SPEED_MIN, Y_SPEED_MIN = 0.0, 0.0
+Y_SPEED_MIN = 0.0
 X_SPEED_MAX, Y_SPEED_MAX = 4.0, 12.0
 X_SPEED_DELTA, Y_SPEED_DELTA = 0.1, 0.3
 
@@ -17,10 +17,6 @@ class Point < Square
     self.x += @x_speed
     self.y += @y_speed
   end
-
-  # def x_accel
-  #   @x_speed += [-X_SPEED_DELTA, X_SPEED_DELTA].sample
-  # end
 
   def y_accel
     if @y_accelerating
@@ -90,7 +86,6 @@ update do
     point.y_edge_check
     point.move
     point.set_y_accelerating
-    # point.x_accel
     point.y_accel
   end
 end
