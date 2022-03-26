@@ -10,7 +10,7 @@ X_CENTER, Y_CENTER = Window.width / 2, Window.height / 2
 X_CENTER_OFFSET, Y_CENTER_OFFSET = 20.0, 20.0
 Y_SPEED_MIN = 0.0
 X_SPEED_MAX, Y_SPEED_MAX = 4.0, 12.0
-X_SPEED_DELTA, Y_SPEED_DELTA = 0.1, 0.3
+X_SPEED_DELTA, Y_SPEED_DELTA = 0.1, 0.2
 
 class Point < Square
   def move
