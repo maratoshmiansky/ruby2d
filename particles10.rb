@@ -4,13 +4,13 @@ set title: "Particles!"
 
 set width: 600, height: 600
 
-NUM_OF_POINTS = 40
+NUM_OF_POINTS = 100
 X_WINDOW_OFFSET, Y_WINDOW_OFFSET = 60, 60
 X_CENTER, Y_CENTER = Window.width / 2, Window.height / 2
 X_CENTER_OFFSET, Y_CENTER_OFFSET = 20.0, 20.0
 Y_SPEED_MIN = 0.0
-X_SPEED_MAX, Y_SPEED_MAX = 4.0, 8.0
-X_SPEED_DELTA, Y_SPEED_DELTA = 0.1, 0.1
+X_SPEED_MAX, Y_SPEED_MAX = 4.0, 12.0
+X_SPEED_DELTA, Y_SPEED_DELTA = 0.1, 0.2
 
 class Point < Square
   def move
