@@ -56,7 +56,6 @@ end
 
 update do
   points.each do |point|
-    # bounce and change color when point hits window edge
     point.x_bounce
     point.y_bounce
     point.move

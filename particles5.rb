@@ -69,7 +69,6 @@ class Point < Square
 end
 
 points = []
-# set up point grid
 X_NUM_OF_POINTS.times do |i|
   Y_NUM_OF_POINTS.times do |j|
     x_init = X_WINDOW_OFFSET + (i + 0.5) * X_GRID
