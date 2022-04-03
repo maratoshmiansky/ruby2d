@@ -2,7 +2,7 @@ require "ruby2d"
 
 set width: 600, height: 600, title: "Particles!"
 
-X_NUM_OF_POINTS, Y_NUM_OF_POINTS = 40, 40
+X_NUM_OF_POINTS, Y_NUM_OF_POINTS = 60, 60
 X_WINDOW_OFFSET, Y_WINDOW_OFFSET = 60, 60
 VIEWPORT_WIDTH = (Window.width - X_WINDOW_OFFSET * 2)
 VIEWPORT_HEIGHT = (Window.height - Y_WINDOW_OFFSET * 2)
@@ -10,7 +10,7 @@ X_GRID = VIEWPORT_WIDTH / X_NUM_OF_POINTS
 Y_GRID = VIEWPORT_HEIGHT / Y_NUM_OF_POINTS
 X_CENTER, Y_CENTER = Window.width / 2, Window.height / 2
 DISTANCE_MIN = 1
-MOVE_MULT = 2
+MOVE_MULT = 3
 
 class Point < Square
   attr_reader :contracting
