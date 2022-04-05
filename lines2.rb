@@ -1,9 +1,9 @@
 require "ruby2d"
 
-set width: 600, height: 600, title: "Line Symmetry"
+set width: 800, height: 800, title: "Line Symmetry"
 
-X_WINDOW_OFFSET, Y_WINDOW_OFFSET = 60, 60
-MAX_LINE_LENGTH = 20.0
+X_WINDOW_OFFSET, Y_WINDOW_OFFSET = 80, 80
+MAX_LINE_LENGTH = 40.0
 
 class Line
   def x_hits_left?
