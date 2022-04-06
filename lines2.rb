@@ -32,6 +32,8 @@ x2_init = x1_init
 y2_init = y1_init
 
 line = Line.new(x1: x1_init, y1: y1_init, x2: x2_init, y2: y2_init, width: 1, color: "white")
+num_of_lines = 0
+line_text = Text.new("Total number of lines = #{num_of_lines}", x: Window.width / 2 - 125)
 
 update do
   x1_new = line.x2
@@ -64,6 +66,9 @@ update do
   Line.new(x1: Window.width - x1_new, y1: y1_new, x2: Window.width - x2_new, y2: y2_new, width: 1, color: line_color)
   Line.new(x1: x1_new, y1: Window.height - y1_new, x2: x2_new, y2: Window.height - y2_new, width: 1, color: line_color)
   Line.new(x1: Window.width - x1_new, y1: Window.height - y1_new, x2: Window.width - x2_new, y2: Window.height - y2_new, width: 1, color: line_color)
+
+  num_of_lines += 4
+  line_text.text = "Total number of lines = #{num_of_lines}"
 end
 
 show
