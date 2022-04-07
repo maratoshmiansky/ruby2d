@@ -3,7 +3,7 @@ require "ruby2d"
 set width: 800, height: 800, title: "Line Symmetry"
 
 X_WINDOW_OFFSET, Y_WINDOW_OFFSET = 80, 80
-MAX_LINE_LENGTH = 40.0
+MAX_LINE_LENGTH = 30.0
 
 class Line
   def x_hits_left?
@@ -23,7 +23,7 @@ class Line
   end
 end
 
-gradients = [%w(white yellow orange red), %w(white aqua teal blue), %W(white fuchsia maroon purple), %W(white lime green olive)]
+gradients = [%w(white yellow orange red), %w(white aqua teal blue), %w(white fuchsia maroon purple), %w(white lime green olive)]
 gradient = gradients.sample
 
 x1_init = rand(X_WINDOW_OFFSET..Window.width - X_WINDOW_OFFSET)
