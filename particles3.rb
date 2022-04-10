@@ -18,19 +18,19 @@ Y_ANGLE_MULT_MIN, Y_ANGLE_MULT_MAX = 1.0, 4.0
 RADIUS_MIN, RADIUS_MAX = 50.0, 100.0
 
 class Point < Square
-  attr_reader :clockwise, :accelerating
+  attr_reader :accelerating
 
   def move
     self.x = @x_init + @radius * Math.cos(@x_angle_mult * @angle * DEGS_TO_RADIANS)
     self.y = @y_init + @radius * Math.sin(@y_angle_mult * @angle * DEGS_TO_RADIANS)
   end
 
-  def angle_increment
-    @angle = (@angle + @angle_delta) % 360
-  end
-
-  def angle_decrement
-    @angle = (@angle - @angle_delta) % 360
+  def angle_increment_decrement
+    if @clockwise
+      @angle = (@angle + @angle_delta) % 360
+    else
+      @angle = (@angle - @angle_delta) % 360
+    end
   end
 
   def accelerate
@@ -80,11 +80,7 @@ update do
   points.each do |point|
     point.move
 
-    if point.clockwise
-      point.angle_increment
-    else
-      point.angle_decrement
-    end
+    point.angle_increment_decrement
 
     if point.accelerating
       point.accelerate
