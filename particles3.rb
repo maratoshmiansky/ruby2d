@@ -26,37 +26,24 @@ class Point < Square
   end
 
   def angle_increment_decrement
-    if @clockwise
-      @angle = (@angle + @angle_delta) % 360
-    else
-      @angle = (@angle - @angle_delta) % 360
-    end
+    @clockwise ? @angle = (@angle + @angle_delta) % 360 : @angle = (@angle - @angle_delta) % 360
   end
 
   def accelerate
-    if @angle_delta < ANGLE_DELTA_MAX
-      @angle_delta += ANGLE_DELTA_DELTA
-    else
-      @accelerating = false
-    end
+    @angle_delta < ANGLE_DELTA_MAX ? @angle_delta += ANGLE_DELTA_DELTA : @accelerating = false
   end
 
   def decelerate
-    if @angle_delta > ANGLE_DELTA_MIN
-      @angle_delta -= ANGLE_DELTA_DELTA
-    else
-      @accelerating = true
-    end
+    @angle_delta > ANGLE_DELTA_MIN ? @angle_delta -= ANGLE_DELTA_DELTA : @accelerating = true
   end
 
   def init
-    @x_init = @x
-    @y_init = @y
+    @x_init, @y_init = @x, @y
     @clockwise = [true, false].sample
     @angle_delta = rand(ANGLE_DELTA_MIN..ANGLE_DELTA_MAX)
     @accelerating = true
     @radius = rand(RADIUS_MIN..RADIUS_MAX)
-    @angle = rand(0..360)
+    @angle = rand(0..359)
     @x_angle_mult = rand(X_ANGLE_MULT_MIN..X_ANGLE_MULT_MAX)
     @y_angle_mult = rand(Y_ANGLE_MULT_MIN..Y_ANGLE_MULT_MAX)
   end
@@ -79,14 +66,8 @@ end
 update do
   points.each do |point|
     point.move
-
     point.angle_increment_decrement
-
-    if point.accelerating
-      point.accelerate
-    else
-      point.decelerate
-    end
+    point.accelerating ? point.accelerate : point.decelerate
   end
 end
 
