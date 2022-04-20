@@ -32,25 +32,14 @@ class Point < Square
     @x_distance = X_CENTER - @x
     @y_distance = Y_CENTER - @y
     get_distance
-
-    if @distance > DISTANCE_MIN
-      move
-    else
-      @contracting = false
-      centrify
-    end
+    @distance > DISTANCE_MIN ? move : @contracting = false; centrify
   end
 
   def expand
     @x_distance = @x_init - @x
     @y_distance = @y_init - @y
     get_distance
-
-    if @distance.between?(DISTANCE_MIN, @distance_init)
-      move
-    else
-      @contracting = true
-    end
+    @distance.between?(DISTANCE_MIN, @distance_init) ? move : @contracting = true
   end
 
   def init
@@ -77,11 +66,7 @@ end
 
 update do
   points.each do |point|
-    if point.contracting
-      point.contract
-    else
-      point.expand
-    end
+    point.contracting ? point.contract : point.expand
   end
 end
 
