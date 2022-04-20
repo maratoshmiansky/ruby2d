@@ -19,19 +19,11 @@ class Point < Square
   end
 
   def x_accel
-    if @x_speed <= X_SPEED_MAX
-      @x_speed += rand(-X_SPEED..X_SPEED)
-    else
-      x_speed_reset
-    end
+    @x_speed <= X_SPEED_MAX ? @x_speed += rand(-X_SPEED..X_SPEED) : x_speed_reset
   end
 
   def y_accel
-    if @y_speed <= Y_SPEED_MAX
-      @y_speed += Y_SPEED
-    else
-      y_speed_reset
-    end
+    @y_speed <= Y_SPEED_MAX ? @y_speed += Y_SPEED : y_speed_reset
   end
 
   def x_speed_reset
@@ -43,15 +35,11 @@ class Point < Square
   end
 
   def x_edge_check
-    if x_hits_left? || x_hits_right?
-      @x_speed = -@x_speed
-    end
+    @x_speed = -@x_speed if x_hits_left? || x_hits_right?
   end
 
   def y_edge_check
-    if y_hits_top? || y_hits_bottom?
-      @y_speed = -@y_speed
-    end
+    @y_speed = -@y_speed if y_hits_top? || y_hits_bottom?
   end
 
   def x_hits_left?
