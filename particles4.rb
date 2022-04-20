@@ -32,7 +32,13 @@ class Point < Square
     @x_distance = X_CENTER - @x
     @y_distance = Y_CENTER - @y
     get_distance
-    @distance > DISTANCE_MIN ? move : @contracting = false; centrify
+
+    if @distance > DISTANCE_MIN
+      move
+    else
+      @contracting = false
+      centrify
+    end
   end
 
   def expand
