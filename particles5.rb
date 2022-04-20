@@ -36,7 +36,7 @@ class Point < Square
     @x_distance = X_CENTER - @x
     @y_distance = Y_CENTER - @y
     get_distance
-
+    
     if @distance > DISTANCE_MIN
       move
     else
@@ -59,8 +59,7 @@ class Point < Square
   end
 
   def init
-    @x_init = @x
-    @y_init = @y
+    @x_init, @y_init = @x, @y
     @x_distance_init = X_CENTER - @x_init
     @y_distance_init = Y_CENTER - @y_init
     @distance_init = Math.sqrt(@x_distance_init ** 2 + @y_distance_init ** 2)
@@ -83,11 +82,7 @@ end
 
 update do
   points.each do |point|
-    if point.contracting
-      point.contract
-    else
-      point.expand
-    end
+    point.contracting ? point.contract : point.expand
   end
 end
 
