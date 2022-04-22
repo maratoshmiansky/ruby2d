@@ -19,19 +19,11 @@ class Point < Square
   end
 
   def x_accelerate_decelerate
-    if @x_accelerating
-      @x_speed += rand(0.0..X_SPEED_DELTA)
-    else
-      @x_speed -= rand(0.0..X_SPEED_DELTA)
-    end
+    @x_accelerating ? @x_speed += rand(0.0..X_SPEED_DELTA) : @x_speed -= rand(0.0..X_SPEED_DELTA)
   end
 
   def y_accelerate_decelerate
-    if @y_accelerating
-      @y_speed += rand(0.0..Y_SPEED_DELTA)
-    else
-      @y_speed -= rand(0.0..Y_SPEED_DELTA)
-    end
+    @y_accelerating ? @y_speed += rand(0.0..Y_SPEED_DELTA) : @y_speed -= rand(0.0..Y_SPEED_DELTA)
   end
 
   def set_x_accelerating
