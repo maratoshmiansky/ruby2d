@@ -19,11 +19,7 @@ class Point < Square
   end
 
   def y_speed_up_and_down
-    if @y_accelerating
-      @y_speed += Y_SPEED_DELTA
-    else
-      @y_speed -= Y_SPEED_DELTA
-    end
+    @y_accelerating ? @y_speed += Y_SPEED_DELTA : @y_speed -= Y_SPEED_DELTA
   end
 
   def set_y_accelerating
@@ -35,15 +31,11 @@ class Point < Square
   end
 
   def x_edge_check
-    if x_hits_left? || x_hits_right?
-      @x_speed = -@x_speed
-    end
+    @x_speed = -@x_speed if x_hits_left? || x_hits_right?
   end
 
   def y_edge_check
-    if y_hits_top? || y_hits_bottom?
-      @y_speed = -@y_speed
-    end
+    @y_speed = -@y_speed if y_hits_top? || y_hits_bottom?
   end
 
   def x_hits_left?
