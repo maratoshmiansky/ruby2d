@@ -48,6 +48,10 @@ class Circle
     end
   end
 
+  def accel?
+    @accel
+  end
+
   def init
     @x_init, @y_init = @x, @y
     @angle = ((X_CENTER - @x_init) + (Y_CENTER - @y_init)) / ANGLE_DIV
@@ -79,13 +83,7 @@ end
 update do
   circles.each do |circle|
     circle.wave
-
-    if circle.accel
-      circle.faster
-    else
-      circle.slower
-    end
-
+    circle.accel? ? circle.faster : circle.slower
     circle.set_accel
   end
 end
