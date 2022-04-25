@@ -26,15 +26,27 @@ class Point < Square
   end
 
   def angle_increment_decrement
-    @clockwise ? @angle = (@angle + @angle_delta) % 360 : @angle = (@angle - @angle_delta) % 360
+    if @clockwise
+      @angle = (@angle + @angle_delta) % 360
+    else
+      @angle = (@angle - @angle_delta) % 360
+    end
   end
 
   def accelerate
-    @angle_delta < ANGLE_DELTA_MAX ? @angle_delta += ANGLE_DELTA_DELTA : @accelerating = false
+    if @angle_delta < ANGLE_DELTA_MAX
+      @angle_delta += ANGLE_DELTA_DELTA
+    else
+      @accelerating = false
+    end
   end
 
   def decelerate
-    @angle_delta > ANGLE_DELTA_MIN ? @angle_delta -= ANGLE_DELTA_DELTA : @accelerating = true
+    if @angle_delta > ANGLE_DELTA_MIN
+      @angle_delta -= ANGLE_DELTA_DELTA
+    else
+      @accelerating = true
+    end
   end
 
   def init
