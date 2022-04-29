@@ -55,7 +55,8 @@ class Point < Square
   end
 
   def init
-    @x_speed, @y_speed = rand(-X_SPEED_MAX..X_SPEED_MAX), rand(Y_SPEED_MIN..Y_SPEED_MAX)
+    @x_speed = rand(-X_SPEED_MAX..X_SPEED_MAX)
+    @y_speed = rand(Y_SPEED_MIN..Y_SPEED_MAX)
     @y_accelerating = true
   end
 end
@@ -68,9 +69,7 @@ NUM_OF_POINTS.times do
   points << Point.new(x: x_init, y: y_init, size: 1, color: "white")
 end
 
-points.each do |point|
-  point.init
-end
+points.each { |point| point.init }
 
 update do
   points.each do |point|
