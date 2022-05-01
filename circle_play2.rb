@@ -69,9 +69,7 @@ circles.each_slice(2) do |circle|
 end
 
 update do
-  circles.each do |circle|
-    circle.rotate
-  end
+  circles.each { |circle| circle.rotate }
 end
 
 show
