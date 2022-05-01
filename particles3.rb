@@ -71,9 +71,7 @@ X_NUM_OF_POINTS.times do |i|
   end
 end
 
-points.each do |point|
-  point.init
-end
+points.each { |point| point.init }
 
 update do
   points.each do |point|

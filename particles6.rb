@@ -29,8 +29,7 @@ class Point < Square
   end
 
   def init
-    @x_init = @x
-    @y_init = @y
+    @x_init, @y_init = @x, @y
     @x_distance_init = X_CENTER - @x_init
     @y_distance_init = Y_CENTER - @y_init
     @distance_init = Math.sqrt(@x_distance_init ** 2 + @y_distance_init ** 2)
@@ -47,9 +46,7 @@ X_NUM_OF_POINTS.times do |i|
   end
 end
 
-points.each do |point|
-  point.init
-end
+points.each { |point| point.init }
 
 update do
   points.each do |point|

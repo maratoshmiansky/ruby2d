@@ -80,9 +80,7 @@ NUM_OF_POINTS.times do
   points << Point.new(x: x_init, y: y_init, size: 1, color: "white")
 end
 
-points.each do |point|
-  point.init
-end
+points.each { |point| point.init }
 
 update do
   points.each do |point|
