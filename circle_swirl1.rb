@@ -55,9 +55,7 @@ NUM_OF_CIRCLES.times do
   z_depth += 2
 end
 
-circles.each_slice(2) do |circle|
-  circle[0].init
-end
+circles.each_slice(2) { |circle| circle[0].init }
 
 update do
   circles.each_slice(2) do |circle|
