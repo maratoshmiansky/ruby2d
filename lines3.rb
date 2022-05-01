@@ -53,9 +53,7 @@ X_NUM_OF_LINES.times do |i|
 end
 
 update do
-  lines.each do |line|
-    line.rotate
-  end
+  lines.each { |line| line.rotate }
 end
 
 show
