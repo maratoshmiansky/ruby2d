@@ -46,8 +46,7 @@ NUM_OF_WAVES.times do |j|
   end
 end
 
-circles.each do |circle|
-  circle.init
+circles.each { |circle| circle.init }
 end
 
 update do
