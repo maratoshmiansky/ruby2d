@@ -79,9 +79,7 @@ end
 points.each { |point| point.init }
 
 update do
-  points.each do |point|
-    point.animate
-  end
+  points.each { |point| point.animate }
 end
 
 show
