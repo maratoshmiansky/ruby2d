@@ -49,9 +49,7 @@ end
 circles.each { |circle| circle.init }
 
 update do
-  circles.each do |circle|
-    circle.wave
-  end
+  circles.each { |circle| circle.wave }
 end
 
 show
