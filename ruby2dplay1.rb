@@ -9,8 +9,7 @@ NUM_OF_POINTS = 1000
 points = []
 
 NUM_OF_POINTS.times do
-  x_init = rand(0.0..Window.width)
-  y_init = rand(0.0..Window.height)
+  x_init, y_init = rand(0.0..Window.width), rand(0.0..Window.height)
   points << Square.new(x: x_init, y: y_init, size: 1, color: "white")
 end
 
@@ -18,10 +17,8 @@ angle = 0
 
 update do
   points.each do |point|
-    x_mult = rand(1.0..100.0)
-    y_mult = rand(1.0..100.0)
-    x_angle_mult = rand(1.0..1.2)
-    y_angle_mult = rand(1.0..1.2)
+    x_mult, y_mult = rand(1.0..100.0), rand(1.0..100.0)
+    x_angle_mult, y_angle_mult = rand(1.0..1.2), rand(1.0..1.2)
     angle = (angle + ANGLE_DELTA) % 360
     x_move = x_mult * Math.cos(x_angle_mult * angle * DEGS_TO_RADIANS)
     y_move = y_mult * Math.sin(y_angle_mult * angle * DEGS_TO_RADIANS)
