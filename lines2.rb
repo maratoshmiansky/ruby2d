@@ -28,16 +28,14 @@ gradient = gradients.sample
 
 x1_init = rand(X_WINDOW_OFFSET..Window.width - X_WINDOW_OFFSET)
 y1_init = rand(Y_WINDOW_OFFSET..Window.height - Y_WINDOW_OFFSET)
-x2_init = x1_init
-y2_init = y1_init
+x2_init, y2_init = x1_init, y1_init
 
 line = Line.new(x1: x1_init, y1: y1_init, x2: x2_init, y2: y2_init, width: 1, color: "white")
 num_of_lines = 0
 line_text = Text.new("Total number of lines = #{num_of_lines}", x: Window.width / 2 - 125)
 
 update do
-  x1_new = line.x2
-  y1_new = line.y2
+  x1_new, y1_new = line.x2, line.y2
   line_color = gradient.sample
 
   if line.x1 != line.x2
