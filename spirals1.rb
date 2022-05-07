@@ -38,7 +38,9 @@ end
 
 gradients = [%w(white yellow orange red), %w(white aqua teal blue)]
 gradient = gradients.sample
-line_color, line, angle, radius = nil, nil, nil, nil
+line_color = ""
+line = nil
+angle, radius = 0, 0
 angle_mult = ANGLE_MULT_MIN - ANGLE_MULT_DELTA
 start = true
 
@@ -47,12 +49,13 @@ update do
     line_color = gradient.sample
     line = line_init(line_color)
     angle, radius = 0, 0
+    
     angle_mult < ANGLE_MULT_MAX ? angle_mult += ANGLE_MULT_DELTA : angle_mult = ANGLE_MULT_MIN
+    
     Text.new("angle_mult = #{angle_mult}", x: Window.width / 2 - 75)
     start = false
   else
-    x1_new = line.x2
-    y1_new = line.y2
+    x1_new, y1_new = line.x2, line.y2
     radius += RADIUS_DELTA
     angle = (angle + ANGLE_DELTA) % 360
     rot_angle = angle_mult * angle * DEGS_TO_RADIANS
