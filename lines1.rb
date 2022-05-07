@@ -39,7 +39,7 @@ start = true
 update do
   if start
     lines = []
-    # set up point grid
+
     X_NUM_OF_POINTS.times do |i|
       Y_NUM_OF_POINTS.times do |j|
         x_init = X_WINDOW_OFFSET + (i + 0.5) * X_GRID
@@ -54,15 +54,14 @@ update do
   else
     # branch out
     lines.each do |line|
-      x1_new = line.x2
-      y1_new = line.y2
+      x1_new, y1_new = line.x2, line.y2
       line_color = gradient.sample
       # branch vertically if previous branch was horizontal and vice-versa
       if line.x1 != line.x2
         x2_new = x1_new
         y_offset = rand(-MAX_LINE_LENGTH..MAX_LINE_LENGTH)
         y2_new = y1_new + y_offset
-        # top/bottom edge check
+        
         if line.y_hits_top?
           y2_new += y_offset.abs
         elsif line.y_hits_bottom?
@@ -72,7 +71,7 @@ update do
         y2_new = y1_new
         x_offset = rand(-MAX_LINE_LENGTH..MAX_LINE_LENGTH)
         x2_new = x1_new + x_offset
-        # left/right edge check
+        
         if line.x_hits_left?
           x2_new += x_offset.abs
         elsif line.x_hits_right?
