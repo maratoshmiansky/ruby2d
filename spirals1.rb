@@ -38,8 +38,7 @@ end
 
 gradients = [%w(white yellow orange red), %w(white aqua teal blue)]
 gradient = gradients.sample
-line_color = ""
-line = nil
+line_color, line = "", nil
 angle, radius = 0, 0
 angle_mult = ANGLE_MULT_MIN - ANGLE_MULT_DELTA
 start = true
