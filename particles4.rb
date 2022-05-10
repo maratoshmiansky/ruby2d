@@ -13,8 +13,6 @@ DISTANCE_MIN = 1
 DISTANCE_DELTA = 2
 
 class Point < Square
-  attr_reader :contracting
-
   def get_distance
     @distance = Math.sqrt(@x_distance ** 2 + @y_distance ** 2)
   end
