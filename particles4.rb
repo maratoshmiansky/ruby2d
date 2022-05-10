@@ -35,8 +35,7 @@ class Point < Square
   end
   
   def contract
-    @x_distance = X_CENTER - @x
-    @y_distance = Y_CENTER - @y
+    @x_distance, @y_distance = X_CENTER - @x, Y_CENTER - @y
     get_distance
 
     if @distance > DISTANCE_MIN
@@ -48,8 +47,7 @@ class Point < Square
   end
 
   def expand
-    @x_distance = @x_init - @x
-    @y_distance = @y_init - @y
+    @x_distance, @y_distance = @x_init - @x, @y_init - @y
     get_distance
     @distance.between?(DISTANCE_MIN, @distance_init) ? move : @contracting = true
   end
