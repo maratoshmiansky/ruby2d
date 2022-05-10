@@ -28,6 +28,14 @@ class Point < Square
     @x, @y = X_CENTER, Y_CENTER
   end
 
+  def contract_expand
+    contracting? ? contract : expand
+  end
+  
+  def contracting?
+    @contracting
+  end
+  
   def contract
     @x_distance = X_CENTER - @x
     @y_distance = Y_CENTER - @y
@@ -69,9 +77,7 @@ end
 points.each { |point| point.init }
 
 update do
-  points.each do |point|
-    point.contracting ? point.contract : point.expand
-  end
+  points.each { |point| point.contract_expand }
 end
 
 show
