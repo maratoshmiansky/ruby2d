@@ -28,7 +28,7 @@ class Point < Square
     end
   end
 
-  def y_accelerating
+  def y_accelerating?
     @y_accelerating
   end
   
