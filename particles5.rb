@@ -13,8 +13,6 @@ DISTANCE_MIN = 1
 MOVE_MULT = 3
 
 class Point < Square
-  attr_reader :contracting
-
   def get_distance
     @distance = Math.sqrt(@x_distance ** 2 + @y_distance ** 2)
   end
@@ -32,6 +30,14 @@ class Point < Square
     @x, @y = @x_init, @y_init
   end
 
+  def contract_expand
+    contracting? ? contract : expand
+  end
+  
+  def contracting?
+    @contracting
+  end
+  
   def contract
     @x_distance = X_CENTER - @x
     @y_distance = Y_CENTER - @y
@@ -79,9 +85,7 @@ end
 points.each { |point| point.init }
 
 update do
-  points.each do |point|
-    point.contracting ? point.contract : point.expand
-  end
+  points.each { |point| point.contract_expand }
 end
 
 show
