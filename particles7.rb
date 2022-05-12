@@ -25,17 +25,20 @@ class Point < Square
   def contract_expand
     if @contract_counter < ITERATIONS
       translate_origin
-      @contracting ? factor = SCALE_FACTOR : factor = 1 / SCALE_FACTOR
-      x = @x * factor
-      y = @y * factor
+      contracting? ? factor = SCALE_FACTOR : factor = 1 / SCALE_FACTOR
+      x, y = @x * factor, @y * factor
       translate_center(x, y)
       @contract_counter += 1
     else
-      @contracting ? @contracting = false : @contracting = true
+      contracting? ? @contracting = false : @contracting = true
       @contract_counter = 0
     end
   end
 
+  def contracting?
+    @contracting
+  end
+  
   def rotate
     translate_origin
     x_rot = @x * COS - @y * SIN
