@@ -22,8 +22,6 @@ CIRCLE_INNER_MULT = 0.8
 RADIUS_DIV = 3.0
 
 class Circle
-  attr_reader :accel
-
   def wave
     @angle = (@angle + @angle_delta) % 360
     @y = @y_init + @y_amp * Math.sin(@angle * DEGS_TO_RADS)
