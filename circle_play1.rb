@@ -44,6 +44,10 @@ class Circle
     @radius /= CIRCLE_RADIUS_DELTA
   end
 
+  def growing?
+    @growing
+  end
+  
   def set_growing
     if @radius < @radius_init
       @growing = true
@@ -98,7 +102,7 @@ end
 
 update do
   circles.each_slice(2) do |circle|
-    if circle[0].growing
+    if circle[0].growing?
       circle[0].grow
       circle[1].grow
     else
