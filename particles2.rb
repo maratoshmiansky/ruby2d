@@ -16,7 +16,7 @@ class Point < Square
     self.y += @y_speed
   end
 
-  def x_accel
+  def x_accelerate
     if @x_speed <= X_SPEED_MAX
       @x_speed += rand(-X_SPEED..X_SPEED)
     else
@@ -24,7 +24,7 @@ class Point < Square
     end
   end
 
-  def y_accel
+  def y_accelerate
     if @y_speed <= Y_SPEED_MAX
       @y_speed += Y_SPEED
     else
@@ -85,8 +85,8 @@ update do
     point.x_edge_check
     point.y_edge_check
     point.move
-    point.x_accel
-    point.y_accel
+    point.x_accelerate
+    point.y_accelerate
   end
 end
 
