@@ -11,8 +11,7 @@ X_CENTER, Y_CENTER = Window.width / 2, Window.height / 2
 X_GRID = VIEWPORT_WIDTH / NUM_OF_CIRCLES
 Y_GRID = VIEWPORT_HEIGHT / NUM_OF_WAVES
 DEGS_TO_RADS = Math::PI / 180
-ANGLE_DELTA_MIN = 0.0
-ANGLE_DELTA_MAX = 8.0
+ANGLE_DELTA_MIN, ANGLE_DELTA_MAX = 0.0, 8.0
 ANGLE_DELTA_DELTA = 0.05
 ANGLE_DIV = 0.5
 Y_AMP_INIT = 6.0
@@ -38,23 +37,23 @@ class Circle
     @y_amp -= Y_AMP_DELTA
   end
 
-  def set_accel
+  def set_accelerating
     if @angle_delta > ANGLE_DELTA_MAX
-      @accel = false
+      @accelerating = false
     elsif @angle_delta < ANGLE_DELTA_MIN
-      @accel = true
+      @accelerating = true
     end
   end
 
-  def accel?
-    @accel
+  def accelerating?
+    @accelerating
   end
 
   def init
     @x_init, @y_init = @x, @y
     @angle = ((X_CENTER - @x_init) + (Y_CENTER - @y_init)) / ANGLE_DIV
     @angle_delta = ANGLE_DELTA_MIN
-    @accel = true
+    @accelerating = true
     @y_amp = Y_AMP_INIT
     @radius_init = @radius
   end
@@ -79,8 +78,8 @@ circles.each { |circle| circle.init }
 update do
   circles.each do |circle|
     circle.wave
-    circle.accel? ? circle.faster : circle.slower
-    circle.set_accel
+    circle.accelerating? ? circle.faster : circle.slower
+    circle.set_accelerating
   end
 end
 
