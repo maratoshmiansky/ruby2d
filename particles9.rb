@@ -16,6 +16,11 @@ class Point < Square
     self.y += @y_mult * @y_speed
   end
 
+  def accelerate_decelerate
+    x_accelerate_decelerate
+    y_accelerate_decelerate
+  end
+  
   def x_accelerate_decelerate
     if @x_accelerating
       @x_speed += rand(0.0..X_SPEED_DELTA)
@@ -32,6 +37,11 @@ class Point < Square
     end
   end
 
+  def set_accelerating
+    set_x_accelerating
+    set_y_accelerating
+  end
+  
   def set_x_accelerating
     if @x_speed <= X_SPEED_MIN
       @x_accelerating = true
@@ -48,6 +58,11 @@ class Point < Square
     end
   end
 
+  def edge_check
+    x_edge_check
+    y_edge_check
+  end
+  
   def x_edge_check
     if x_hits_left?
       @x_mult = 1
@@ -100,12 +115,9 @@ points.each { |point| point.init }
 update do
   points.each do |point|
     point.move
-    point.x_edge_check
-    point.y_edge_check
-    point.set_x_accelerating
-    point.set_y_accelerating
-    point.x_accelerate_decelerate
-    point.y_accelerate_decelerate
+    point.edge_check
+    point.set_accelerating
+    point.accelerate_decelerate
   end
 end
 
