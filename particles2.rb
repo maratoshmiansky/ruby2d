@@ -16,6 +16,11 @@ class Point < Square
     self.y += @y_speed
   end
 
+  def accelerate
+    x_accelerate
+    y_accelerate
+  end
+  
   def x_accelerate
     if @x_speed <= X_SPEED_MAX
       @x_speed += rand(-X_SPEED..X_SPEED)
@@ -40,6 +45,11 @@ class Point < Square
     @y_speed = rand(Y_SPEED_MIN..Y_SPEED_MAX)
   end
 
+  def edge_check
+    x_edge_check
+    y_edge_check
+  end
+  
   def x_edge_check
     @x_speed = -@x_speed if x_hits_left? || x_hits_right?
   end
@@ -82,11 +92,9 @@ points.each { |point| point.init }
 
 update do
   points.each do |point|
-    point.x_edge_check
-    point.y_edge_check
+    point.edge_check
     point.move
-    point.x_accelerate
-    point.y_accelerate
+    point.accelerate
   end
 end
 
