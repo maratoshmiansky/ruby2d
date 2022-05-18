@@ -26,6 +26,11 @@ class Point < Square
     end
   end
 
+  def bounce
+    x_bounce
+    y_bounce
+  end
+  
   def y_bounce
     unless @y.between?(0, Window.height)
       @y_move = -@y_move
@@ -54,8 +59,7 @@ points.each { |point| point.init }
 
 update do
   points.each do |point|
-    point.x_bounce
-    point.y_bounce
+    point.bounce
     point.move
   end
 end
