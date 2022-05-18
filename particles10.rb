@@ -32,6 +32,11 @@ class Point < Square
     @y_accelerating
   end
   
+  def edge_check
+    x_edge_check
+    y_edge_check
+  end
+  
   def x_edge_check
     @x_speed = -@x_speed if x_hits_left? || x_hits_right?
   end
@@ -75,8 +80,7 @@ points.each { |point| point.init }
 
 update do
   points.each do |point|
-    point.x_edge_check
-    point.y_edge_check
+    point.edge_check
     point.move
     point.set_y_accelerating
     point.y_speed_up_and_down
