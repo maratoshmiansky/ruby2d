@@ -22,11 +22,15 @@ class Point < Square
   end
 
   def angle_increment_decrement
-    if @clockwise
+    if clockwise?
       @angle = (@angle + @angle_delta) % 360
     else
       @angle = (@angle - @angle_delta) % 360
     end
+  end
+
+  def clockwise?
+    @clockwise
   end
 
   def accelerate_decelerate
