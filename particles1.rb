@@ -19,6 +19,11 @@ class Point < Square
     @y_move = rand(-Y_MOVE_BOUND..Y_MOVE_BOUND)
   end
 
+  def bounce
+    x_bounce
+    y_bounce
+  end
+  
   def x_bounce
     unless @x.between?(0, Window.width)
       @x_move = -@x_move
@@ -26,11 +31,6 @@ class Point < Square
     end
   end
 
-  def bounce
-    x_bounce
-    y_bounce
-  end
-  
   def y_bounce
     unless @y.between?(0, Window.height)
       @y_move = -@y_move
