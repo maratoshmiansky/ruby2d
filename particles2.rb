@@ -37,6 +37,11 @@ class Point < Square
     end
   end
 
+  def speed_reset
+    x_speed_reset
+    y_speed_reset
+  end
+  
   def x_speed_reset
     @x_speed = rand(-X_SPEED_MAX..X_SPEED_MAX)
   end
@@ -75,8 +80,7 @@ class Point < Square
   end
 
   def init
-    x_speed_reset
-    y_speed_reset
+    speed_reset
   end
 end
 
