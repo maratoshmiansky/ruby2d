@@ -22,6 +22,17 @@ class Point < Square
     contract_expand
   end
 
+  def rotate
+    translate_origin
+    x_rot = @x * COS - @y * SIN
+    y_rot = @x * SIN + @y * COS
+    translate_center(x_rot, y_rot)
+  end
+  
+  def contracting?
+    @contracting
+  end
+  
   def contract_expand
     if @contract_counter < ITERATIONS
       translate_origin
@@ -32,19 +43,8 @@ class Point < Square
     else
       contracting? ? @contracting = false : @contracting = true
       @contract_counter = 0
-    end
-  end
-
-  def contracting?
-    @contracting
-  end
-  
-  def rotate
-    translate_origin
-    x_rot = @x * COS - @y * SIN
-    y_rot = @x * SIN + @y * COS
-    translate_center(x_rot, y_rot)
-  end
+    end  
+  end  
 
   def translate_origin
     @x -= X_CENTER
