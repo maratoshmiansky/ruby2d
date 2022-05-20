@@ -18,8 +18,7 @@ class Point < Square
   end
 
   def get_distance
-    @x_distance = X_CENTER - @x
-    @y_distance = Y_CENTER - @y
+    @x_distance, @y_distance = X_CENTER - @x, Y_CENTER - @y
     @distance = Math.sqrt(@x_distance ** 2 + @y_distance ** 2)
   end
 
