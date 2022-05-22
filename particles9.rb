@@ -16,48 +16,6 @@ class Point < Square
     self.y += @y_mult * @y_speed
   end
 
-  def accelerate_decelerate
-    x_accelerate_decelerate
-    y_accelerate_decelerate
-  end
-  
-  def x_accelerate_decelerate
-    if @x_accelerating
-      @x_speed += rand(0.0..X_SPEED_DELTA)
-    else
-      @x_speed -= rand(0.0..X_SPEED_DELTA)
-    end
-  end
-
-  def y_accelerate_decelerate
-    if @y_accelerating
-      @y_speed += rand(0.0..Y_SPEED_DELTA)
-    else
-      @y_speed -= rand(0.0..Y_SPEED_DELTA)
-    end
-  end
-
-  def set_accelerating
-    set_x_accelerating
-    set_y_accelerating
-  end
-  
-  def set_x_accelerating
-    if @x_speed <= X_SPEED_MIN
-      @x_accelerating = true
-    elsif @x_speed >= X_SPEED_MAX
-      @x_accelerating = false
-    end
-  end
-
-  def set_y_accelerating
-    if @y_speed <= Y_SPEED_MIN
-      @y_accelerating = true
-    elsif @y_speed >= Y_SPEED_MAX
-      @y_accelerating = false
-    end
-  end
-
   def edge_check
     x_edge_check
     y_edge_check
@@ -78,7 +36,7 @@ class Point < Square
       @y_mult = -1
     end
   end
-
+  
   def x_hits_left?
     @x <= X_WINDOW_OFFSET
   end
@@ -94,6 +52,48 @@ class Point < Square
   def y_hits_bottom?
     @y >= Window.height - Y_WINDOW_OFFSET
   end
+
+  def set_accelerating
+    set_x_accelerating
+    set_y_accelerating
+  end    
+  
+  def set_x_accelerating
+    if @x_speed <= X_SPEED_MIN
+      @x_accelerating = true
+    elsif @x_speed >= X_SPEED_MAX
+      @x_accelerating = false
+    end    
+  end    
+
+  def set_y_accelerating
+    if @y_speed <= Y_SPEED_MIN
+      @y_accelerating = true
+    elsif @y_speed >= Y_SPEED_MAX
+      @y_accelerating = false
+    end    
+  end    
+
+  def accelerate_decelerate
+    x_accelerate_decelerate
+    y_accelerate_decelerate
+  end      
+  
+  def x_accelerate_decelerate
+    if @x_accelerating
+      @x_speed += rand(0.0..X_SPEED_DELTA)
+    else
+      @x_speed -= rand(0.0..X_SPEED_DELTA)
+    end      
+  end      
+
+  def y_accelerate_decelerate
+    if @y_accelerating
+      @y_speed += rand(0.0..Y_SPEED_DELTA)
+    else
+      @y_speed -= rand(0.0..Y_SPEED_DELTA)
+    end      
+  end      
 
   def init
     @x_mult, @y_mult = [-1, 1].sample, [-1, 1].sample
