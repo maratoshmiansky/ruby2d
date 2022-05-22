@@ -11,27 +11,6 @@ X_SPEED_MAX, Y_SPEED_MAX = 4.0, 12.0
 Y_SPEED_DELTA = 0.2
 
 class Point < Square
-  def move
-    self.x += @x_speed
-    self.y += @y_speed
-  end
-
-  def y_speed_up_and_down
-    y_accelerating? ? @y_speed += Y_SPEED_DELTA : @y_speed -= Y_SPEED_DELTA
-  end
-
-  def set_y_accelerating
-    if @y_speed < Y_SPEED_MIN
-      @y_accelerating = true
-    elsif @y_speed > Y_SPEED_MAX
-      @y_accelerating = false
-    end
-  end
-
-  def y_accelerating?
-    @y_accelerating
-  end
-  
   def edge_check
     x_edge_check
     y_edge_check
@@ -40,27 +19,48 @@ class Point < Square
   def x_edge_check
     @x_speed = -@x_speed if x_hits_left? || x_hits_right?
   end
-
+  
   def y_edge_check
     @y_speed = -@y_speed if y_hits_top? || y_hits_bottom?
   end
-
+  
   def x_hits_left?
     @x <= X_WINDOW_OFFSET
   end
-
+  
   def x_hits_right?
     @x >= Window.width - X_WINDOW_OFFSET
   end
-
+  
   def y_hits_top?
     @y <= Y_WINDOW_OFFSET
   end
-
+  
   def y_hits_bottom?
     @y >= Window.height - Y_WINDOW_OFFSET
   end
+  
+  def move
+    self.x += @x_speed
+    self.y += @y_speed
+  end  
 
+  def set_y_accelerating
+    if @y_speed < Y_SPEED_MIN
+      @y_accelerating = true
+    elsif @y_speed > Y_SPEED_MAX
+      @y_accelerating = false
+    end  
+  end  
+
+  def y_speed_up_and_down
+    y_accelerating? ? @y_speed += Y_SPEED_DELTA : @y_speed -= Y_SPEED_DELTA
+  end    
+
+  def y_accelerating?
+    @y_accelerating
+  end  
+  
   def init
     @x_speed = rand(-X_SPEED_MAX..X_SPEED_MAX)
     @y_speed = rand(Y_SPEED_MIN..Y_SPEED_MAX)
