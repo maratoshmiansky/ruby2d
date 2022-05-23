@@ -15,7 +15,7 @@ Y_ANGLE_MULT_MIN, Y_ANGLE_MULT_MAX = 1.0, 3.0
 class Point < Square
   def animate
     angle_delta_check
-    @accelerating ? accelerate : decelerate
+    accelerating? ? accelerate : decelerate
     @angle += @angle_delta
     self.x = @x_init + @x_mult * Math.cos(@x_angle_mult * @angle * DEGS_TO_RADIANS)
     self.y = @y_init + @y_mult * Math.sin(@y_angle_mult * @angle * DEGS_TO_RADIANS)
@@ -29,6 +29,10 @@ class Point < Square
     end
   end
 
+  def accelerating?
+    @accelerating
+  end
+  
   def accelerate
     if @angle.between?(0, 179)
       @angle_delta += ANGLE_DELTA_DELTA
