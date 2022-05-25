@@ -13,23 +13,6 @@ DISTANCE_MIN = 1
 MOVE_MULT = 3
 
 class Point < Square
-  def get_distance
-    @distance = Math.sqrt(@x_distance ** 2 + @y_distance ** 2)
-  end
-
-  def move
-    self.x += MOVE_MULT * (@x_distance_init / @distance_init).abs * (@x_distance / @distance)
-    self.y += MOVE_MULT * (@y_distance_init / @distance_init).abs * (@y_distance / @distance)
-  end
-
-  def centrify
-    @x, @y = X_CENTER, Y_CENTER
-  end
-
-  def reinitialize
-    @x, @y = @x_init, @y_init
-  end
-
   def contract_expand
     contracting? ? contract : expand
   end
@@ -61,6 +44,23 @@ class Point < Square
       reinitialize
     end
   end
+
+  def get_distance
+    @distance = Math.sqrt(@x_distance ** 2 + @y_distance ** 2)
+  end    
+
+  def move
+    self.x += MOVE_MULT * (@x_distance_init / @distance_init).abs * (@x_distance / @distance)
+    self.y += MOVE_MULT * (@y_distance_init / @distance_init).abs * (@y_distance / @distance)
+  end    
+
+  def centrify
+    @x, @y = X_CENTER, Y_CENTER
+  end  
+
+  def reinitialize
+    @x, @y = @x_init, @y_init
+  end  
 
   def init
     @x_init, @y_init = @x, @y
