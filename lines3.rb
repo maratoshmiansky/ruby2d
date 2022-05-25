@@ -34,10 +34,8 @@ class Line
   end
 
   def translate_center(x1_coord, y1_coord, x2_coord, y2_coord)
-    @x1 = x1_coord + X_CENTER
-    @y1 = y1_coord + Y_CENTER
-    @x2 = x2_coord + X_CENTER
-    @y2 = y2_coord + Y_CENTER
+    @x1, @y1 = x1_coord + X_CENTER, y1_coord + Y_CENTER
+    @x2, @y2 = x2_coord + X_CENTER, y2_coord + Y_CENTER
   end
 end
 
