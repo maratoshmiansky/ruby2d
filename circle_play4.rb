@@ -27,27 +27,27 @@ class Circle
     @radius = @radius_init + (@y_init - @y).abs / RADIUS_DIV
   end
 
+  def accelerating?
+    @accelerating
+  end
+
   def faster
     @angle_delta += ANGLE_DELTA_DELTA
     @y_amp += Y_AMP_DELTA
-  end
+  end  
 
   def slower
     @angle_delta -= ANGLE_DELTA_DELTA
     @y_amp -= Y_AMP_DELTA
-  end
+  end  
 
   def set_accelerating
     if @angle_delta > ANGLE_DELTA_MAX
       @accelerating = false
     elsif @angle_delta < ANGLE_DELTA_MIN
       @accelerating = true
-    end
-  end
-
-  def accelerating?
-    @accelerating
-  end
+    end  
+  end  
 
   def init
     @x_init, @y_init = @x, @y
