@@ -14,8 +14,10 @@ SWIRL_RADIUS_DELTA = 1.02
 NUM_OF_CIRCLES = 240
 
 class Circle
-  attr_reader :growing
-
+  def growing?
+    @growing
+  end
+  
   def grow
     @radius *= CIRCLE_RADIUS_DELTA
   end
@@ -59,7 +61,7 @@ circles.each_slice(2) { |circle| circle[0].init }
 
 update do
   circles.each_slice(2) do |circle|
-    if circle[0].growing
+    if circle[0].growing?
       circle[0].grow
       circle[1].grow
     else
