@@ -52,11 +52,10 @@ update do
     line_text = Text.new("Total number of lines = #{all_lines.length}", x: Window.width / 2 - 125)
     start = false
   else
-    # branch out
     lines.each do |line|
       x1_new, y1_new = line.x2, line.y2
       line_color = gradient.sample
-      # branch vertically if previous branch was horizontal and vice-versa
+      
       if line.x1 != line.x2
         x2_new = x1_new
         y_offset = rand(-MAX_LINE_LENGTH..MAX_LINE_LENGTH)
