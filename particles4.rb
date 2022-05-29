@@ -9,8 +9,7 @@ VIEWPORT_HEIGHT = (Window.height - Y_WINDOW_OFFSET * 2)
 X_GRID = VIEWPORT_WIDTH / X_NUM_OF_POINTS
 Y_GRID = VIEWPORT_HEIGHT / Y_NUM_OF_POINTS
 X_CENTER, Y_CENTER = Window.width / 2, Window.height / 2
-DISTANCE_MIN = 1
-DISTANCE_DELTA = 2
+DISTANCE_MIN, DISTANCE_DELTA = 1, 2
 
 class Point < Square
   def get_distance
