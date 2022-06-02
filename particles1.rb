@@ -6,19 +6,6 @@ NUM_OF_POINTS = 5000
 X_MOVE_BOUND, Y_MOVE_BOUND = 2.0, 2.0
 
 class Point < Square
-  def move
-    self.x += @x_move
-    self.y += @y_move
-  end
-
-  def x_move_reset
-    @x_move = rand(-X_MOVE_BOUND..X_MOVE_BOUND)
-  end
-
-  def y_move_reset
-    @y_move = rand(-Y_MOVE_BOUND..Y_MOVE_BOUND)
-  end
-
   def bounce
     x_bounce
     y_bounce
@@ -41,6 +28,19 @@ class Point < Square
   def color_swap
     self.color = ["white", "aqua", "teal", "blue"].sample
   end
+
+  def move
+    self.x += @x_move
+    self.y += @y_move
+  end    
+
+  def x_move_reset
+    @x_move = rand(-X_MOVE_BOUND..X_MOVE_BOUND)
+  end    
+
+  def y_move_reset
+    @y_move = rand(-Y_MOVE_BOUND..Y_MOVE_BOUND)
+  end    
 
   def init
     x_move_reset
