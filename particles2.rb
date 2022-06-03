@@ -11,45 +11,6 @@ Y_SPEED_MIN = 0.0
 X_SPEED_MAX, Y_SPEED_MAX = 4.0, 16.0
 
 class Point < Square
-  def move
-    self.x += @x_speed
-    self.y += @y_speed
-  end
-
-  def accelerate
-    x_accelerate
-    y_accelerate
-  end
-  
-  def x_accelerate
-    if @x_speed <= X_SPEED_MAX
-      @x_speed += rand(-X_SPEED..X_SPEED)
-    else
-      x_speed_reset
-    end
-  end
-
-  def y_accelerate
-    if @y_speed <= Y_SPEED_MAX
-      @y_speed += Y_SPEED
-    else
-      y_speed_reset
-    end
-  end
-
-  def speed_reset
-    x_speed_reset
-    y_speed_reset
-  end
-  
-  def x_speed_reset
-    @x_speed = rand(-X_SPEED_MAX..X_SPEED_MAX)
-  end
-
-  def y_speed_reset
-    @y_speed = rand(Y_SPEED_MIN..Y_SPEED_MAX)
-  end
-
   def edge_check
     x_edge_check
     y_edge_check
@@ -78,6 +39,45 @@ class Point < Square
   def y_hits_bottom?
     @y >= Window.height - Y_WINDOW_OFFSET
   end
+
+  def move
+    self.x += @x_speed
+    self.y += @y_speed
+  end  
+
+  def accelerate
+    x_accelerate
+    y_accelerate
+  end  
+  
+  def x_accelerate
+    if @x_speed <= X_SPEED_MAX
+      @x_speed += rand(-X_SPEED..X_SPEED)
+    else
+      x_speed_reset
+    end  
+  end  
+
+  def y_accelerate
+    if @y_speed <= Y_SPEED_MAX
+      @y_speed += Y_SPEED
+    else
+      y_speed_reset
+    end  
+  end  
+
+  def speed_reset
+    x_speed_reset
+    y_speed_reset
+  end  
+  
+  def x_speed_reset
+    @x_speed = rand(-X_SPEED_MAX..X_SPEED_MAX)
+  end  
+
+  def y_speed_reset
+    @y_speed = rand(Y_SPEED_MIN..Y_SPEED_MAX)
+  end  
 
   def init
     speed_reset
