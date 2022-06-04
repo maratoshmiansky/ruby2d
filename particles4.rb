@@ -12,19 +12,6 @@ X_CENTER, Y_CENTER = Window.width / 2, Window.height / 2
 DISTANCE_MIN, DISTANCE_DELTA = 1, 2
 
 class Point < Square
-  def get_distance
-    @distance = Math.sqrt(@x_distance ** 2 + @y_distance ** 2)
-  end
-
-  def move
-    self.x += (@x_distance - @y_distance) * DISTANCE_DELTA / @distance
-    self.y += @y_distance * DISTANCE_DELTA / @distance
-  end
-
-  def centrify
-    @x, @y = X_CENTER, Y_CENTER
-  end
-
   def contract_expand
     contracting? ? contract : expand
   end
@@ -55,6 +42,19 @@ class Point < Square
       @contracting = true
     end
   end
+
+  def get_distance
+    @distance = Math.sqrt(@x_distance ** 2 + @y_distance ** 2)
+  end  
+
+  def move
+    self.x += (@x_distance - @y_distance) * DISTANCE_DELTA / @distance
+    self.y += @y_distance * DISTANCE_DELTA / @distance
+  end  
+
+  def centrify
+    @x, @y = X_CENTER, Y_CENTER
+  end  
 
   def init
     @x_init, @y_init = @x, @y
