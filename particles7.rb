@@ -29,10 +29,6 @@ class Point < Square
     translate_center(x_rot, y_rot)
   end
   
-  def contracting?
-    @contracting
-  end
-  
   def contract_expand
     if @contract_counter < ITERATIONS
       translate_origin
@@ -56,6 +52,10 @@ class Point < Square
     self.y = y_coord + Y_CENTER
   end
 
+  def contracting?
+    @contracting
+  end    
+  
   def init
     @contracting = true
     @contract_counter = 0
