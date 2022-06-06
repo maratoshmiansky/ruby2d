@@ -6,14 +6,19 @@ X_CENTER, Y_CENTER = Window.width / 2, Window.height / 2
 DEGS_TO_RADS = Math::PI / 180
 CIRCLE_RADIUS_INIT, CIRCLE_RADIUS_DELTA = 3.0, 1.11
 CIRCLE_INNER_MULT = 0.75
-NUM_OF_CIRCLES = 13
+NUM_OF_CIRCLES, NUM_OF_RINGS = 13, 24
 ANGLE_DELTA = 360.0 / NUM_OF_CIRCLES
 RING_RADIUS_INIT, RING_RADIUS_DELTA = 10.0, 1.15
-NUM_OF_RINGS = 24
 ROT_ANGLE_DIV = 30
 
 class Circle
   attr_reader :radius
+
+  def init(circ_radius)
+    @rot_angle_delta = circ_radius / ROT_ANGLE_DIV
+    @rot_angle = @rot_angle_delta * DEGS_TO_RADS
+    @cos, @sin = Math.cos(@rot_angle), Math.sin(@rot_angle)
+  end
 
   def rotate
     translate_origin
@@ -30,12 +35,6 @@ class Circle
   def translate_center(x_coord, y_coord)
     @x = x_coord + X_CENTER
     @y = y_coord + Y_CENTER
-  end
-
-  def init(circ_radius)
-    @rot_angle_delta = circ_radius / ROT_ANGLE_DIV
-    @rot_angle = @rot_angle_delta * DEGS_TO_RADS
-    @cos, @sin = Math.cos(@rot_angle), Math.sin(@rot_angle)
   end
 end
 
