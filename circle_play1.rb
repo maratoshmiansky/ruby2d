@@ -15,43 +15,6 @@ ROT_ANGLE_DIV = 4
 class Circle
   attr_reader :radius
 
-  def rotate
-    translate_origin
-    x_rot = @x * @cos - @y * @sin
-    y_rot = @x * @sin + @y * @cos
-    translate_center(x_rot, y_rot)
-  end
-
-  def translate_origin
-    @x -= X_CENTER
-    @y -= Y_CENTER
-  end
-
-  def translate_center(x_coord, y_coord)
-    @x = x_coord + X_CENTER
-    @y = y_coord + Y_CENTER
-  end
-
-  def grow
-    @radius *= CIRCLE_RADIUS_DELTA
-  end
-
-  def shrink
-    @radius /= CIRCLE_RADIUS_DELTA
-  end
-
-  def growing?
-    @growing
-  end
-  
-  def set_growing
-    if @radius < @radius_init
-      @growing = true
-    elsif @radius > @radius_last
-      @growing = false
-    end
-  end
-
   def rad_init
     @radius_init = @radius
     @radius_last = @radius * CIRCLE_RADIUS_MULT
@@ -63,6 +26,43 @@ class Circle
     @rot_angle = @rot_angle_delta * DEGS_TO_RADS
     @cos, @sin = Math.cos(@rot_angle), Math.sin(@rot_angle)
   end
+
+  def growing?
+    @growing
+  end
+  
+  def grow
+    @radius *= CIRCLE_RADIUS_DELTA
+  end
+
+  def shrink
+    @radius /= CIRCLE_RADIUS_DELTA
+  end
+
+  def set_growing
+    if @radius < @radius_init
+      @growing = true
+    elsif @radius > @radius_last
+      @growing = false
+    end
+  end
+
+  def rotate
+    translate_origin
+    x_rot = @x * @cos - @y * @sin
+    y_rot = @x * @sin + @y * @cos
+    translate_center(x_rot, y_rot)
+  end  
+
+  def translate_origin
+    @x -= X_CENTER
+    @y -= Y_CENTER
+  end  
+
+  def translate_center(x_coord, y_coord)
+    @x = x_coord + X_CENTER
+    @y = y_coord + Y_CENTER
+  end  
 end
 
 circles = []
