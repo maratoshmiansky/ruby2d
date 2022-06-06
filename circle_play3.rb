@@ -17,16 +17,16 @@ CIRCLE_INNER_MULT = 0.75
 RADIUS_DIV = 6.0
 
 class Circle
-  def wave
-    @angle = (@angle + ANGLE_DELTA) % 360
-    @y = @y_init + Y_AMP * Math.sin(@angle * DEGS_TO_RADS)
-    @radius = @radius_init + (@y_init - @y).abs / RADIUS_DIV
-  end
-
   def init
     @x_init, @y_init = @x, @y
     @angle = ((X_CENTER - @x_init) + (Y_CENTER - @y_init)) / ANGLE_DIV
     @radius_init = @radius
+  end
+
+  def wave
+    @angle = (@angle + ANGLE_DELTA) % 360
+    @y = @y_init + Y_AMP * Math.sin(@angle * DEGS_TO_RADS)
+    @radius = @radius_init + (@y_init - @y).abs / RADIUS_DIV
   end
 end
 
