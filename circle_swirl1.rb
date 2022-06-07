@@ -11,6 +11,11 @@ SWIRL_RADIUS_MIN, SWIRL_RADIUS_DELTA = 5.0, 1.02
 NUM_OF_CIRCLES = 240
 
 class Circle
+  def init
+    @radius_last = @radius * CIRCLE_RADIUS_MULT
+    @growing = true
+  end
+
   def growing?
     @growing
   end
@@ -30,18 +35,12 @@ class Circle
       @growing = false
     end
   end
-
-  def init
-    @radius_last = @radius * CIRCLE_RADIUS_MULT
-    @growing = true
-  end
 end
 
 circles = []
-z_depth = 0
+angle, z_depth = 0, 0
 circle_radius = CIRCLE_RADIUS_MIN
 swirl_radius = SWIRL_RADIUS_MIN
-angle = 0
 
 NUM_OF_CIRCLES.times do
   x_coord = X_CENTER + swirl_radius * Math.cos(angle * DEGS_TO_RADS)
