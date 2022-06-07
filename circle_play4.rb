@@ -11,11 +11,10 @@ X_GRID = VIEWPORT_WIDTH / NUM_OF_CIRCLES
 Y_GRID = VIEWPORT_HEIGHT / NUM_OF_WAVES
 DEGS_TO_RADS = Math::PI / 180
 ANGLE_DELTA_MIN, ANGLE_DELTA_MAX, ANGLE_DELTA_DELTA = 0.0, 8.0, 0.05
-ANGLE_DIV = 0.5
+ANGLE_DIV, RADIUS_DIV = 0.5, 3.0
 Y_AMP_INIT, Y_AMP_DELTA = 6.0, 0.15
 CIRCLE_RADIUS_INIT = 20.0
 CIRCLE_INNER_MULT = 0.8
-RADIUS_DIV = 3.0
 
 class Circle
   def init
@@ -54,7 +53,6 @@ class Circle
       @accelerating = true
     end  
   end  
-
 end
 
 circles = []
