@@ -18,6 +18,15 @@ CIRCLE_INNER_MULT = 0.8
 RADIUS_DIV = 3.0
 
 class Circle
+  def init
+    @x_init, @y_init = @x, @y
+    @angle = ((X_CENTER - @x_init) + (Y_CENTER - @y_init)) / ANGLE_DIV
+    @angle_delta = ANGLE_DELTA_MIN
+    @accelerating = true
+    @y_amp = Y_AMP_INIT
+    @radius_init = @radius
+  end
+  
   def wave
     @angle = (@angle + @angle_delta) % 360
     @y = @y_init + @y_amp * Math.sin(@angle * DEGS_TO_RADS)
@@ -46,14 +55,6 @@ class Circle
     end  
   end  
 
-  def init
-    @x_init, @y_init = @x, @y
-    @angle = ((X_CENTER - @x_init) + (Y_CENTER - @y_init)) / ANGLE_DIV
-    @angle_delta = ANGLE_DELTA_MIN
-    @accelerating = true
-    @y_amp = Y_AMP_INIT
-    @radius_init = @radius
-  end
 end
 
 circles = []
