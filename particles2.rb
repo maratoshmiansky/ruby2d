@@ -11,6 +11,23 @@ Y_SPEED_MIN = 0.0
 X_SPEED_MAX, Y_SPEED_MAX = 4.0, 16.0
 
 class Point < Square
+  def init
+    speed_reset
+  end
+
+  def speed_reset
+    x_speed_reset
+    y_speed_reset
+  end  
+  
+  def x_speed_reset
+    @x_speed = rand(-X_SPEED_MAX..X_SPEED_MAX)
+  end  
+
+  def y_speed_reset
+    @y_speed = rand(Y_SPEED_MIN..Y_SPEED_MAX)
+  end
+
   def edge_check
     x_edge_check
     y_edge_check
@@ -65,23 +82,6 @@ class Point < Square
       y_speed_reset
     end  
   end  
-
-  def speed_reset
-    x_speed_reset
-    y_speed_reset
-  end  
-  
-  def x_speed_reset
-    @x_speed = rand(-X_SPEED_MAX..X_SPEED_MAX)
-  end  
-
-  def y_speed_reset
-    @y_speed = rand(Y_SPEED_MIN..Y_SPEED_MAX)
-  end  
-
-  def init
-    speed_reset
-  end
 end
 
 points = []
