@@ -11,6 +11,11 @@ SWIRL_RADIUS_MIN, SWIRL_RADIUS_DELTA = 5.0, 1.021
 NUM_OF_CIRCLES = 240
 
 class Circle
+  def init
+    @radius_last = @radius * CIRCLE_RADIUS_MULT
+    @growing = true
+  end
+
   def growing?
     @growing
   end
@@ -29,11 +34,6 @@ class Circle
     elsif @radius > @radius_last
       @growing = false
     end
-  end
-
-  def init
-    @radius_last = @radius * CIRCLE_RADIUS_MULT
-    @growing = true
   end
 end
 
