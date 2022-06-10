@@ -15,6 +15,17 @@ Y_ANGLE_MULT_MIN, Y_ANGLE_MULT_MAX = 1.0, 4.0
 RADIUS_MIN, RADIUS_MAX = 50.0, 100.0
 
 class Point < Square
+  def init
+    @x_init, @y_init = @x, @y
+    @clockwise = [true, false].sample
+    @angle_delta = rand(ANGLE_DELTA_MIN..ANGLE_DELTA_MAX)
+    @accelerating = true
+    @radius = rand(RADIUS_MIN..RADIUS_MAX)
+    @angle = rand(0..359)
+    @x_angle_mult = rand(X_ANGLE_MULT_MIN..X_ANGLE_MULT_MAX)
+    @y_angle_mult = rand(Y_ANGLE_MULT_MIN..Y_ANGLE_MULT_MAX)
+  end
+
   def move
     self.x = @x_init + @radius * Math.cos(@x_angle_mult * @angle * DEGS_TO_RADIANS)
     self.y = @y_init + @radius * Math.sin(@y_angle_mult * @angle * DEGS_TO_RADIANS)
@@ -54,17 +65,6 @@ class Point < Square
     else
       @accelerating = true
     end
-  end
-
-  def init
-    @x_init, @y_init = @x, @y
-    @clockwise = [true, false].sample
-    @angle_delta = rand(ANGLE_DELTA_MIN..ANGLE_DELTA_MAX)
-    @accelerating = true
-    @radius = rand(RADIUS_MIN..RADIUS_MAX)
-    @angle = rand(0..359)
-    @x_angle_mult = rand(X_ANGLE_MULT_MIN..X_ANGLE_MULT_MAX)
-    @y_angle_mult = rand(Y_ANGLE_MULT_MIN..Y_ANGLE_MULT_MAX)
   end
 end
 
