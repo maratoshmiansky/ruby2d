@@ -12,6 +12,13 @@ X_CENTER, Y_CENTER = Window.width / 2, Window.height / 2
 MOVE_MULT = 5
 
 class Point < Square
+  def init
+    @x_init, @y_init = @x, @y
+    @x_distance_init = X_CENTER - @x_init
+    @y_distance_init = Y_CENTER - @y_init
+    @distance_init = Math.sqrt(@x_distance_init ** 2 + @y_distance_init ** 2)
+  end
+
   def animate
     get_distance
     move
@@ -25,13 +32,6 @@ class Point < Square
   def move
     self.x += MOVE_MULT * (@x_distance + @x_distance_init) / (@distance + @distance_init)
     self.y += MOVE_MULT * (@y_distance + @y_distance_init) / (@distance + @distance_init)
-  end
-
-  def init
-    @x_init, @y_init = @x, @y
-    @x_distance_init = X_CENTER - @x_init
-    @y_distance_init = Y_CENTER - @y_init
-    @distance_init = Math.sqrt(@x_distance_init ** 2 + @y_distance_init ** 2)
   end
 end
 
