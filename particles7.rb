@@ -17,6 +17,11 @@ SCALE_FACTOR = 0.98
 ITERATIONS = 30
 
 class Point < Square
+  def init
+    @contracting = true
+    @contract_counter = 0
+  end
+
   def animate
     rotate
     contract_expand
@@ -54,11 +59,6 @@ class Point < Square
 
   def contracting?
     @contracting
-  end    
-  
-  def init
-    @contracting = true
-    @contract_counter = 0
   end
 end
 
