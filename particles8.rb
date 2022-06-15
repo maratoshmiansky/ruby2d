@@ -16,6 +16,14 @@ COS, SIN = Math.cos(ANGLE), Math.sin(ANGLE)
 SWIRL_MULT_MIN, SWIRL_MULT_MAX, SWIRL_MULT_DELTA = 6.0, 20.0, 0.1
 
 class Point < Square
+  def init
+    @x_init, @y_init = @x, @y
+    @x_distance_init = X_CENTER - @x_init
+    @y_distance_init = Y_CENTER - @y_init
+    @distance_init = Math.sqrt(@x_distance_init ** 2 + @y_distance_init ** 2)
+    @swirl_mult = SWIRL_MULT_MIN
+  end
+
   def animate
     rotate
     get_distance
@@ -53,14 +61,6 @@ class Point < Square
   def translate_center(x_coord, y_coord)
     self.x = x_coord + X_CENTER
     self.y = y_coord + Y_CENTER
-  end
-
-  def init
-    @x_init, @y_init = @x, @y
-    @x_distance_init = X_CENTER - @x_init
-    @y_distance_init = Y_CENTER - @y_init
-    @distance_init = Math.sqrt(@x_distance_init ** 2 + @y_distance_init ** 2)
-    @swirl_mult = SWIRL_MULT_MIN
   end
 end
 
