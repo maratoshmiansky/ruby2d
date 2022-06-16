@@ -11,6 +11,12 @@ X_SPEED_MAX, Y_SPEED_MAX = 6.0, 6.0
 X_SPEED_DELTA, Y_SPEED_DELTA = 2.0, 2.0
 
 class Point < Square
+  def init
+    @x_mult, @y_mult = [-1, 1].sample, [-1, 1].sample
+    @x_speed, @y_speed = X_SPEED_MIN, Y_SPEED_MIN
+    @x_accelerating, @y_accelerating = true, true
+  end
+
   def move
     self.x += @x_mult * @x_speed
     self.y += @y_mult * @y_speed
@@ -94,12 +100,6 @@ class Point < Square
       @y_speed -= rand(0.0..Y_SPEED_DELTA)
     end      
   end      
-
-  def init
-    @x_mult, @y_mult = [-1, 1].sample, [-1, 1].sample
-    @x_speed, @y_speed = X_SPEED_MIN, Y_SPEED_MIN
-    @x_accelerating, @y_accelerating = true, true
-  end
 end
 
 points = []
