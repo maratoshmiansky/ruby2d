@@ -10,6 +10,12 @@ X_SPEED_MAX = 4.0
 Y_SPEED_MIN, Y_SPEED_MAX, Y_SPEED_DELTA = 0.0, 12.0, 0.2
 
 class Point < Square
+  def init
+    @x_speed = rand(-X_SPEED_MAX..X_SPEED_MAX)
+    @y_speed = rand(Y_SPEED_MIN..Y_SPEED_MAX)
+    @y_accelerating = true
+  end
+
   def edge_check
     x_edge_check
     y_edge_check
@@ -58,12 +64,6 @@ class Point < Square
 
   def y_accelerating?
     @y_accelerating
-  end  
-  
-  def init
-    @x_speed = rand(-X_SPEED_MAX..X_SPEED_MAX)
-    @y_speed = rand(Y_SPEED_MIN..Y_SPEED_MAX)
-    @y_accelerating = true
   end
 end
 
