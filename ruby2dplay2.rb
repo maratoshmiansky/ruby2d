@@ -12,6 +12,17 @@ X_ANGLE_MULT_MIN, X_ANGLE_MULT_MAX = 1.0, 3.0
 Y_ANGLE_MULT_MIN, Y_ANGLE_MULT_MAX = 1.0, 3.0
 
 class Point < Square
+  def init
+    @x_init, @y_init = @x, @y
+    @angle = rand(0..359)
+    @angle.between?(0, 179) ? @accelerating = true : @accelerating = false
+    @x_mult = [-1, 1].sample * rand(X_MULT_MIN..X_MULT_MAX)
+    @y_mult = [-1, 1].sample * rand(Y_MULT_MIN..Y_MULT_MAX)
+    @x_angle_mult = rand(X_ANGLE_MULT_MIN..X_ANGLE_MULT_MAX)
+    @y_angle_mult = rand(Y_ANGLE_MULT_MIN..Y_ANGLE_MULT_MAX)
+    @angle_delta = @angle * ANGLE_DELTA_DELTA
+  end
+
   def animate
     angle_delta_check
     accelerating? ? accelerate : decelerate
@@ -46,17 +57,6 @@ class Point < Square
     else
       @accelerating = true
     end
-  end
-
-  def init
-    @x_init, @y_init = @x, @y
-    @angle = rand(0..359)
-    @angle.between?(0, 179) ? @accelerating = true : @accelerating = false
-    @x_mult = [-1, 1].sample * rand(X_MULT_MIN..X_MULT_MAX)
-    @y_mult = [-1, 1].sample * rand(Y_MULT_MIN..Y_MULT_MAX)
-    @x_angle_mult = rand(X_ANGLE_MULT_MIN..X_ANGLE_MULT_MAX)
-    @y_angle_mult = rand(Y_ANGLE_MULT_MIN..Y_ANGLE_MULT_MAX)
-    @angle_delta = @angle * ANGLE_DELTA_DELTA
   end
 end
 
