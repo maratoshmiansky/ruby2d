@@ -39,8 +39,7 @@ end
 
 circles = []
 z_depth = 0
-circle_radius = CIRCLE_RADIUS_MIN
-swirl_radius = SWIRL_RADIUS_MIN
+circle_radius, swirl_radius = CIRCLE_RADIUS_MIN, SWIRL_RADIUS_MIN
 angle = 0
 
 NUM_OF_CIRCLES.times do
