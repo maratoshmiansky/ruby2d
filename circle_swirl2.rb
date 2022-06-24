@@ -38,9 +38,8 @@ class Circle
 end
 
 circles = []
-z_depth = 0
+angle, z_depth = 0, 0
 circle_radius, swirl_radius = CIRCLE_RADIUS_MIN, SWIRL_RADIUS_MIN
-angle = 0
 
 NUM_OF_CIRCLES.times do
   x_coord = X_CENTER + swirl_radius * Math.cos(angle * DEGS_TO_RADS)
