@@ -44,19 +44,11 @@ class Point < Square
   end
   
   def accelerate
-    if @angle.between?(0, 179)
-      @angle_delta += ANGLE_DELTA_DELTA
-    else
-      @accelerating = false
-    end
+    @angle.between?(0, 179) ? @angle_delta += ANGLE_DELTA_DELTA : @accelerating = false
   end
 
   def decelerate
-    if @angle.between?(180, 359)
-      @angle_delta -= ANGLE_DELTA_DELTA
-    else
-      @accelerating = true
-    end
+    @angle.between?(180, 359) ? @angle_delta -= ANGLE_DELTA_DELTA : @accelerating = true
   end
 end
 
