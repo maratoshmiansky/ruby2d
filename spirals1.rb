@@ -8,6 +8,10 @@ ANGLE_DELTA, RADIUS_DELTA = 7, 4
 ANGLE_MULT_MIN, ANGLE_MULT_MAX, ANGLE_MULT_DELTA = 13, 44, 1
 
 class Line
+  def hits_any?
+    hits_left? || hits_right? || hits_top? || hits_bottom?
+  end
+  
   def hits_left?
     @x1 <= X_WINDOW_OFFSET || @x2 <= X_WINDOW_OFFSET
   end
@@ -61,7 +65,7 @@ update do
 
     line = draw_segment(x1_new, y1_new, x2_new, y2_new, line_color)
 
-    if line.hits_left? || line.hits_right? || line.hits_top? || line.hits_bottom?
+    if line.hits_any?
       clear
       start = true
     end
