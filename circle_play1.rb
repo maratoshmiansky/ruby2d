@@ -16,8 +16,7 @@ class Circle
   attr_reader :radius
 
   def rad_init
-    @radius_init = @radius
-    @radius_last = @radius * CIRCLE_RADIUS_MULT
+    @radius_init, @radius_last = @radius, @radius * CIRCLE_RADIUS_MULT
     @growing = true
   end
 
