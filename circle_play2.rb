@@ -40,8 +40,7 @@ end
 
 circles = []
 z_depth = 0
-circle_radius = CIRCLE_RADIUS_INIT
-ring_radius = RING_RADIUS_INIT
+circle_radius, ring_radius = CIRCLE_RADIUS_INIT, RING_RADIUS_INIT
 
 NUM_OF_RINGS.times do |num|
   angle = ANGLE_DELTA
