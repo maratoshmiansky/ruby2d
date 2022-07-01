@@ -81,8 +81,7 @@ update do
       new_lines << Line.new(x1: x1_new, y1: y1_new, x2: x2_new, y2: y2_new, width: 1, color: line_color)
     end
 
-    lines = new_lines
-    new_lines = []
+    lines, new_lines = new_lines, []
     all_lines += lines
     line_text.text = "Total number of lines = #{all_lines.length}"
   end
