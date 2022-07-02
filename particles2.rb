@@ -68,19 +68,11 @@ class Point < Square
   end  
   
   def x_accelerate
-    if @x_speed <= X_SPEED_MAX
-      @x_speed += rand(-X_SPEED..X_SPEED)
-    else
-      x_speed_reset
-    end  
+    @x_speed <= X_SPEED_MAX ? @x_speed += rand(-X_SPEED..X_SPEED) : x_speed_reset
   end  
 
   def y_accelerate
-    if @y_speed <= Y_SPEED_MAX
-      @y_speed += Y_SPEED
-    else
-      y_speed_reset
-    end  
+    @y_speed <= Y_SPEED_MAX ? @y_speed += Y_SPEED : y_speed_reset
   end  
 end
 
