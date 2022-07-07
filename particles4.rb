@@ -44,11 +44,7 @@ class Point < Square
     @x_distance, @y_distance = @x_init - @x, @y_init - @y
     get_distance
 
-    if @distance.between?(DISTANCE_MIN, @distance_init)
-      move
-    else
-      @contracting = true
-    end
+    @distance.between?(DISTANCE_MIN, @distance_init) ? move : @contracting = true
   end
 
   def get_distance
