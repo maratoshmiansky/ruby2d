@@ -18,8 +18,7 @@ SWIRL_MULT_MIN, SWIRL_MULT_MAX, SWIRL_MULT_DELTA = 6.0, 20.0, 0.1
 class Point < Square
   def init
     @x_init, @y_init = @x, @y
-    @x_distance_init = X_CENTER - @x_init
-    @y_distance_init = Y_CENTER - @y_init
+    @x_distance_init, @y_distance_init = X_CENTER - @x_init, Y_CENTER - @y_init
     @distance_init = Math.sqrt(@x_distance_init ** 2 + @y_distance_init ** 2)
     @swirl_mult = SWIRL_MULT_MIN
   end
