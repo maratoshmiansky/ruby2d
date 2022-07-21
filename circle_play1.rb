@@ -66,10 +66,8 @@ end
 
 circles = []
 z_depth = 0
-circle_radius = CIRCLE_RADIUS_INIT
-ring_radius = RING_RADIUS_INIT
-num_of_circles = NUM_OF_CIRCLES_INIT
-angle_delta = ANGLE_DELTA_INIT
+circle_radius, ring_radius = CIRCLE_RADIUS_INIT, RING_RADIUS_INIT
+num_of_circles, angle_delta = NUM_OF_CIRCLES_INIT, ANGLE_DELTA_INIT
 
 NUM_OF_RINGS.times do
   angle = angle_delta
