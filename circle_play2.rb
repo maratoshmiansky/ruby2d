@@ -33,8 +33,7 @@ class Circle
   end
 
   def translate_center(x_coord, y_coord)
-    @x = x_coord + X_CENTER
-    @y = y_coord + Y_CENTER
+    @x, @y = x_coord + X_CENTER, y_coord + Y_CENTER
   end
 end
 
