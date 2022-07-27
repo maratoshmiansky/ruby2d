@@ -1,6 +1,6 @@
 require "ruby2d"
 
-set width: 650, height: 600, title: "Particles!"
+set width: 600, height: 600, title: "Particles!"
 
 X_NUM_OF_POINTS, Y_NUM_OF_POINTS = 40, 40
 X_WINDOW_OFFSET, Y_WINDOW_OFFSET = 65, 60
