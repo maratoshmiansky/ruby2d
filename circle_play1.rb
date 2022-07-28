@@ -62,8 +62,7 @@ class Circle
   end  
 end
 
-circles = []
-z_depth = 0
+circles, z_depth = [], 0
 circle_radius, ring_radius = CIRCLE_RADIUS_INIT, RING_RADIUS_INIT
 num_of_circles, angle_delta = NUM_OF_CIRCLES_INIT, ANGLE_DELTA_INIT
 
