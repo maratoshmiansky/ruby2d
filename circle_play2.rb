@@ -37,8 +37,7 @@ class Circle
   end
 end
 
-circles = []
-z_depth = 0
+circles, z_depth = [], 0
 circle_radius, ring_radius = CIRCLE_RADIUS_INIT, RING_RADIUS_INIT
 
 NUM_OF_RINGS.times do |num|
