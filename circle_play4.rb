@@ -54,8 +54,7 @@ class Circle
   end  
 end
 
-circles = []
-z_depth = 0
+circles, z_depth = [], 0
 
 NUM_OF_WAVES.times do |j|
   NUM_OF_CIRCLES.times do |i|
