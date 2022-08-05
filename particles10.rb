@@ -6,12 +6,12 @@ NUM_OF_POINTS = 100
 X_WINDOW_OFFSET, Y_WINDOW_OFFSET = 60, 60
 X_CENTER, Y_CENTER = Window.width / 2, Window.height / 2
 X_CENTER_OFFSET, Y_CENTER_OFFSET = 20.0, 20.0
-X_SPEED_MAX = 4.0
+X_SPEED = 4.0
 Y_SPEED_MIN, Y_SPEED_MAX, Y_SPEED_DELTA = 0.0, 12.0, 0.2
 
 class Point < Square
   def init
-    @x_speed = rand(-X_SPEED_MAX..X_SPEED_MAX)
+    @x_speed = rand(-X_SPEED..X_SPEED)
     @y_speed = rand(Y_SPEED_MIN..Y_SPEED_MAX)
     @y_accelerating = true
   end
