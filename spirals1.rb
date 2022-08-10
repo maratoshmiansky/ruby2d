@@ -50,13 +50,7 @@ update do
     line_color = gradient.sample
     line = line_init(line_color)
     angle, radius = 0, 0
-    
-    if angle_mult < ANGLE_MULT_MAX
-      angle_mult += ANGLE_MULT_DELTA
-    else
-      angle_mult = ANGLE_MULT_MIN
-    end
-    
+    angle_mult < ANGLE_MULT_MAX ? angle_mult += ANGLE_MULT_DELTA : angle_mult = ANGLE_MULT_MIN    
     Text.new("angle_mult = #{angle_mult}", x: Window.width / 2 - 75)
     start = false
   else
