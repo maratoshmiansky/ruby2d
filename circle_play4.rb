@@ -19,9 +19,8 @@ class Circle
   def init
     @x_init, @y_init = @x, @y
     @angle = ((X_CENTER - @x_init) + (Y_CENTER - @y_init)) / ANGLE_DIV
-    @angle_delta = ANGLE_DELTA_MIN
+    @angle_delta, @y_amp = ANGLE_DELTA_MIN, Y_AMP_INIT
     @accelerating = true
-    @y_amp = Y_AMP_INIT
     @radius_init = @radius
   end
   
