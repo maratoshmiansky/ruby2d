@@ -31,9 +31,7 @@ end
 gradients = [%w(white yellow orange red), %w(white aqua teal blue), %W(white fuchsia maroon purple), %W(white lime green olive)]
 gradient = gradients.sample
 lines, new_lines, all_lines = [], [], []
-iterations = 0
-line_text = nil
-start = true
+iterations, line_text, start = 0, nil, true
 
 update do
   if start
