@@ -1,6 +1,6 @@
 require "ruby2d"
 
-set width: 600, height: 600, background: "white", title: "Circle Swirl"
+set width: 800, height: 800, background: "white", title: "Circle Swirl"
 
 X_CENTER, Y_CENTER = Window.width / 2, Window.height / 2
 DEGS_TO_RADS = Math::PI / 180
