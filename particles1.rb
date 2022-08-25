@@ -3,7 +3,7 @@ require "ruby2d"
 set title: "Particles!", width: 600, height: 600
 
 NUM_OF_POINTS = 5000
-X_MOVE_BOUND, Y_MOVE_BOUND = 2.0, 2.0
+X_MOVE_BOUND, Y_MOVE_BOUND = 3.0, 3.0
 
 class Point < Square
   def init
