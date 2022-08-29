@@ -1,6 +1,6 @@
 require "ruby2d"
 
-set width: 600, height: 600, title: "Particles!"
+set width: 600, height: 600, background: "black", title: "Particles!"
 
 X_NUM_OF_POINTS, Y_NUM_OF_POINTS = 40, 40
 X_WINDOW_OFFSET, Y_WINDOW_OFFSET = 60, 60
@@ -69,7 +69,7 @@ X_NUM_OF_POINTS.times do |i|
   Y_NUM_OF_POINTS.times do |j|
     x_init = X_WINDOW_OFFSET + (i + 0.5) * X_GRID
     y_init = Y_WINDOW_OFFSET + (j + 0.5) * Y_GRID
-    points << Point.new(x: x_init, y: y_init, size: 1, color: "white")
+    points << Point.new(x: x_init, y: y_init, size: 1, color: "red")
   end
 end
 
