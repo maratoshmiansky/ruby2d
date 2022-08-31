@@ -9,7 +9,7 @@ VIEWPORT_HEIGHT = (Window.height - Y_WINDOW_OFFSET * 2)
 X_GRID = VIEWPORT_WIDTH / X_NUM_OF_POINTS
 Y_GRID = VIEWPORT_HEIGHT / Y_NUM_OF_POINTS
 X_CENTER, Y_CENTER = Window.width / 2, Window.height / 2
-MOVE_MULT = 5
+MOVE_MULT = 4
 
 class Point < Square
   def init
