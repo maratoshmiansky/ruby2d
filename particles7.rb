@@ -2,7 +2,7 @@ require "ruby2d"
 
 set width: 600, height: 600, background: "black", title: "Particles!"
 
-X_NUM_OF_POINTS, Y_NUM_OF_POINTS = 10, 10
+X_NUM_OF_POINTS, Y_NUM_OF_POINTS = 60, 60
 X_WINDOW_OFFSET, Y_WINDOW_OFFSET = 90, 90
 VIEWPORT_WIDTH = (Window.width - X_WINDOW_OFFSET * 2)
 VIEWPORT_HEIGHT = (Window.height - Y_WINDOW_OFFSET * 2)
@@ -10,11 +10,10 @@ X_GRID = VIEWPORT_WIDTH / X_NUM_OF_POINTS
 Y_GRID = VIEWPORT_HEIGHT / Y_NUM_OF_POINTS
 X_CENTER, Y_CENTER = Window.width / 2, Window.height / 2
 DEGS_TO_RADS = Math::PI / 180
-ANGLE_DELTA = 2
+ANGLE_DELTA = 12
 ANGLE = ANGLE_DELTA * DEGS_TO_RADS
 COS, SIN = Math.cos(ANGLE), Math.sin(ANGLE)
-SCALE_FACTOR, ITERATIONS = 0.95, 60
-
+SCALE_FACTOR, ITERATIONS = 0.99, 400
 class Point < Square
   def init
     @contracting = true
