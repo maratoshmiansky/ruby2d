@@ -43,8 +43,8 @@ class Point < Square
   
   def swirl
     if @swirl_mult < SWIRL_MULT_MAX
-      @x += @swirl_mult * (@x_distance + @x_distance_init) / (@distance + @distance_init)
-      @y += @swirl_mult * (@y_distance + @y_distance_init) / (@distance + @distance_init)
+      @x += @swirl_mult * (@x_distance - @x_distance_init) / (@distance + @distance_init)
+      @y += @swirl_mult * (@y_distance - @y_distance_init) / (@distance + @distance_init)
       @swirl_mult += SWIRL_MULT_DELTA
     else
       @x, @y = @x_init, @y_init
